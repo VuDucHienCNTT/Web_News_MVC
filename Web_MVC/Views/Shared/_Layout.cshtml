@@ -1,0 +1,209 @@
+﻿@{
+    Layout = null;
+}
+@model List<Web_MVC.Models.Category>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Tin tức 24h</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css" type="text/css">
+
+    <!-- Owl Carousel Assets -->
+    <link href="~/Content/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="~/Content/owl-carousel/owl.theme.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="~/Content/css/style.css" rel="stylesheet">
+    <link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="~/Content/font-awesome-4.6.3/css/font-awesome.min.css" type="text/css">
+
+    <!-- jQuery and Modernizr-->
+    <script src="~/Content/js/jquery-2.1.1.js"></script>
+
+    <!-- Core JavaScript Files -->
+    <script src="~/Content/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <!--Navigation-->
+        <nav id="menu" class="navbar container">
+            <div class="navbar-header">
+                <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
+                <a class="navbar-brand" href="./">
+                    <div class="logo"><span>Tin Tức 24h</span></div>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+
+                    @foreach (var item in Model)
+                    {
+                        <li>
+                            <a href="#">@item.Name</a>
+                        </li>
+                    }
+
+
+                    @*<li><a href="#">Home</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <i class="fa fa-chevron-down"></i></i></a>
+                            <div class="dropdown-menu">
+                                <div class="dropdown-inner">
+                                    <ul class="list-unstyled">
+                                        <li><a href="#">Login</a></li>
+                                        <li><a href="#">Register</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Video <i class="fa fa-chevron-down"></i></a>
+                            <div class="dropdown-menu">
+                                <div class="dropdown-inner">
+                                    <ul class="list-unstyled">
+                                        <li><a href="#">Text 201</a></li>
+                                        <li><a href="#">Text 202</a></li>
+                                        <li><a href="#">Text 203</a></li>
+                                        <li><a href="#">Text 204</a></li>
+                                        <li><a href="#">Text 205</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <i class="fa fa-chevron-down"></i></i></a>
+                            <div class="dropdown-menu" style="margin-left: -203.625px;">
+                                <div class="dropdown-inner">
+                                    <ul class="list-unstyled">
+                                        <li><a href="#">Text 301</a></li>
+                                        <li><a href="#">Text 302</a></li>
+                                        <li><a href="#">Text 303</a></li>
+                                        <li><a href="#">Text 304</a></li>
+                                        <li><a href="#">Text 305</a></li>
+                                    </ul>
+                                    <ul class="list-unstyled">
+                                        <li><a href="#">Text 306</a></li>
+                                        <li><a href="#">Text 307</a></li>
+                                        <li><a href="#">Text 308</a></li>
+                                        <li><a href="#">Text 309</a></li>
+                                        <li><a href="#">Text 310</a></li>
+                                    </ul>
+                                    <ul class="list-unstyled">
+                                        <li><a href="#">Text 311</a></li>
+                                        <li><a href="#">Text 312</a></li>
+                                        <li><a href="##">Text 313</a></li>
+                                        <li><a href="##">Text 314</a></li>
+                                        <li><a href="#">Text 315</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="#"><i class="fa fa-cubes"></i> Blocks</a></li>
+                        <li><a href="#"><i class="fa fa-envelope"></i> Contact</a></li>*@
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="content">
+        @RenderBody()
+    </div>
+    <footer>
+        <div class="wrap-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-footer footer-1">
+                        <div class="footer-heading"><h1><span style="color: #fff;">TIN TỨC 24H</span></h1></div>
+                        <div class="content">
+                            <p>Never missed any post published in our site. Subscribe to our daily newsletter now.</p>
+                            <strong>Email address:</strong>
+                            <form action="#" method="post">
+                                <input type="text" name="your-name" value="" size="40" placeholder="Your Email" />
+                                <input type="submit" value="Theo dõi" class="btn btn-3" />
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-footer footer-2">
+                        <div class="footer-heading"><h4>Thông tin địa chỉ</h4></div>
+                        <div class="content">
+                            <ul>
+                                <li><a href="#">MOST VISITED COUNTRIES</a></li>
+                                <li><a href="#">5 PLACES THAT MAKE A GREAT HOLIDAY</a></li>
+                                <li><a href="#">PEBBLE TIME STEEL IS ON TRACK TO SHIP IN JULY</a></li>
+                                <li><a href="#">STARTUP COMPANY’S CO-FOUNDER TALKS ON HIS NEW PRODUCT</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right">
+            <p>Copyright 2016 - <a href="https://www.facebook.com/vdh2912" target="_blank" rel="nofollow">Vũ Đức Hiến - CNTT - ĐHSPKT Hưng Yên</a> Designed by Vũ Đức Hiến</p>
+        </div>
+    </footer>
+    <!-- Footer -->
+    <!-- JS -->
+    <script src="~/Content/owl-carousel/owl.carousel.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#owl-demo-1").owlCarousel({
+                autoPlay: 3000,
+                items: 1,
+                itemsDesktop: [1199, 1],
+                itemsDesktopSmall: [400, 1]
+            });
+            $("#owl-demo-2").owlCarousel({
+                autoPlay: 3000,
+                items: 3,
+
+            });
+        });
+    </script>
+
+
+    <script type="text/javascript" src="~/Content/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="~/Content/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+        $('.form_datetime').datetimepicker({
+            //language:  'fr',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1
+        });
+        $('.form_date').datetimepicker({
+            language: 'fr',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+        $('.form_time').datetimepicker({
+            language: 'fr',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 1,
+            minView: 0,
+            maxView: 1,
+            forceParse: 0
+        });
+    </script>
+</body>
+</html>

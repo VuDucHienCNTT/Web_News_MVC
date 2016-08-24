@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model List<Web_MVC.Models.Category>
+<!--Content Header-->
+<div class="content-header">
+    <h1>
+        Categories
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="../../Admin/Categories"> Categories</a></li>
+        <li class="active"><a href="../../Admin/Categories/Index"> Add new</a></li>
+    </ol>
+</div>
+
+
+<div class="content">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Listing Categories</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Categories id</th>
+                                <th>Categories name</th>
+                                <th>Parent Categories</th>
+                                <th style="text-align:center;">Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Parent</td>
+                                    <td>
+                                        <div class="tools" style="text-align:center;">
+                                            <a href="/Admin/Categories/Edit/@item.Id"><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
+                                            <a href="/Admin/Categories/Delete/@item.Id"><i class="glyphicon glyphicon-trash" title="Delete"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Add New Categories</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                @using (Html.BeginForm())
+                {
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>Category name</label>
+                            <input type="text" class="form-control" name="categoryname" placeholder="Enter category name">
+                        </div>
+                        <div class="form-group">
+                            <label>Parent category</label>
+                            <input type="number" class="form-control" name="parentcategory" placeholder="Select the parent category">
+                        </div>
+                    </div>
+                        <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
