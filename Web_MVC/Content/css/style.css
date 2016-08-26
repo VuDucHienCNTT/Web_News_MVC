@@ -82,7 +82,7 @@ body.sub-page .logo {margin: 110px 0 80px;background: url(../images/bg.jpg) fixe
 #menu .logo {}
 #menu .navbar-collapse{padding:0;}
 #menu .dropdown-menu {background-color: #fff;border:none;}
-#menu ul.nav .dropdown-menu li a{color: #000;font-weight: bold;border-radius: 5px !important;}
+#menu ul.nav .dropdown-menu li a{color: red;font-weight: bold;border-radius: 5px !important;}
 #menu ul.nav .dropdown-menu li a:hover{color: #fff;background-color: #000;}
 #menu .dropdown-inner {display: table;}
 #menu .dropdown-inner ul {display: table-cell;}

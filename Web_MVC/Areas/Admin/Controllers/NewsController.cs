@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Web_MVC.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace Web_MVC.Areas.Admin.Controllers
 {
@@ -11,17 +13,22 @@ namespace Web_MVC.Areas.Admin.Controllers
     {
         // GET: Admin/News
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             using (News_Web_MVCEntities db = new News_Web_MVCEntities())
             {
-                List<News> lstNews = db.News.ToList();
-                return View(lstNews);
+                int pageSize = 2;
+                int pageNumber = (page ?? 1);
+
+                return View(db.News.ToList().ToPagedList(pageNumber, pageSize));
             }
         }
         [HttpPost]
-        public ActionResult Index(FormCollection collection)
+        public ActionResult Index(FormCollection collection, int? page)
         {
+            int pageSize = 1;
+            int pageNumber = (page ?? 1);
+
             string title = collection["title"].ToString();
             string summary = collection["summary"].ToString();
             string content = collection["content"].ToString();
@@ -39,8 +46,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 db.News.Add(news);
                 db.SaveChanges();
 
-                List<News> lstNews = db.News.ToList();
-                return View(lstNews);
+                return View(db.News.ToList().ToPagedList(pageNumber, pageSize));
             }
         }
 
