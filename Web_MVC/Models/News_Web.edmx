@@ -4,13 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Web_NEWS_MVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Web_NEWS_MVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="50" />
+          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="Parent" Type="int" />
         </EntityType>
         <EntityType Name="News">
@@ -18,8 +18,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="250" />
-          <Property Name="Summary" Type="nvarchar" MaxLength="250" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="Summary" Type="nvarchar" MaxLength="500" />
           <Property Name="Content" Type="nvarchar(max)" />
           <Property Name="Date posted" Type="char" MaxLength="50" />
           <Property Name="Author" Type="nvarchar" MaxLength="50" />
@@ -28,8 +28,7 @@
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Web_NEWS_MVCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -38,7 +37,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Parent" Type="Int32" />
         </EntityType>
         <EntityType Name="News">
@@ -46,8 +45,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Summary" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Summary" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Date_posted" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
           <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />

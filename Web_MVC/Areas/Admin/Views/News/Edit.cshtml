@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
 }
 @model Web_MVC.Models.News
 
@@ -12,8 +13,8 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="../../Admin/News/Index">News</a></li>
-        <li class="active"><a href="../../Admin/News/Index">Edit</a></li>
+        <li><a href="../../Admin/News/Add">News</a></li>
+        <li class="active"><a href="#">Edit</a></li>
     </ol>
 </div>
 
@@ -35,23 +36,24 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>Title</label>
-                            <input type="text" class="form-control" name="title" value="@Model.Title" placeholder="Enter title">
+                            <textarea name="title" rows="3" class="form-control" value="@Model.Title.TrimEnd()">@Model.Title</textarea>
                         </div>
                         <div class="form-group">
                             <label>Summary</label>
-                            <input type="text" class="form-control" name="summary" value="@Model.Summary" placeholder="Enter summary">
+                            <textarea name="summary" class="form-control" rows="4" value="@Model.Summary.TrimEnd()">@Model.Summary</textarea>
                         </div>
                         <div class="form-group">
                             <label>Content</label>
-                            <input type="text" class="form-control" name="content" value="@Model.Content" placeholder="Enter content">
+                            <textarea name="content" value="@Model.Content.TrimEnd()" >@Model.Content</textarea>
+                            <script type="text/javascript">CKEDITOR.replace("content");</script>
                         </div>
                         <div class="form-group">
                             <label>Date posted</label>
-                            <input type="text" class="form-control" name="dateposted" value="@Model.Date_posted" placeholder="Enter date posted">
+                            <input type="text" class="form-control" name="dateposted" value="@Model.Date_posted.TrimEnd()" placeholder="Enter date posted">
                         </div>
                         <div class="form-group">
                             <label>Author</label>
-                            <input type="text" class="form-control" name="author" value="@Model.Author" placeholder="Enter author">
+                            <input type="text" class="form-control" name="author" value="@Model.Author.TrimEnd()" placeholder="Enter author">
                         </div>
                     </div>
                         <!-- /.box-body -->
@@ -61,4 +63,6 @@
                 }
             </div>
         </div>
+    </div>
+</div>
 

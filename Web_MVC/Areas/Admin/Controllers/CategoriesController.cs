@@ -11,7 +11,7 @@ namespace Web_MVC.Areas.Admin.Controllers
     {
         // GET: Admin/Categories
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Add()
         {
             using (News_Web_MVCEntities db = new News_Web_MVCEntities())
             {
@@ -21,7 +21,7 @@ namespace Web_MVC.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(FormCollection collection)
+        public ActionResult Add(FormCollection collection)
         {
             string cateGoryname = collection["categoryname"].ToString();
             int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : 0;
@@ -32,7 +32,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 //Them chuyen muc vao csdl
                 //Khoi tao doi tuong muon them vao csdl
                 Category cate = new Category();
-                cate.Name = cateGoryname;
+                cate.Name = cateGoryname.TrimEnd();
                 cate.Parent = parentCategory;
 
                 //Them doi tuong vao csdl
@@ -63,12 +63,13 @@ namespace Web_MVC.Areas.Admin.Controllers
                 string cateGoryname = collection["categoryname"].ToString();
                 int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : 0;
                 Category cate = db.Categories.SingleOrDefault(n => n.Id == id);
+
                 cate.Name = cateGoryname;
                 cate.Parent = parentCategory;
+
                 db.SaveChanges();
 
-                List<Category> lstCategory = db.Categories.ToList();
-                return RedirectToAction("Index", lstCategory);
+                return RedirectToAction("Add");
             }
         }
         public ActionResult Delete(int id)
@@ -86,7 +87,7 @@ namespace Web_MVC.Areas.Admin.Controllers
 
                 //Lay danh sach chuyen muc trong csdl tra ve view
                 List<Category> lstCategory = db.Categories.ToList();
-                return RedirectToAction("Index", lstCategory);
+                return RedirectToAction("Add", lstCategory);
             }
         }
     }

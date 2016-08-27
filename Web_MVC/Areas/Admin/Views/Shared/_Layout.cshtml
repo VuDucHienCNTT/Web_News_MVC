@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Admin - News</title>
+    <title>Admin</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -34,6 +34,13 @@
     <link rel="stylesheet" href="~/Areas/Admin/Content/plugins/daterangepicker/daterangepicker.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="~/Areas/Admin/Content/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <script src="~/Areas/Admin/Content/plugins/ckeditor/ckeditor.js"></script>
+    <script src="~/Areas/Admin/Content/plugins/ckfinder/ckfinder.js"></script>
+    <style>
+        textarea {
+            resize: none;
+        }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -117,30 +124,30 @@
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
                     @*<li>
-                        <a href="#">
-                            <i class="fa fa-dashboard"></i> <span>Menu</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li class="active"><a href="../../Admin/Categories/Index"><i class="fa fa-circle-o"></i>Categories</a></li>
-                            <li><a href="../../Admin/News/Index"><i class="fa fa-circle-o"></i>News</a></li>
-                        </ul>
-                    </li>*@
+                            <a href="#">
+                                <i class="fa fa-dashboard"></i> <span>Menu</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="active"><a href="../../Admin/Categories/Index"><i class="fa fa-circle-o"></i>Categories</a></li>
+                                <li><a href="../../Admin/News/Index"><i class="fa fa-circle-o"></i>News</a></li>
+                            </ul>
+                        </li>*@
                     <li>
-                        <a href="../../Admin/Categories/Index">
-                            <i class="glyphicon glyphicon-briefcase"></i> <span>Categories</span>                           
+                        <a href="../../Admin/Categories/Add">
+                            <i class="glyphicon glyphicon-briefcase"></i> <span>Categories</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../../Admin/News/Index">
-                            <i class="fa fa-newspaper-o" ></i> <span>News</span>
+                        <a href="../../Admin/News/Add">
+                            <i class="fa fa-newspaper-o"></i> <span>News</span>
                         </a>
                     </li>
 
                     @*<li class="header">LABELS</li>
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>*@
+                        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>*@
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -148,7 +155,7 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Main content -->
-                @RenderBody()
+            @RenderBody()
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
@@ -198,8 +205,6 @@
     <script src="~/Areas/Admin/Content/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- datepicker -->
     <script src="~/Areas/Admin/Content/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <!-- Bootstrap WYSIHTML5 -->
-    <script src="~/Areas/Admin/Content/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
     <!-- Slimscroll -->
     <script src="~/Areas/Admin/Content/dist/js/app.js"></script>
     <script src="~/Areas/Admin/Content/plugins/slimScroll/jquery.slimscroll.min.js"></script>
@@ -209,5 +214,8 @@
     <script src="~/Areas/Admin/Content/dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/Areas/Admin/Content/dist/js/demo.js"></script>
+
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="~/Areas/Admin/Content/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 </body>
 </html>

@@ -4,7 +4,6 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @model Web_MVC.Models.Category
-
 <!--Content Header-->
 <div class="content-header">
     <h1>
@@ -12,8 +11,8 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="../../Categories/Index">Categories</a></li>
-        <li class="active"><a href="../../Categories/Index">Edit</a></li>
+        <li><a href="../../Categories/Add">Categories</a></li>
+        <li class="active"><a href="../../Categories/Add">Edit</a></li>
     </ol>
 </div>
 
@@ -37,11 +36,11 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>Category name</label>
-                            <input type="text" class="form-control" name="categoryname" value="@Model.Name" placeholder="Enter category name">
+                            <input type="text" class="form-control" name="categoryname" value="@Model.Name.TrimEnd()">
                         </div>
                         <div class="form-group">
                             <label>Parent category</label>
-                            <input type="number" class="form-control" name="parentcategory" value="@Model.Parent" placeholder="Select the parent category">
+                            <input type="number" class="form-control" name="parentcategory" value="@Model.Parent">
                         </div>
                     </div>
                         <!-- /.box-body -->
