@@ -2,8 +2,8 @@
 @{
     ViewBag.Title = "Add";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-}
 
+}
 @using PagedList.Mvc;
 @model PagedList.PagedList<Web_MVC.Models.News>
 
@@ -47,6 +47,7 @@
                                 <th>Poster</th>
                                 <th>Date Posted</th>
                                 <th>Author</th>
+                                <th>Avatar</th>
                                 <th style="text-align:center;">Option</th>
                             </tr>
                         </thead>
@@ -87,6 +88,7 @@
                                     <td>@item.Poster</td>
                                     <td>@item.Date_posted</td>
                                     <td>@item.Author</td>
+                                    <td>@item.Avatar</td>
                                     <td>
                                         <div class="tools" style="text-align:center;">
                                             <a href="/Admin/News/Edit/@item.Id"><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
@@ -145,6 +147,21 @@
                             <label>Author</label>
                             <input type="text" class="form-control" name="author" placeholder="Enter author">
                         </div>
+                        <div class="form-group">
+                            <label>Avatar</label>
+                            <input type="text" class="form-control" id="Avatar" name="avatar" placeholder="Enter avatar">
+                            <input type="button" class="btn btn-default" id="Browse" value="...">
+                        </div>
+                        <script language="javascript" type="text/javascript">
+                            $("#Browse").click(function () {
+                                var finder = new CKFinder();
+                                finder.selectActionFunction = function (fileUrl) {
+                                    fileUrl = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+                                    $("#Avatar").val(fileUrl);
+                                };
+                                finder.popup();
+                            });
+                        </script>
                     </div>
                         <!-- /.box-body -->
                     <div class="box-footer">

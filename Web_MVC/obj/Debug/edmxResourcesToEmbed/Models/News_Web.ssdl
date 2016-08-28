@@ -5,7 +5,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Parent" Type="int" />
   </EntityType>
   <EntityType Name="News">
@@ -16,9 +16,10 @@
     <Property Name="Title" Type="nvarchar" MaxLength="500" />
     <Property Name="Summary" Type="nvarchar" MaxLength="500" />
     <Property Name="Content" Type="nvarchar(max)" />
-    <Property Name="Date posted" Type="char" MaxLength="50" />
+    <Property Name="Date posted" Type="nvarchar" MaxLength="50" />
     <Property Name="Author" Type="nvarchar" MaxLength="50" />
     <Property Name="Poster" Type="nvarchar" MaxLength="50" />
+    <Property Name="Avatar" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityContainer Name="Web_NEWS_MVCModelStoreContainer">
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />

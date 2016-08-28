@@ -31,11 +31,11 @@
 		LicenseKey = "";
 
 		// The base URL used to reach files in CKFinder through the browser.
-		BaseUrl = "~/Areas/Admin/Content/File_Ckeditor/";
+		BaseUrl = "~/Areas/Admin/Content/Images/";
 
 		// The phisical directory in the server where the file will end up. If
 		// blank, CKFinder attempts to resolve BaseUrl.
-        BaseDir = HttpContext.Current.Server.MapPath("~/Areas/Admin/Content/File_Ckeditor/");
+        BaseDir = HttpContext.Current.Server.MapPath("~/Areas/Admin/Content/Images/");
 
 		// Optional: enable extra plugins (remember to copy .dll files first).
 		Plugins = new string[] {

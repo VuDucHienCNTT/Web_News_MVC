@@ -21,5 +21,6 @@ namespace Web_MVC.Models
         public string Date_posted { get; set; }
         public string Author { get; set; }
         public string Poster { get; set; }
+        public string Avatar { get; set; }
     }
 }

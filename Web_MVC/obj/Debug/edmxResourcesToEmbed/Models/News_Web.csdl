@@ -5,7 +5,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Parent" Type="Int32" />
   </EntityType>
   <EntityType Name="News">
@@ -16,9 +16,10 @@
     <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Summary" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Date_posted" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Name="Date_posted" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Poster" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Avatar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityContainer Name="News_Web_MVCEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Categories" EntityType="Self.Category" />

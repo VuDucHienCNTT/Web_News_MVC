@@ -254,6 +254,14 @@
     <Content Include="Areas\Admin\Content\dist\js\demo.js" />
     <Content Include="Areas\Admin\Content\dist\js\pages\dashboard.js" />
     <Content Include="Areas\Admin\Content\dist\js\pages\dashboard2.js" />
+    <Content Include="Areas\Admin\Content\Images\images\Images\Pause.png" />
+    <Content Include="Areas\Admin\Content\Images\images\Images\PlayNormal.png" />
+    <Content Include="Areas\Admin\Content\Images\images\Images\Skip-backward.png" />
+    <Content Include="Areas\Admin\Content\Images\images\Images\Skip-forward.png" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\Pause.png" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\PlayNormal.png" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\Skip-backward.png" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\Skip-forward.png" />
     <Content Include="Areas\Admin\Content\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Areas\Admin\Content\plugins\bootstrap-slider\slider.css" />
     <Content Include="Areas\Admin\Content\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
@@ -1829,8 +1837,6 @@
     <Content Include="obj\Debug\Web_MVC.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\Web_MVC.dll" />
     <Content Include="obj\Debug\Web_MVC.pdb" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Add.cshtml" />
@@ -1935,6 +1941,8 @@
     <Content Include="obj\Debug\edmxResourcesToEmbed\Models\Web_News.ssdl" />
     <Content Include="obj\Debug\Web_MVC.csprojResolveAssemblyReference.cache" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -1965,11 +1973,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Content\File_Ckeditor\files\" />
-    <Folder Include="Areas\Admin\Content\File_Ckeditor\flash\" />
-    <Folder Include="Areas\Admin\Content\File_Ckeditor\images\" />
-    <Folder Include="Areas\Admin\Content\File_Ckeditor\_thumbs\Files\" />
-    <Folder Include="Areas\Admin\Content\File_Ckeditor\_thumbs\Images\" />
+    <Folder Include="Areas\Admin\Content\Images\files\" />
+    <Folder Include="Areas\Admin\Content\Images\flash\" />
+    <Folder Include="Areas\Admin\Content\Images\_thumbs\Files\" />
     <Folder Include="Areas\Admin\Content\plugins\ckeditor\plugins\colordialog\" />
     <Folder Include="Areas\Admin\Content\plugins\ckeditor\plugins\div\" />
     <Folder Include="Areas\Admin\Content\plugins\ckeditor\plugins\find\" />

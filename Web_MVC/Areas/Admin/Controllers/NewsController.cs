@@ -35,6 +35,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             string dateposted = collection["dateposted"].ToString();
             string author = collection["author"].ToString();
             string poster = collection["poster"].ToString();
+            string avatar = collection["avatar"].ToString();
 
             using (News_Web_MVCEntities db = new News_Web_MVCEntities())
             {
@@ -45,6 +46,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 news.Date_posted = dateposted;
                 news.Author = author;
                 news.Poster = poster;
+                news.Avatar = avatar;
 
                 db.News.Add(news);
                 db.SaveChanges();
@@ -77,6 +79,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             string dateposted = collection["dateposted"].ToString();
             string author = collection["author"].ToString();
             string poster = collection["poster"].ToString();
+            string avatar = collection["avatar"].ToString();
 
             using (News_Web_MVCEntities db = new News_Web_MVCEntities())
             {
@@ -89,6 +92,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 news.Date_posted = dateposted;
                 news.Author = author;
                 news.Poster = poster;
+                news.Avatar = avatar;
 
                 db.SaveChanges();
 
