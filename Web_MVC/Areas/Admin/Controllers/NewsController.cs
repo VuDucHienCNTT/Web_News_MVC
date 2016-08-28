@@ -13,12 +13,11 @@ namespace Web_MVC.Areas.Admin.Controllers
     {
         // GET: Admin/News
         [HttpGet]
-        [ValidateInput(false)]
         public ActionResult Add(int? page)
         {
             using (News_Web_MVCEntities db = new News_Web_MVCEntities())
             {
-                int pageSize = 2;
+                int pageSize = 4;
                 int pageNumber = (page ?? 1);
                 return View(db.News.ToList().ToPagedList(pageNumber, pageSize));
             }
@@ -27,7 +26,7 @@ namespace Web_MVC.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult Add(FormCollection collection, int? page)
         {
-            int pageSize = 2;
+            int pageSize = 4;
             int pageNumber = (page ?? 1);
 
             string title = collection["title"].ToString();
@@ -35,6 +34,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             string content = collection["content"].ToString();
             string dateposted = collection["dateposted"].ToString();
             string author = collection["author"].ToString();
+            string poster = collection["poster"].ToString();
 
             using (News_Web_MVCEntities db = new News_Web_MVCEntities())
             {
@@ -44,6 +44,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 news.Content = content;
                 news.Date_posted = dateposted;
                 news.Author = author;
+                news.Poster = poster;
 
                 db.News.Add(news);
                 db.SaveChanges();
@@ -56,7 +57,12 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             using (News_Web_MVCEntities db = new News_Web_MVCEntities())
             {
-                News news = db.News.SingleOrDefault(n => n.Id == id);          
+                News news = db.News.SingleOrDefault(n => n.Id == id);
+                if (news == null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
                 return View(news);
             }
         }
@@ -70,15 +76,19 @@ namespace Web_MVC.Areas.Admin.Controllers
             string content = collection["content"].ToString();
             string dateposted = collection["dateposted"].ToString();
             string author = collection["author"].ToString();
+            string poster = collection["poster"].ToString();
+
             using (News_Web_MVCEntities db = new News_Web_MVCEntities())
             {
-                News news = db.News.SingleOrDefault(n => n.Id == id);
 
+
+                News news = db.News.SingleOrDefault(n => n.Id == id);
                 news.Title = title;
                 news.Summary = summary;
                 news.Content = content;
                 news.Date_posted = dateposted;
                 news.Author = author;
+                news.Poster = poster;
 
                 db.SaveChanges();
 
@@ -96,9 +106,8 @@ namespace Web_MVC.Areas.Admin.Controllers
                 db.News.Remove(news);
 
                 db.SaveChanges();
-
-                List<News> lstNews = db.News.ToList();
-                return RedirectToAction("Add", lstNews);
+              
+                return RedirectToAction("Add");
             }
         }
     }

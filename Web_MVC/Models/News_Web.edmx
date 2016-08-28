@@ -23,6 +23,7 @@
           <Property Name="Content" Type="nvarchar(max)" />
           <Property Name="Date posted" Type="char" MaxLength="50" />
           <Property Name="Author" Type="nvarchar" MaxLength="50" />
+          <Property Name="Poster" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="Web_NEWS_MVCModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -50,6 +51,7 @@
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Date_posted" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
           <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Poster" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="News_Web_MVCEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
@@ -73,6 +75,7 @@
           <EntitySetMapping Name="News">
             <EntityTypeMapping TypeName="Web_NEWS_MVCModel.News">
               <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="Poster" ColumnName="Poster" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Summary" ColumnName="Summary" />
