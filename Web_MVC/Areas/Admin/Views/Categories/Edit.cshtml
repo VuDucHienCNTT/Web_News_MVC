@@ -11,8 +11,8 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="../../Categories/Add">Categories</a></li>
-        <li class="active"><a href="../../Categories/Add">Edit</a></li>
+        <li><a href="~/Admin/Categories/Add">Categories</a></li>
+        <li class="active"><a href="#">Edit</a></li>
     </ol>
 </div>
 
@@ -36,7 +36,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>Category name</label>
-                            <input type="text" class="form-control" name="categoryname" value="@Model.Name.TrimEnd()">
+                            <input type="text" class="form-control" name="categoryname" value="@Model.Name">
                         </div>
                         <div class="form-group">
                             <label>Parent category</label>

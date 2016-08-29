@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Add";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-
 }
 @using PagedList.Mvc;
 @model PagedList.PagedList<Web_MVC.Models.News>
@@ -14,8 +13,8 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="../../Admin/News/Add">News</a></li>
-        <li class="active"><a href="../../Admin/News/Add">Add New</a></li>
+        <li><a href="~/Admin/News/Add">News</a></li>
+        <li class="active"><a href="~/Admin/News/Add">Add New</a></li>
     </ol>
 </div>
 
@@ -34,8 +33,9 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <div style="margin-top:-8px;">
-                        Show @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber ) / @Model.PageCount page
+                    <div style="margin-bottom:10px;">
+                        @*Show @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber ) / @Model.PageCount page*@
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Add New</button>
                     </div>
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
@@ -88,11 +88,11 @@
                                     <td>@item.Poster</td>
                                     <td>@item.Date_posted</td>
                                     <td>@item.Author</td>
-                                    <td>@item.Avatar</td>
+                                    <td><img id="img_@item.Id" onclick="selectImage('ChangeImage/@item.Id',this.id)" src="@Url.Content( item.Avatar)" height="50" width="40" title="Click change image" data-toggle="tooltip" style="cursor:pointer" /></td>
                                     <td>
-                                        <div class="tools" style="text-align:center;">
-                                            <a href="/Admin/News/Edit/@item.Id"><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
-                                            <a href="/Admin/News/Delete/@item.Id"><i class="glyphicon glyphicon-trash" title="Delete"></i></a>
+                                        <div style="text-align:center;">
+                                            <a href="~/Admin/News/Edit/@item.Id"><i class="glyphicon glyphicon-edit" data-toggle="tooltip" title="Edit"></i></a>
+                                            <a onclick="return confirm('Are sure wants to delete?');" href="~/Admin/News/Delete/@item.Id"><i class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Delete"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -106,6 +106,95 @@
                 </div>
             </div>
         </div>
+
+
+        <script language="javascript" type="text/javascript">
+            function selectImage(action, id) {
+                var finder = new CKFinder();
+                finder.selectActionFunction = function (fileUrl) {
+                    $.ajax({
+                        method: "GET",
+                        url: action,
+                        data: { avatar: fileUrl }
+                    }).done(function (path) {
+                        if (path != '') {
+                            alert("Lỗi cập nhật hình ảnh:" + path);
+                        }
+                        else {
+                            $("#" + id).attr("src", fileUrl);
+                        }
+                    });
+                };
+                finder.popup();
+            }
+        </script>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Add New</h4>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm())
+                        {
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <textarea name="title" rows="3" class="form-control" placeholder="Enter title. Maximum of 500 characters"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Summary</label>
+                                    <textarea name="summary" rows="4" class="form-control" placeholder="Enter summary. Maximum of 500 characters"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Content</label>
+                                    <textarea id="content1" name="content"></textarea>
+                                    <script type="text/javascript">CKEDITOR.replace("content1");</script>
+                                </div>
+                                <div class="form-group">
+                                    <label>Poster</label>
+                                    <input type="text" class="form-control" name="poster" value="Ban Biên Tập" placeholder="Enter poster">
+                                </div>
+                                <div class="form-group">
+                                    <label>Date posted</label>
+                                    <input type="text" class="form-control" name="dateposted" placeholder="Enter date posted">
+                                </div>
+                                <div class="form-group">
+                                    <label>Author</label>
+                                    <input type="text" class="form-control" name="author" placeholder="Enter author">
+                                </div>
+                                <div class="form-group">
+                                    <label>Avatar</label>
+                                    <input type="text" class="form-control" id="Avatar" name="avatar" readonly="readonly">
+                                    <input type="button" class="btn btn-default" id="Browse" value="...">
+                                </div>
+                                <script language="javascript" type="text/javascript">
+                                    $("#Browse").click(function () {
+                                        var finder = new CKFinder();
+                                        finder.selectActionFunction = function (fileUrl) {
+                                            //fileUrl = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+                                            $("#Avatar").val(fileUrl);
+                                        };
+                                        finder.popup();
+                                    });
+                                </script>
+                            </div>
+                        <!-- /.box-body -->
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
 
         <div class="col-md-12">
             <div class="box box-primary">
@@ -149,14 +238,14 @@
                         </div>
                         <div class="form-group">
                             <label>Avatar</label>
-                            <input type="text" class="form-control" id="Avatar" name="avatar" placeholder="Enter avatar">
+                            <input type="text" class="form-control" id="Avatar" name="avatar" readonly="readonly">
                             <input type="button" class="btn btn-default" id="Browse" value="...">
                         </div>
                         <script language="javascript" type="text/javascript">
                             $("#Browse").click(function () {
                                 var finder = new CKFinder();
                                 finder.selectActionFunction = function (fileUrl) {
-                                    fileUrl = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+                                    //fileUrl = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
                                     $("#Avatar").val(fileUrl);
                                 };
                                 finder.popup();
@@ -165,7 +254,7 @@
                     </div>
                         <!-- /.box-body -->
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="Save">Save</button>
                     </div>
                 }
             </div>

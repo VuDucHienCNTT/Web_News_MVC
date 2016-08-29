@@ -83,8 +83,6 @@ namespace Web_MVC.Areas.Admin.Controllers
 
             using (News_Web_MVCEntities db = new News_Web_MVCEntities())
             {
-
-
                 News news = db.News.SingleOrDefault(n => n.Id == id);
                 news.Title = title;
                 news.Summary = summary;
@@ -110,8 +108,29 @@ namespace Web_MVC.Areas.Admin.Controllers
                 db.News.Remove(news);
 
                 db.SaveChanges();
-              
+
                 return RedirectToAction("Add");
+            }
+        }
+
+
+      
+        public string ChangeImage(int id, string avatar)
+        {
+            using (News_Web_MVCEntities db = new News_Web_MVCEntities())
+            {
+                if (id == null)
+                {
+                    return "Mã không tồn tại";
+                }
+                News news = db.News.Find(id);
+                if (news == null)
+                {
+                    return "Mã không tồn tại";
+                }
+                news.Avatar = avatar;
+                db.SaveChanges();
+                return "";
             }
         }
     }
