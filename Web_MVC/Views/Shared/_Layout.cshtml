@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
 }
-@model List<Web_MVC.Models.Category>
+@*@model List<Web_MVC.Models.Category>*@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,150 +9,141 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Free Bootstrap Themes by 365Bootstrap dot com - Free Responsive Html5 Templates">
+    <meta name="author" content="http://www.365bootstrap.com">
 
-    <title>Tin tức 24h</title>
+    <title>@ViewBag.Title - Tin tức 24h</title>
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/Content/css/bootstrap.css" type="text/css">
 
     <!-- Owl Carousel Assets -->
-    <link href="~/Content/owl-carousel/owl.carousel.css" rel="stylesheet">
-    <link href="~/Content/owl-carousel/owl.theme.css" rel="stylesheet">
+    <link href="/Content/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="/Content/owl-carousel/owl.theme.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="~/Content/css/style.css" rel="stylesheet">
-    <link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/Content/css/style.css">
+    <link href="/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 
     <!-- Custom Fonts -->
-    <link rel="stylesheet" href="~/Content/font-awesome-4.6.3/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/Content/font-awesome-4.4.0/css/font-awesome.css" type="text/css">
 
     <!-- jQuery and Modernizr-->
-    <script src="~/Content/js/jquery-2.1.1.js"></script>
+    <script src="/Scripts/jquery-3.1.0.js"></script>
 
     <!-- Core JavaScript Files -->
-    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="/Content/js/bootstrap.js"></script>
+    @*<script src="/Content/js/bootstrap.min.js"></script>*@
+
 </head>
 
 <body>
     <header>
         <!--Navigation-->
         <nav id="menu" class="navbar container">
-            <div class="navbar-header">
-                <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
-                <a class="navbar-brand" href="./">
-                    <div class="logo"><span>Tin Tức 24h</span></div>
-                </a>
-            </div>
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav">
+            <div class="navbar-header" >
 
-                    @foreach (var item in Model)
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar" style="margin-bottom:-12px">
+                    <i class="fa fa-bars fa-2x" style="color:#ffffff;margin-top:-16px;"></i>                   
+                </button>
+                <a class="navbar-brand" href="#">
+                    <div class="logo"><span>Newspaper</span></div>
+                </a>
+
+            </div>
+            <div class="collapse navbar-collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">Home</a></li>
+                    @foreach (var item in ViewBag.Menu)
                     {
-                        <li>
-                            <a href="#">@item.Name</a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.Name <i class="fa fa-arrow-circle-o-down"></i></a>
+                            @if (item.Category1.Count > 0)
+                            {
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-inner">
+                                        <ul class="list-unstyled">
+                                            @foreach (var item2 in item.Category1)
+                                            {
+                                                <li><a href="#">@item2.Name</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
                         </li>
                     }
-
-
-                    @*<li><a href="#">Home</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <i class="fa fa-chevron-down"></i></i></a>
-                            <div class="dropdown-menu">
-                                <div class="dropdown-inner">
-                                    <ul class="list-unstyled">
-                                        <li><a href="#">Login</a></li>
-                                        <li><a href="#">Register</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Video <i class="fa fa-chevron-down"></i></a>
-                            <div class="dropdown-menu">
-                                <div class="dropdown-inner">
-                                    <ul class="list-unstyled">
-                                        <li><a href="#">Text 201</a></li>
-                                        <li><a href="#">Text 202</a></li>
-                                        <li><a href="#">Text 203</a></li>
-                                        <li><a href="#">Text 204</a></li>
-                                        <li><a href="#">Text 205</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <i class="fa fa-chevron-down"></i></i></a>
-                            <div class="dropdown-menu" style="margin-left: -203.625px;">
-                                <div class="dropdown-inner">
-                                    <ul class="list-unstyled">
-                                        <li><a href="#">Text 301</a></li>
-                                        <li><a href="#">Text 302</a></li>
-                                        <li><a href="#">Text 303</a></li>
-                                        <li><a href="#">Text 304</a></li>
-                                        <li><a href="#">Text 305</a></li>
-                                    </ul>
-                                    <ul class="list-unstyled">
-                                        <li><a href="#">Text 306</a></li>
-                                        <li><a href="#">Text 307</a></li>
-                                        <li><a href="#">Text 308</a></li>
-                                        <li><a href="#">Text 309</a></li>
-                                        <li><a href="#">Text 310</a></li>
-                                    </ul>
-                                    <ul class="list-unstyled">
-                                        <li><a href="#">Text 311</a></li>
-                                        <li><a href="#">Text 312</a></li>
-                                        <li><a href="##">Text 313</a></li>
-                                        <li><a href="##">Text 314</a></li>
-                                        <li><a href="#">Text 315</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="#"><i class="fa fa-cubes"></i> Blocks</a></li>
-                        <li><a href="#"><i class="fa fa-envelope"></i> Contact</a></li>*@
                 </ul>
             </div>
         </nav>
     </header>
-    <div class="content">
-        @RenderBody()
-    </div>
+
+    @RenderBody()
+
     <footer>
         <div class="wrap-footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 col-footer footer-1">
-                        <div class="footer-heading"><h1><span style="color: #fff;">TIN TỨC 24H</span></h1></div>
+                    <div class="col-md-4 col-footer footer-1">
+                        <div class="footer-heading"><h1><span style="color: #fff;">NEWSPAPER</span></h1></div>
                         <div class="content">
-                            <p>Never missed any post published in our site. Subscribe to our daily newsletter now.</p>
+                            <p>Never missed any post published in our site. Subscribe to our daly newsletter now.</p>
                             <strong>Email address:</strong>
                             <form action="#" method="post">
                                 <input type="text" name="your-name" value="" size="40" placeholder="Your Email" />
-                                <input type="submit" value="Theo dõi" class="btn btn-3" />
+                                <input type="submit" value="SUBSCRIBE" class="btn btn-3" />
                             </form>
                         </div>
                     </div>
-                    <div class="col-md-6 col-footer footer-2">
-                        <div class="footer-heading"><h4>Thông tin địa chỉ</h4></div>
-                        @*<div class="content">
+                    <div class="col-md-4 col-footer footer-2">
+                        <div class="footer-heading"><h4>Tags</h4></div>
+                        <div class="content">
+                            <a href="#">animals</a>
+                            <a href="#">cooking</a>
+                            <a href="#">countries</a>
+                            <a href="#">city</a>
+                            <a href="#">children</a>
+                            <a href="#">home</a>
+                            <a href="#">likes</a>
+                            <a href="#">photo</a>
+                            <a href="#">link</a>
+                            <a href="#">law</a>
+                            <a href="#">shopping</a>
+                            <a href="#">skate</a>
+                            <a href="#">scholl</a>
+                            <a href="#">video</a>
+                            <a href="#">travel</a>
+                            <a href="#">images</a>
+                            <a href="#">love</a>
+                            <a href="#">lists</a>
+                            <a href="#">makeup</a>
+                            <a href="#">media</a>
+                            <a href="#">password</a>
+                            <a href="#">pagination</a>
+                            <a href="#">wildlife</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-footer footer-3">
+                        <div class="footer-heading"><h4>Link List</h4></div>
+                        <div class="content">
                             <ul>
                                 <li><a href="#">MOST VISITED COUNTRIES</a></li>
                                 <li><a href="#">5 PLACES THAT MAKE A GREAT HOLIDAY</a></li>
                                 <li><a href="#">PEBBLE TIME STEEL IS ON TRACK TO SHIP IN JULY</a></li>
                                 <li><a href="#">STARTUP COMPANY’S CO-FOUNDER TALKS ON HIS NEW PRODUCT</a></li>
                             </ul>
-                        </div>*@
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="copy-right">
-            <p>Copyright 2016 - <a href="https://www.facebook.com/vdh2912" target="_blank" rel="nofollow">Vũ Đức Hiến - CNTT - ĐHSPKT Hưng Yên</a> Designed by Vũ Đức Hiến</p>
+            <p>Copyright 2015 - <a href="http://www.365bootstrap.com" target="_blank" rel="nofollow">Bootstrap Themes</a> Designed by 365Bootstrap.com</p>
         </div>
     </footer>
     <!-- Footer -->
     <!-- JS -->
-    <script src="~/Content/owl-carousel/owl.carousel.js"></script>
+    <script src="/Content/owl-carousel/owl.carousel.js"></script>
     <script>
         $(document).ready(function () {
             $("#owl-demo-1").owlCarousel({
@@ -170,8 +161,8 @@
     </script>
 
 
-    <script type="text/javascript" src="~/Content/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-    <script type="text/javascript" src="~/Content/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/Content/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    @*<script type="text/javascript" src="/Content/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>*@
     <script type="text/javascript">
         $('.form_datetime').datetimepicker({
             //language:  'fr',

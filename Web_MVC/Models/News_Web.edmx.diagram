@@ -7,6 +7,7 @@
       <Diagram DiagramId="db48b326287d4bcbbb5a2634b9b1fb64" Name="Diagram1">
         <EntityTypeShape EntityType="Web_NEWS_MVCModel.Category" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Web_NEWS_MVCModel.News" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="Web_NEWS_MVCModel.FK_Category_Category" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

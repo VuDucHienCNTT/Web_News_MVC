@@ -23,11 +23,10 @@ namespace Web_MVC.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Add(FormCollection collection)
         {
-            string cateGoryname = collection["categoryname"].ToString();
-            int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : 0;
-
             using (News_Web_MVCEntities db = new News_Web_MVCEntities())
             {
+                string cateGoryname = collection["categoryname"].ToString();
+                int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : -1;
 
                 //Them chuyen muc vao csdl
                 //Khoi tao doi tuong muon them vao csdl
@@ -66,7 +65,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             using (News_Web_MVCEntities db = new News_Web_MVCEntities())
             {
                 string cateGoryname = collection["categoryname"].ToString();
-                int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : 0;
+                int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : -1;
                 Category cate = db.Categories.SingleOrDefault(n => n.Id == id);
                 cate.Name = cateGoryname;
                 cate.Parent = parentCategory;
