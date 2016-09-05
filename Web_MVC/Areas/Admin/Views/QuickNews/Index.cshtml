@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "Quick News";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        LoadQuickNews();
+    });
+
+    function LoadQuickNews() {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("LoadQuickNews","QuickNews")',
+            data: {},
+            cache: false,
+            success: function (data) {
+                var html123 = "";
+                for (i = 0; i < data.QuickNews1.length; i++) {
+                    html123 = html123 + " <tr>" +
+                                 "<td>" + data.QuickNews1[i].ID + "</td>" +
+                                 "<td>" + data.QuickNews1[i].Title + "</td>" +
+                                 "<td>" + data.QuickNews1[i].Content + "</td>" +
+                                 "<td>" + data.QuickNews1[i].Author + "</td>" +
+                                 "<td>" +
+                                 "<div class='tools' style='text-align:center'>" +
+                                    "<a href=''><i class='glyphicon glyphicon-edit'></i></a>" + " " +
+                                    "<a href=''><i class='glyphicon glyphicon-trash'></i></a>" +
+                                "</div>" +
+                                "</td>" +
+                                 "</tr>";
+                }
+                $("#tblQuick tbody").html(html123);
+            },
+            error: function (e) {
+                alert("Error!");
+            },
+        });
+    }
+
+</script>
+<!--Content Header-->
+<div class="content-header">
+    <h1>
+        Quick News
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="~/Admin/QuickNews/Index">Quick News</a></li>
+        <li class="active"><a href="~/Admin/QuickNews/Index">Create New</a></li>
+    </ol>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Listing Quick News</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+
+                </div>
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div style="margin-bottom:10px;">
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Create New</button>
+                    </div>
+                    <table id="tblQuick" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Title</th>
+                                <th>Content</th>
+                                <th>Author</th>
+                                <th style="text-align:center;">Option</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Create New</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" class="form-control" name="title" placeholder="Enter title">
+                            </div>
+                            <div class="form-group">
+                                <label>Content</label>
+                                <input type="text" class="form-control" placeholder="">
+
+                            </div>
+                            <div class="form-group">
+                                <label>Author</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        @*<div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Add New Categories</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    @using (Html.BeginForm())
+                    {
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label>Category name</label>
+                                <input type="text" class="form-control" name="categoryname" placeholder="Enter category name">
+                            </div>
+                            <div class="form-group">
+                                <label>Parent category</label>
+                                <input type="number" class="form-control" name="parentcategory" placeholder="Select the parent category">
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    }
+                </div>
+            </div>*@
+    </div>
+</div>
+

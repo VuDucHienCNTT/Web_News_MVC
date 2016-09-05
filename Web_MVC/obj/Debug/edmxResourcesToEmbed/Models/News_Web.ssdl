@@ -21,8 +21,18 @@
     <Property Name="Poster" Type="nvarchar" MaxLength="50" />
     <Property Name="Avatar" Type="nvarchar" MaxLength="250" />
   </EntityType>
+  <EntityType Name="QuickNews">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="250" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="Author" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityContainer Name="Web_NEWS_MVCModelStoreContainer">
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QuickNews" EntityType="Self.QuickNews" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

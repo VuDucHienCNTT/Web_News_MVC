@@ -24,5 +24,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="QuickNews">
+      <EntityTypeMapping TypeName="Web_NEWS_MVCModel.QuickNew">
+        <MappingFragment StoreEntitySet="QuickNews">
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

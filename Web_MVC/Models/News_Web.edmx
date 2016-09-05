@@ -26,9 +26,19 @@
           <Property Name="Poster" Type="nvarchar" MaxLength="50" />
           <Property Name="Avatar" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <EntityType Name="QuickNews">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="Author" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityContainer Name="Web_NEWS_MVCModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuickNews" EntityType="Self.QuickNews" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -64,6 +74,7 @@
             <End Role="Category" EntitySet="Categories" />
             <End Role="Category1" EntitySet="Categories" />
           </AssociationSet>
+          <EntitySet Name="QuickNews" EntityType="Web_NEWS_MVCModel.QuickNew" />
         </EntityContainer>
         <Association Name="FK_Category_Category">
           <End Type="Web_NEWS_MVCModel.Category" Role="Category" Multiplicity="0..1" />
@@ -77,6 +88,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="QuickNew">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -103,6 +123,16 @@
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Date_posted" ColumnName="Date posted" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuickNews">
+            <EntityTypeMapping TypeName="Web_NEWS_MVCModel.QuickNew">
+              <MappingFragment StoreEntitySet="QuickNews">
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -15,8 +15,8 @@ namespace Web_MVC.Controllers
         {
             using (News_Web_MVCEntities db = new News_Web_MVCEntities())
             {
-                ViewBag.Menu = this.db.Categories.Where(n => n.Parent == -1).ToList();
-                return View();
+                List<Category> lstCategory = this.db.Categories.Where(n => n.Parent == -1).ToList();
+                return View(lstCategory);
             }
         }
     }

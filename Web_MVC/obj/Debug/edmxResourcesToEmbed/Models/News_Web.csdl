@@ -30,6 +30,7 @@
       <End Role="Category" EntitySet="Categories" />
       <End Role="Category1" EntitySet="Categories" />
     </AssociationSet>
+    <EntitySet Name="QuickNews" EntityType="Web_NEWS_MVCModel.QuickNew" />
   </EntityContainer>
   <Association Name="FK_Category_Category">
     <End Type="Web_NEWS_MVCModel.Category" Role="Category" Multiplicity="0..1" />
@@ -43,4 +44,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="QuickNew">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

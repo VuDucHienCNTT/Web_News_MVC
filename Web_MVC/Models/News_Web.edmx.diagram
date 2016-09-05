@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="Web_NEWS_MVCModel.Category" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Web_NEWS_MVCModel.News" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="Web_NEWS_MVCModel.FK_Category_Category" />
+        <EntityTypeShape EntityType="Web_NEWS_MVCModel.QuickNew" Width="1.5" PointX="5.5" PointY="1.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

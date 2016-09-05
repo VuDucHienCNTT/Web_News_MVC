@@ -31,7 +31,7 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="~/Areas/Admin/Content/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Areas/Admin/Content/plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="~/Areas/Admin/Content/plugins/ckeditor/ckeditor.js"></script>
     <script src="~/Areas/Admin/Content/plugins/ckfinder/ckfinder.js"></script>
 
@@ -49,6 +49,7 @@
             resize: none;
         }
     </style>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -141,6 +142,7 @@
                         <ul class="treeview-menu">
                             <li><a href="~/Admin/Categories/Add"><i class="glyphicon glyphicon-book"></i> <span>Categories</span></a></li>
                             <li><a href="~/Admin/News/Add"><i class="fa fa-newspaper-o"></i> <span>News</span></a></li>
+                            <li><a href="~/Admin/QuickNews/Index"><i class="fa fa-newspaper-o"></i> <span>Quick News</span></a></li>
                         </ul>
                     </li>
 
@@ -179,11 +181,7 @@
         </aside>
     </div>
     <!-- ./wrapper -->
-    <!-- jQuery 2.2.3 -->
-    <script src="~/Areas/Admin/Content/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    @*<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>*@
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button);
