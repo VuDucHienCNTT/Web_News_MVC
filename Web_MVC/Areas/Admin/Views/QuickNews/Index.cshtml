@@ -19,22 +19,21 @@
                 for (i = 0; i < data.QuickNews1.length; i++) {
                     html1 = html1 + " <tr id='row-" + data.QuickNews1[i].ID + "'>" +
                                  "<td>" + data.QuickNews1[i].ID + "</td>" +
-                                 "<td>" + data.QuickNews1[i].Title + "</td>" +
-                                 "<td>" + data.QuickNews1[i].Content + "</td>" +
-                                 "<td>" + data.QuickNews1[i].Author + "</td>" +
+                                 "<td id= 'tdTitle-" + data.QuickNews1[i].ID + "' >" + data.QuickNews1[i].Title + "</td>" +
+                                 "<td id= 'tdContent-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].Content + "</td>" +
+                                 "<td id= 'tdAuthor-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].Author + "</td>" +
                                  "<td>" +
                                  "<div class='tools' id='tools-" + data.QuickNews1[i].ID + "' style='text-align:center'>" +
-                                    "<a href=''><i class='glyphicon glyphicon-edit'></i></a>" + " " +
-                                     "<a href='javascript:void(0)' onclick=DelQuickNews(" + data.QuickNews1[i].ID + ")><i class='glyphicon glyphicon-trash'></i></a>" +
+                                    "<a href='javascript:void(0)' onclick=EditQuickNews(" + data.QuickNews1[i].ID + ")><i class='glyphicon glyphicon-edit'></i></a>" + " " +
+                                    "<a href='javascript:void(0)' onclick=DelQuickNews(" + data.QuickNews1[i].ID + ")><i class='glyphicon glyphicon-trash'></i></a>" +
                                 "</div>" +
                                 "</td>" +
-                                 "</tr>";
+                                "</tr>";
                 }
                 $("#tblQuick tbody").html(html1);
             },
             error: function (e) {
-
-                alert("Error!");
+                alert("Error");
             },
         });
     }
@@ -50,7 +49,6 @@
         {
             type: 'POST',
             url: '@Url.Action("AddQuickNews","QuickNews")',
-            cache: false,
             data:
             {
                 'title': title1,
@@ -66,19 +64,19 @@
                                  "<td>" + obj.Author + "</td>" +
                                  "<td>" +
                                  "<div class='tools' style='text-align:center'>" +
-                                    "<a href=''><i class='glyphicon glyphicon-edit'></i></a>" + " " +
-                                    "<a href=''><i class='glyphicon glyphicon-trash'></i></a>" +
+                                    "<a href='javascript:void(0)' onclick=EditQuickNews(" + obj.ID + ")><i class='glyphicon glyphicon-edit'></i></a>" + " " +
+                                    "<a href='javascript:void(0)' onclick=DelQuickNews(" + obj.ID + ")><i class='glyphicon glyphicon-trash'></i></a>" +
                                 "</div>" +
                                 "</td>" +
-                                 "</tr>";
+                                "</tr>";
                     $("#tblQuick tbody").append(html2);
+                    LoadQuickNews();
                     //Sau khi Save thì xóa nội dung textbox
                     Clear();
                 }
                 else {
                     alert("lỗi rồi");
                 }
-
             },
             error: function (e) {
                 console.log("Error:" + e);
@@ -91,11 +89,55 @@
             $("#idcontent").val("");
             $("#idauthor").val("");
         }
-
     }
+    //function EditQuickNews(id) {
+    //    var title1 = $("#tdtitle-" + id).html();
+    //    var content1 = $("#tdcontent-" + id).html();
+    //    var author1 = $("#tdauthor-" + id).html();
+
+    //    var htmlTieuDe = "<input type='text' class='form-control' id='idtitle-" + id + "' value='" + title1 + "'>";
+    //    var htmlNoiDung = "<input type='text' class='form-control' id='idcontent-" + id + "' value='" + content1 + "'>";
+    //    var htmlTacGia = "<input type='text' class='form-control' id='idauthor-" + id + "' value='" + author1 + "'>";
+    //    $("#tblQuick tbody #row-" + id + " #tdtitle-" + id + "").html(htmlTieuDe);
+    //    $("#tblQuick tbody #row-" + id + " #tdcontent-" + id + "").html(htmlNoiDung);
+    //    $("#tblQuick tbody #row-" + id + " #tdauthor-" + id + "").html(htmlTacGia);
+
+    //}
+
+    @*function SaveChangeNews(id) {
+
+        var title = $("#idtitle-" + id + "").val();
+        var content = $("#idcontent-" + id + "").val();
+        var author = $("#idauthor-" + id + "").val();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("EditQuickNews", "QuickNews")',
+            data: {
+                'id': id,
+                'title': title1,
+                'content': content1,
+                'author': author1
+            },
+            success: function (obj) {
+                $("#tblQuick tbody #row-" + obj.ID + " #tdtitle-" + obj.Id + "").html(obj.Title);
+
+                $("#tools-" + obj.Id + "").html(
+                    "<a href='javascript:void(0)' onclick=EditQuickNews(" + obj.ID + ")><i class='glyphicon glyphicon-edit'></i></a>" + " " +
+                    "<a href='javascript:void(0)' onclick=DelQuickNews(" + obj.ID + ")><i class='glyphicon glyphicon-trash'></i></a>"
+                );
+
+            },
+            error: function (e) {
+                console.log("Error:" + e);
+                alert("Error!");
+            },
+        });
+
+    }*@
 
     function DelQuickNews(id) {
-        var confirmDelete = confirm("Do you want to delete?");
+        var confirmDelete = confirm("Bạn có chắc chắn xóa không?");
         if (confirmDelete) {
             $.ajax({
                 type: 'POST',
@@ -110,7 +152,6 @@
                     console.log("Error:" + e);
                     alert("Error");
                 },
-
             });
         }
     }

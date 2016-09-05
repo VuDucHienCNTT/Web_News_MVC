@@ -81,7 +81,6 @@ namespace Web_MVC.Areas.Admin.Controllers
                 {
                     return null;
                 }
-
             }
         }
         // POST: //QuickNews/DeleteQuickNews/
