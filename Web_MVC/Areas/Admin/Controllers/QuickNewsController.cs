@@ -85,7 +85,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             }
         }
         // POST: //QuickNews/DeleteQuickNews/
-        public int DeleteQuickNews(int id)
+        public int DelQuickNews(int id)
         {
             using (News_Web_MVCEntities db = new News_Web_MVCEntities())
             {

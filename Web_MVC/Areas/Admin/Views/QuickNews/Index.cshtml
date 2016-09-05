@@ -15,13 +15,55 @@
             data: {},
             cache: false,
             success: function (data) {
-                var html123 = "";
+                var html1 = "";
                 for (i = 0; i < data.QuickNews1.length; i++) {
-                    html123 = html123 + " <tr>" +
+                    html1 = html1 + " <tr id='row-" + data.QuickNews1[i].ID + "'>" +
                                  "<td>" + data.QuickNews1[i].ID + "</td>" +
                                  "<td>" + data.QuickNews1[i].Title + "</td>" +
                                  "<td>" + data.QuickNews1[i].Content + "</td>" +
                                  "<td>" + data.QuickNews1[i].Author + "</td>" +
+                                 "<td>" +
+                                 "<div class='tools' id='tools-" + data.QuickNews1[i].ID + "' style='text-align:center'>" +
+                                    "<a href=''><i class='glyphicon glyphicon-edit'></i></a>" + " " +
+                                     "<a href='javascript:void(0)' onclick=DelQuickNews(" + data.QuickNews1[i].ID + ")><i class='glyphicon glyphicon-trash'></i></a>" +
+                                "</div>" +
+                                "</td>" +
+                                 "</tr>";
+                }
+                $("#tblQuick tbody").html(html1);
+            },
+            error: function (e) {
+
+                alert("Error!");
+            },
+        });
+    }
+
+    function AddQuickNews() {
+        //Ẩn Modal sau khi click Save
+        $("#myModal").modal('hide');
+
+        var title1 = $("#idtitle").val();
+        var content1 = $("#idcontent").val();
+        var author1 = $("#idauthor").val();
+        $.ajax(
+        {
+            type: 'POST',
+            url: '@Url.Action("AddQuickNews","QuickNews")',
+            cache: false,
+            data:
+            {
+                'title': title1,
+                'content': content1,
+                'author': author1
+            },
+            success: function (obj) {
+                if (obj != null) {
+                    var html2 = " <tr>" +
+                                 "<td>" + obj.ID + "</td>" +
+                                 "<td>" + obj.Title + "</td>" +
+                                 "<td>" + obj.Content + "</td>" +
+                                 "<td>" + obj.Author + "</td>" +
                                  "<td>" +
                                  "<div class='tools' style='text-align:center'>" +
                                     "<a href=''><i class='glyphicon glyphicon-edit'></i></a>" + " " +
@@ -29,15 +71,49 @@
                                 "</div>" +
                                 "</td>" +
                                  "</tr>";
+                    $("#tblQuick tbody").append(html2);
+                    //Sau khi Save thì xóa nội dung textbox
+                    Clear();
                 }
-                $("#tblQuick tbody").html(html123);
+                else {
+                    alert("lỗi rồi");
+                }
+
             },
             error: function (e) {
+                console.log("Error:" + e);
                 alert("Error!");
             },
-        });
+        })
+
+        function Clear() {
+            $("#idtitle").val("");
+            $("#idcontent").val("");
+            $("#idauthor").val("");
+        }
+
     }
 
+    function DelQuickNews(id) {
+        var confirmDelete = confirm("Do you want to delete?");
+        if (confirmDelete) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DelQuickNews","QuickNews")',
+                data: {
+                    'id': id
+                },
+                success: function (id) {
+                    $("#tblQuick tbody #row-" + id + "").remove();
+                },
+                error: function (e) {
+                    console.log("Error:" + e);
+                    alert("Error");
+                },
+
+            });
+        }
+    }
 </script>
 <!--Content Header-->
 <div class="content-header">
@@ -88,7 +164,6 @@
             </div>
         </div>
 
-
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -101,20 +176,20 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label>Title</label>
-                                <input type="text" class="form-control" name="title" placeholder="Enter title">
+                                <input type="text" class="form-control" id="idtitle" name="title" placeholder="Enter title">
                             </div>
                             <div class="form-group">
                                 <label>Content</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" class="form-control" id="idcontent" placeholder="Enter Content">
 
                             </div>
                             <div class="form-group">
                                 <label>Author</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" class="form-control" id="idauthor" placeholder="Enter Author">
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" onclick="AddQuickNews()" class="btn btn-primary">Save</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
                         </div>
