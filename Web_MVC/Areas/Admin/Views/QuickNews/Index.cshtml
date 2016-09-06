@@ -24,8 +24,8 @@
                                  "<td id= 'tdAuthor-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].Author + "</td>" +
                                  "<td>" +
                                  "<div class='tools' id='tools-" + data.QuickNews1[i].ID + "' style='text-align:center'>" +
-                                    "<a href='javascript:void(0)' onclick=EditQuickNews(" + data.QuickNews1[i].ID + ")><i class='glyphicon glyphicon-edit'></i></a>" + " " +
-                                    "<a href='javascript:void(0)' onclick=DelQuickNews(" + data.QuickNews1[i].ID + ")><i class='glyphicon glyphicon-trash'></i></a>" +
+                                    "<a href='javascript:void(0)' data-toggle='modal' data-target='#myModalEdit'  onclick=EditQuickNews(" + data.QuickNews1[i].ID + ")><i class='glyphicon glyphicon-edit'></i></a>" + " " +
+                                    "<a href='javascript:void(0)' data-toggle='tooltip' title='Delete' onclick=DelQuickNews(" + data.QuickNews1[i].ID + ")><i class='glyphicon glyphicon-trash'></i></a>" +
                                 "</div>" +
                                 "</td>" +
                                 "</tr>";
@@ -90,43 +90,53 @@
             $("#idauthor").val("");
         }
     }
-    //function EditQuickNews(id) {
-    //    var title1 = $("#tdtitle-" + id).html();
-    //    var content1 = $("#tdcontent-" + id).html();
-    //    var author1 = $("#tdauthor-" + id).html();
 
-    //    var htmlTieuDe = "<input type='text' class='form-control' id='idtitle-" + id + "' value='" + title1 + "'>";
-    //    var htmlNoiDung = "<input type='text' class='form-control' id='idcontent-" + id + "' value='" + content1 + "'>";
-    //    var htmlTacGia = "<input type='text' class='form-control' id='idauthor-" + id + "' value='" + author1 + "'>";
-    //    $("#tblQuick tbody #row-" + id + " #tdtitle-" + id + "").html(htmlTieuDe);
-    //    $("#tblQuick tbody #row-" + id + " #tdcontent-" + id + "").html(htmlNoiDung);
-    //    $("#tblQuick tbody #row-" + id + " #tdauthor-" + id + "").html(htmlTacGia);
 
-    //}
+    function EditQuickNews(id) {
+        //Ẩn Modal sau khi click Save
+        $("#myModalEdit").modal('hide');
 
-    @*function SaveChangeNews(id) {
+        var title2 = $("#tdTitle-" + id).html();
+        var content2 = $("#tdContent-" + id).html();
+        var author2 = $("#tdAuthor-" + id).html();
 
-        var title = $("#idtitle-" + id + "").val();
-        var content = $("#idcontent-" + id + "").val();
-        var author = $("#idauthor-" + id + "").val();
+        var htmlTieuDe = "<input type='text' class='form-control' id='idtitleedit-" + id + "' value='" + title2 + "'>";
+        var htmlNoiDung = "<input type='text' class='form-control' id='idcontentedit-" + id + "' value='" + content2 + "'>";
+        var htmlTacGia = "<input type='text' class='form-control' id='idauthoredit-" + id + "' value='" + author2 + "'>";
+
+        $("#tools-" + id + "").html("<button type='button' onclick='SaveChangeNews(" + id + ")' class='btn btn-primary'>Lưu</button>");
+
+        $("#tblQuick tbody #row-" + id + " #tdTitle-" + id + "").html(htmlTieuDe);
+        $("#tblQuick tbody #row-" + id + " #tdContent-" + id + "").html(htmlNoiDung);
+        $("#tblQuick tbody #row-" + id + " #tdAuthor-" + id + "").html(htmlTacGia);
+    }
+
+    function SaveChangeNews(id) {
+
+        var title2 = $("#idtitleedit-" + id + "").val();
+        var content2 = $("#idcontentedit-" + id + "").val();
+        var author2 = $("#idauthoredit-" + id + "").val();
 
         $.ajax({
             type: 'POST',
             url: '@Url.Action("EditQuickNews", "QuickNews")',
             data: {
                 'id': id,
-                'title': title1,
-                'content': content1,
-                'author': author1
+                'title': title2,
+                'content': content2,
+                'author': author2
             },
             success: function (obj) {
-                $("#tblQuick tbody #row-" + obj.ID + " #tdtitle-" + obj.Id + "").html(obj.Title);
 
-                $("#tools-" + obj.Id + "").html(
+                $("#tblQuick tbody #row-" + obj.ID + " #tdTitle-" + obj.ID + "").html(obj.Title);
+                $("#tblQuick tbody #row-" + obj.ID + " #tdContent-" + obj.ID + "").html(obj.Content);
+                $("#tblQuick tbody #row-" + obj.ID + " #tdAuthor-" + obj.ID + "").html(obj.Author);
+
+                $("#tools-" + obj.ID + "").html(
                     "<a href='javascript:void(0)' onclick=EditQuickNews(" + obj.ID + ")><i class='glyphicon glyphicon-edit'></i></a>" + " " +
                     "<a href='javascript:void(0)' onclick=DelQuickNews(" + obj.ID + ")><i class='glyphicon glyphicon-trash'></i></a>"
                 );
-
+                LoadQuickNews();
             },
             error: function (e) {
                 console.log("Error:" + e);
@@ -134,7 +144,7 @@
             },
         });
 
-    }*@
+    }
 
     function DelQuickNews(id) {
         var confirmDelete = confirm("Bạn có chắc chắn xóa không?");
@@ -198,7 +208,8 @@
                                 <th style="text-align:center;">Option</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                        </tbody>
                     </table>
 
                 </div>
@@ -241,35 +252,39 @@
 
 
 
-        @*<div class="col-md-12">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Add New Categories</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                        </div>
+        <div class="modal fade" id="myModalEdit" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit Quick News</h4>
                     </div>
-                    @using (Html.BeginForm())
-                    {
+                    <div class="modal-body">
                         <div class="box-body">
                             <div class="form-group">
-                                <label>Category name</label>
-                                <input type="text" class="form-control" name="categoryname" placeholder="Enter category name">
+                                <label>Title</label>
+                                <input type="text" class="form-control" id="idtitleedit">
                             </div>
                             <div class="form-group">
-                                <label>Parent category</label>
-                                <input type="number" class="form-control" name="parentcategory" placeholder="Select the parent category">
+                                <label>Content</label>
+                                <input type="text" class="form-control" id="idcontentedit">
+
+                            </div>
+                            <div class="form-group">
+                                <label>Author</label>
+                                <input type="text" class="form-control" id="idauthoredit">
                             </div>
                         </div>
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                        <div class="modal-footer">
+                            <button type="button" onclick="SaveChangeNews()" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
                         </div>
-                    }
+                    </div>
                 </div>
-            </div>*@
+            </div>
+        </div>
+
     </div>
 </div>
 
