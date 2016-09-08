@@ -10,8 +10,8 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li><a href="~/Admin/Categories/Add">Categories</a></li>
-        <li class="active"><a href="~/Admin/Categories/Add">Create New</a></li>
+        <li><a href="~/Admin/Categories/Create">Categories</a></li>
+        <li class="active"><a href="~/Admin/Categories/Create">Create New</a></li>
     </ol>
 </div>
 
@@ -51,7 +51,7 @@
                                 <tr>
                                     <td>@item.Id</td>
                                     <td>@item.Name</td>
-                                    <td>@item.Parent</td>
+                                    <td>@item.ParentId</td>
                                     <td>
                                         <div class="tools" style="text-align:center;">
                                             <a href="~/Admin/Categories/Edit/@item.Id"><i class="glyphicon glyphicon-edit" data-toggle="tooltip" title="Edit"></i></a>

@@ -13,10 +13,10 @@ namespace Web_MVC.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class News_Web_MVCEntities : DbContext
+    public partial class Web_NEWS_MVCEntities : DbContext
     {
-        public News_Web_MVCEntities()
-            : base("name=News_Web_MVCEntities")
+        public Web_NEWS_MVCEntities()
+            : base("name=Web_NEWS_MVCEntities")
         {
         }
     

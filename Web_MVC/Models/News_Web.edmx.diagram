@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="db48b326287d4bcbbb5a2634b9b1fb64" Name="Diagram1">
+      <Diagram DiagramId="13e35bcdc13d49bba43e6caeff996cb0" Name="Diagram1">
         <EntityTypeShape EntityType="Web_NEWS_MVCModel.Category" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Web_NEWS_MVCModel.News" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_NEWS_MVCModel.QuickNew" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="Web_NEWS_MVCModel.FK_Category_Category" />
-        <EntityTypeShape EntityType="Web_NEWS_MVCModel.QuickNew" Width="1.5" PointX="5.5" PointY="1.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

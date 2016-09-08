@@ -11,9 +11,9 @@ namespace Web_MVC.Areas.Admin.Controllers
     {
         // GET: Admin/Categories
         [HttpGet]
-        public ActionResult Add()
+        public ActionResult Create()
         {
-            using (News_Web_MVCEntities db = new News_Web_MVCEntities())
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 List<Category> lstCategory = db.Categories.ToList();
                 return View(lstCategory);
@@ -21,9 +21,9 @@ namespace Web_MVC.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(FormCollection collection)
+        public ActionResult Create(FormCollection collection)
         {
-            using (News_Web_MVCEntities db = new News_Web_MVCEntities())
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 string cateGoryname = collection["categoryname"].ToString();
                 int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : -1;
@@ -32,7 +32,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 //Khoi tao doi tuong muon them vao csdl
                 Category cate = new Category();
                 cate.Name = cateGoryname;
-                cate.Parent = parentCategory;
+                cate.ParentId = parentCategory;
 
                 //Them doi tuong vao csdl
                 db.Categories.Add(cate);
@@ -47,7 +47,7 @@ namespace Web_MVC.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            using (News_Web_MVCEntities db = new News_Web_MVCEntities())
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 Category cate = db.Categories.SingleOrDefault(n => n.Id == id);
                 if(cate == null)
@@ -62,13 +62,13 @@ namespace Web_MVC.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(FormCollection collection, int id)
         {
-            using (News_Web_MVCEntities db = new News_Web_MVCEntities())
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 string cateGoryname = collection["categoryname"].ToString();
                 int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : -1;
                 Category cate = db.Categories.SingleOrDefault(n => n.Id == id);
                 cate.Name = cateGoryname;
-                cate.Parent = parentCategory;
+                cate.ParentId = parentCategory;
 
                 db.SaveChanges();
                 return RedirectToAction("Add");
@@ -76,7 +76,7 @@ namespace Web_MVC.Areas.Admin.Controllers
         }
         public ActionResult Delete(int id)
         {
-            using (News_Web_MVCEntities db = new News_Web_MVCEntities())
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 //Lấy đối tượng cần xóa
                 Category cate = db.Categories.SingleOrDefault(x => x.Id == id);

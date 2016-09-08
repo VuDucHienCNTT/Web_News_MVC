@@ -11,7 +11,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="~/Admin/Categories/Add">Categories</a></li>
+        <li><a href="~/Admin/Categories/Create">Categories</a></li>
         <li class="active"><a href="#">Edit</a></li>
     </ol>
 </div>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group">
                             <label>Parent category</label>
-                            <input type="number" class="form-control" name="parentcategory" value="@Model.Parent">
+                            <input type="number" class="form-control" name="parentcategory" value="@Model.ParentId">
                         </div>
                     </div>
                         <!-- /.box-body -->

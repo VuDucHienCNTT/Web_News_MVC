@@ -6,7 +6,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Parent" Type="int" />
+    <Property Name="ParentId" Type="int" />
   </EntityType>
   <EntityType Name="News">
     <Key>
@@ -16,7 +16,7 @@
     <Property Name="Title" Type="nvarchar" MaxLength="500" />
     <Property Name="Summary" Type="nvarchar" MaxLength="500" />
     <Property Name="Content" Type="nvarchar(max)" />
-    <Property Name="Date posted" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dateposted" Type="nvarchar" MaxLength="50" />
     <Property Name="Author" Type="nvarchar" MaxLength="50" />
     <Property Name="Poster" Type="nvarchar" MaxLength="50" />
     <Property Name="Avatar" Type="nvarchar" MaxLength="250" />
@@ -27,12 +27,31 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar" MaxLength="250" />
+    <Property Name="Summary" Type="nvarchar" MaxLength="250" />
     <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="Poster" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dateposted" Type="nvarchar" MaxLength="50" />
     <Property Name="Author" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <Association Name="FK_Category_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Category1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="Web_NEWS_MVCModelStoreContainer">
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QuickNews" EntityType="Self.QuickNews" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Category_Category" Association="Self.FK_Category_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Category1" EntitySet="Category" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

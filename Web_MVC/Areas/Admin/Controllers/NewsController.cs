@@ -13,9 +13,9 @@ namespace Web_MVC.Areas.Admin.Controllers
     {
         // GET: Admin/News
         [HttpGet]
-        public ActionResult Add(int? page)
+        public ActionResult Create(int? page)
         {
-            using (News_Web_MVCEntities db = new News_Web_MVCEntities())
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 int pageSize = 4;
                 int pageNumber = (page ?? 1);
@@ -24,7 +24,7 @@ namespace Web_MVC.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Add(FormCollection collection, int? page)
+        public ActionResult Create(FormCollection collection, int? page)
         {
             int pageSize = 4;
             int pageNumber = (page ?? 1);
@@ -37,13 +37,13 @@ namespace Web_MVC.Areas.Admin.Controllers
             string poster = collection["poster"].ToString();
             string avatar = collection["avatar"].ToString();
 
-            using (News_Web_MVCEntities db = new News_Web_MVCEntities())
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 News news = new News();
                 news.Title = title;
                 news.Summary = summary;
                 news.Content = content;
-                news.Date_posted = dateposted;
+                news.Dateposted = dateposted;
                 news.Author = author;
                 news.Poster = poster;
                 news.Avatar = avatar;
@@ -57,7 +57,7 @@ namespace Web_MVC.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            using (News_Web_MVCEntities db = new News_Web_MVCEntities())
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 News news = db.News.SingleOrDefault(n => n.Id == id);
                 if (news == null)
@@ -81,13 +81,13 @@ namespace Web_MVC.Areas.Admin.Controllers
             string poster = collection["poster"].ToString();
             string avatar = collection["avatar"].ToString();
 
-            using (News_Web_MVCEntities db = new News_Web_MVCEntities())
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 News news = db.News.SingleOrDefault(n => n.Id == id);
                 news.Title = title;
                 news.Summary = summary;
                 news.Content = content;
-                news.Date_posted = dateposted;
+                news.Dateposted = dateposted;
                 news.Author = author;
                 news.Poster = poster;
                 news.Avatar = avatar;
@@ -100,7 +100,7 @@ namespace Web_MVC.Areas.Admin.Controllers
 
         public ActionResult Delete(int id)
         {
-            using (News_Web_MVCEntities db = new News_Web_MVCEntities())
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
 
                 News news = db.News.SingleOrDefault(n => n.Id == id);
@@ -117,7 +117,7 @@ namespace Web_MVC.Areas.Admin.Controllers
       
         public string ChangeImage(int id, string avatar)
         {
-            using (News_Web_MVCEntities db = new News_Web_MVCEntities())
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 if (id == null)
                 {

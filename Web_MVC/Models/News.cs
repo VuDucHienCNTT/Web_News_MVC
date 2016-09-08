@@ -18,7 +18,7 @@ namespace Web_MVC.Models
         public string Title { get; set; }
         public string Summary { get; set; }
         public string Content { get; set; }
-        public string Date_posted { get; set; }
+        public string Dateposted { get; set; }
         public string Author { get; set; }
         public string Poster { get; set; }
         public string Avatar { get; set; }

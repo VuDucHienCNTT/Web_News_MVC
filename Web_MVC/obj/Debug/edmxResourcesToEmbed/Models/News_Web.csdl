@@ -6,7 +6,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Parent" Type="Int32" />
+    <Property Name="ParentId" Type="Int32" />
     <NavigationProperty Name="Category1" Relationship="Web_NEWS_MVCModel.FK_Category_Category" FromRole="Category" ToRole="Category1" />
     <NavigationProperty Name="Category2" Relationship="Web_NEWS_MVCModel.FK_Category_Category" FromRole="Category1" ToRole="Category" />
   </EntityType>
@@ -18,19 +18,31 @@
     <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Summary" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Date_posted" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Dateposted" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Poster" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Avatar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityContainer Name="News_Web_MVCEntities" annotation:LazyLoadingEnabled="true">
+  <EntityType Name="QuickNew">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Summary" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Poster" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Dateposted" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="Web_NEWS_MVCEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Categories" EntityType="Self.Category" />
     <EntitySet Name="News" EntityType="Self.News" />
+    <EntitySet Name="QuickNews" EntityType="Self.QuickNew" />
     <AssociationSet Name="FK_Category_Category" Association="Web_NEWS_MVCModel.FK_Category_Category">
       <End Role="Category" EntitySet="Categories" />
       <End Role="Category1" EntitySet="Categories" />
     </AssociationSet>
-    <EntitySet Name="QuickNews" EntityType="Web_NEWS_MVCModel.QuickNew" />
   </EntityContainer>
   <Association Name="FK_Category_Category">
     <End Type="Web_NEWS_MVCModel.Category" Role="Category" Multiplicity="0..1" />
@@ -40,17 +52,8 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Category1">
-        <PropertyRef Name="Parent" />
+        <PropertyRef Name="ParentId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="QuickNew">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-  </EntityType>
 </Schema>

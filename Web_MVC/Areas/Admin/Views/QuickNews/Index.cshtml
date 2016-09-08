@@ -20,7 +20,10 @@
                     html1 = html1 + " <tr id='row-" + data.QuickNews1[i].ID + "'>" +
                                  "<td>" + data.QuickNews1[i].ID + "</td>" +
                                  "<td id= 'tdTitle-" + data.QuickNews1[i].ID + "' >" + data.QuickNews1[i].Title + "</td>" +
+                                 "<td id= 'tdSummary-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].Summary + "</td>" +
                                  "<td id= 'tdContent-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].Content + "</td>" +
+                                 "<td id= 'tdPoster-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].Poster + "</td>" +
+                                 "<td id= 'tdDateposted-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].Dateposted + "</td>" +
                                  "<td id= 'tdAuthor-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].Author + "</td>" +
                                  "<td>" +
                                  "<div class='tools' id='tools-" + data.QuickNews1[i].ID + "' style='text-align:center'>" +
@@ -43,7 +46,10 @@
         $("#myModal").modal('hide');
 
         var title1 = $("#idtitle").val();
+        var summary1 = $("#idsummary").val();
         var content1 = $("#idcontent").val();
+        var poster1 = $("#idposter").val();
+        var dateposted1 = $("#iddateposted").val();
         var author1 = $("#idauthor").val();
         $.ajax(
         {
@@ -52,7 +58,10 @@
             data:
             {
                 'title': title1,
+                'summary': summary1,
                 'content': content1,
+                'poster': poster1,
+                'dateposted': dateposted1,
                 'author': author1
             },
             success: function (obj) {
@@ -60,7 +69,10 @@
                     var html2 = " <tr>" +
                                  "<td>" + obj.ID + "</td>" +
                                  "<td>" + obj.Title + "</td>" +
+                                 "<td>" + obj.Summary + "</td>" +
                                  "<td>" + obj.Content + "</td>" +
+                                 "<td>" + obj.Poster + "</td>" +
+                                 "<td>" + obj.Dateposted + "</td>" +
                                  "<td>" + obj.Author + "</td>" +
                                  "<td>" +
                                  "<div class='tools' style='text-align:center'>" +
@@ -97,24 +109,36 @@
         $("#myModalEdit").modal('hide');
 
         var title2 = $("#tdTitle-" + id).html();
+        var summary2 = $("#tdSummary-" + id).html();
         var content2 = $("#tdContent-" + id).html();
+        var poster2 = $("#tdPoster-" + id).html();
+        var dateposted2 = $("#tdDateposted-" + id).html();
         var author2 = $("#tdAuthor-" + id).html();
 
         var htmlTieuDe = "<input type='text' class='form-control' id='idtitleedit-" + id + "' value='" + title2 + "'>";
+        var htmlTomTat = "<input type='text' class='form-control' id='idsummaryedit-" + id + "' value='" + summary2 + "'>";
         var htmlNoiDung = "<input type='text' class='form-control' id='idcontentedit-" + id + "' value='" + content2 + "'>";
+        var htmlNguoiDang = "<input type='text' class='form-control' id='idposteredit-" + id + "' value='" + poster2 + "'>";
+        var htmlNgayDang = "<input type='text' class='form-control' id='iddatepostededit-" + id + "' value='" + dateposted2 + "'>";
         var htmlTacGia = "<input type='text' class='form-control' id='idauthoredit-" + id + "' value='" + author2 + "'>";
 
         $("#tools-" + id + "").html("<button type='button' onclick='SaveChangeNews(" + id + ")' class='btn btn-primary'>Lưu</button>");
 
         $("#tblQuick tbody #row-" + id + " #tdTitle-" + id + "").html(htmlTieuDe);
+        $("#tblQuick tbody #row-" + id + " #tdSummary-" + id + "").html(htmlTomTat);
         $("#tblQuick tbody #row-" + id + " #tdContent-" + id + "").html(htmlNoiDung);
+        $("#tblQuick tbody #row-" + id + " #tdPoster-" + id + "").html(htmlNguoiDang);
+        $("#tblQuick tbody #row-" + id + " #tdDateposted-" + id + "").html(htmlNgayDang);
         $("#tblQuick tbody #row-" + id + " #tdAuthor-" + id + "").html(htmlTacGia);
     }
 
     function SaveChangeNews(id) {
 
         var title2 = $("#idtitleedit-" + id + "").val();
+        var summary2 = $("#idsummaryedit-" + id+ "").val();   
         var content2 = $("#idcontentedit-" + id + "").val();
+        var poster2 = $("#idposteredit-" + id + "").val();
+        var dateposted2 = $("#iddatepostededit-" + id + "").val();
         var author2 = $("#idauthoredit-" + id + "").val();
 
         $.ajax({
@@ -123,13 +147,19 @@
             data: {
                 'id': id,
                 'title': title2,
+                'summary': summary2,
                 'content': content2,
+                'poster': poster2,
+                'dateposted': dateposted2,
                 'author': author2
             },
             success: function (obj) {
 
                 $("#tblQuick tbody #row-" + obj.ID + " #tdTitle-" + obj.ID + "").html(obj.Title);
+                $("#tblQuick tbody #row-" + obj.ID + " #tdSummary-" + obj.ID + "").html(obj.Summary);
                 $("#tblQuick tbody #row-" + obj.ID + " #tdContent-" + obj.ID + "").html(obj.Content);
+                $("#tblQuick tbody #row-" + obj.ID + " #tdPoster-" + obj.ID + "").html(obj.Poster);
+                $("#tblQuick tbody #row-" + obj.ID + " #tdDateposted-" + obj.ID + "").html(obj.Dateposted);
                 $("#tblQuick tbody #row-" + obj.ID + " #tdAuthor-" + obj.ID + "").html(obj.Author);
 
                 $("#tools-" + obj.ID + "").html(
@@ -203,7 +233,10 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Title</th>
+                                <th>Summary</th>
                                 <th>Content</th>
+                                <th>Poster</th>
+                                <th>Dateposted</th>
                                 <th>Author</th>
                                 <th style="text-align:center;">Option</th>
                             </tr>
@@ -231,9 +264,20 @@
                                 <input type="text" class="form-control" id="idtitle" name="title" placeholder="Enter title">
                             </div>
                             <div class="form-group">
+                                <label>Summary</label>
+                                <input type="text" class="form-control" id="idsummary" name="summary" placeholder="Enter summary">
+                            </div>
+                            <div class="form-group">
                                 <label>Content</label>
                                 <input type="text" class="form-control" id="idcontent" placeholder="Enter Content">
-
+                            </div>
+                            <div class="form-group">
+                                <label>Poster</label>
+                                <input type="text" class="form-control" id="idposter" name="poster" placeholder="Enter Poster">
+                            </div>
+                            <div class="form-group">
+                                <label>Date Posted</label>
+                                <input type="text" class="form-control" id="iddateposted" placeholder="Enter Date posted">
                             </div>
                             <div class="form-group">
                                 <label>Author</label>
@@ -266,9 +310,20 @@
                                 <input type="text" class="form-control" id="idtitleedit">
                             </div>
                             <div class="form-group">
+                                <label>Summary</label>
+                                <input type="text" class="form-control" id="idsummaryedit">
+                            </div>
+                            <div class="form-group">
                                 <label>Content</label>
                                 <input type="text" class="form-control" id="idcontentedit">
-
+                            </div>
+                            <div class="form-group">
+                                <label>Poster</label>
+                                <input type="text" class="form-control" id="idposteredit">
+                            </div>
+                            <div class="form-group">
+                                <label>Date Posted</label>
+                                <input type="text" class="form-control" id="iddatepostededit">
                             </div>
                             <div class="form-group">
                                 <label>Author</label>

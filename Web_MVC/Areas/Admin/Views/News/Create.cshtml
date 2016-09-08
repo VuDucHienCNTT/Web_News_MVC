@@ -13,8 +13,8 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="~/Admin/News/Add">News</a></li>
-        <li class="active"><a href="~/Admin/News/Add">Create New</a></li>
+        <li><a href="~/Admin/News/Create">News</a></li>
+        <li class="active"><a href="~/Admin/News/Create">Create New</a></li>
     </ol>
 </div>
 
@@ -86,7 +86,7 @@
                                         <td>@Html.Raw(@item.Content)</td>
                                     }
                                     <td>@item.Poster</td>
-                                    <td>@item.Date_posted</td>
+                                    <td>@item.Dateposted</td>
                                     <td>@item.Author</td>
                                     <td><img id="img_@item.Id" onclick="selectImage('ChangeImage/@item.Id',this.id)" src="@Url.Content( item.Avatar)" height="50" width="40" title="Click change image" data-toggle="tooltip" style="cursor:pointer" /></td>
                                     <td>

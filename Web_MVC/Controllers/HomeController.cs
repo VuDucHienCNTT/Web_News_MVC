@@ -9,15 +9,12 @@ namespace Web_MVC.Controllers
 {
     public class HomeController : Controller
     {
-        News_Web_MVCEntities db = new News_Web_MVCEntities();
+        Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities();
         // GET: Home
         public ActionResult Index()
         {
-            using (News_Web_MVCEntities db = new News_Web_MVCEntities())
-            {
-                List<Category> lstCategory = this.db.Categories.Where(n => n.Parent == -1).ToList();
-                return View(lstCategory);
-            }
+            List<Category> lstCategory = db.Categories.Where(n => n.ParentId == -1).ToList();
+            return View(lstCategory);
         }
     }
 }

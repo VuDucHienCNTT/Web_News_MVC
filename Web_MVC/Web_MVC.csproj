@@ -1844,16 +1844,9 @@
     <Content Include="obj\Debug\Web_MVC.pdb" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Add.cshtml" />
-    <EntityDeploy Include="Models\News_Web.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>News_Web.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\News_Web.edmx.diagram">
-      <DependentUpon>News_Web.edmx</DependentUpon>
-    </Content>
+    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\News\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Create.cshtml" />
     <Content Include="Areas\Admin\Content\bootstrap\css\bootstrap.css.map" />
     <Content Include="Areas\Admin\Content\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="Areas\Admin\Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
@@ -1948,6 +1941,13 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Areas\Admin\Views\QuickNews\Index.cshtml" />
+    <EntityDeploy Include="Models\News_Web.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>News_Web.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\News_Web.edmx.diagram">
+      <DependentUpon>News_Web.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
