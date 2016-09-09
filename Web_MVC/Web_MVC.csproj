@@ -1948,6 +1948,8 @@
     <Content Include="Models\News_Web.edmx.diagram">
       <DependentUpon>News_Web.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\News\Search.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Search.cshtml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />

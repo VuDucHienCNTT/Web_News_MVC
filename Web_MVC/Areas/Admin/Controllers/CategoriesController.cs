@@ -71,7 +71,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 cate.ParentId = parentCategory;
 
                 db.SaveChanges();
-                return RedirectToAction("Add");
+                return RedirectToAction("Create");
             }
         }
         public ActionResult Delete(int id)
@@ -88,8 +88,47 @@ namespace Web_MVC.Areas.Admin.Controllers
                 db.SaveChanges();
 
                 //Lay danh sach chuyen muc trong csdl tra ve view
-                return RedirectToAction("Add");
+                return RedirectToAction("Create");
             }
         }
+
+        [HttpPost]
+        public ActionResult Search(FormCollection collection, int? page)
+        {
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
+            {
+                string tukhoa = collection["txtsearch"].ToString();
+                ViewBag.TuKhoa = tukhoa;
+                List<Category> lstResult = db.Categories.Where(n => n.Name.Contains(tukhoa)).ToList();
+                int pageNumber = (page ?? 1);
+                int pageSize = 3;
+                if (lstResult.Count == 0)
+                {
+                    ViewBag.khongtimthay = "Không tìm thấy";
+
+                }
+                ViewBag.timthay = "Đã tìm thấy " + lstResult.Count + "";
+                return View(lstResult.OrderBy(n => n.Name).ToList());
+            }
+        }
+        [HttpGet]
+        public ActionResult Search(int? page, string tukhoa)
+        {
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
+            {
+                ViewBag.TuKhoa = tukhoa;
+                List<Category> lstResult = db.Categories.Where(n => n.Name.Contains(tukhoa)).ToList();
+                int pageNumber = (page ?? 1);
+                int pageSize = 3;
+                if (lstResult.Count == 0)
+                {
+                    ViewBag.khongtimthay = "Không tìm thấy ";
+                }
+
+                ViewBag.timthay = "Đã tìm thấy " + lstResult.Count + "";
+                return View(lstResult.OrderBy(n => n.Name).ToList());
+            }
+        }
+
     }
 }

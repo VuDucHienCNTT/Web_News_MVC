@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Search results Categories";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model List<Web_MVC.Models.Category>
+<!--Content Header-->
+<div class="content-header">
+    <h1>
+        Categories
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="~/Admin/Categories/Create"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="~/Admin/Categories/Create">Categories</a></li>
+    </ol>
+</div>
+
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Search results Ccategories</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+
+                </div>
+
+                <!-- /.box-header -->
+                @*<div style="color:red; font-size:13px;">@ViewBag.khongtimthay</div>
+                <div style="color:#000000; font-size:13px;">@ViewBag.timthay</div>*@
+
+                <div class="box-body">
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Categories id</th>
+                                <th>Categories name</th>
+                                <th>Parent Categories</th>
+                                <th style="text-align:center;">Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.ParentId</td>
+                                    <td>
+                                        <div class="tools" style="text-align:center;">
+                                            <a href="~/Admin/Categories/Edit/@item.Id"><i class="glyphicon glyphicon-edit" data-toggle="tooltip" title="Edit"></i></a>
+                                            <a onclick="return confirm('Bạn có muốn xóa không?')" href="~/Admin/Categories/Delete/@item.Id"><i class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Delete"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

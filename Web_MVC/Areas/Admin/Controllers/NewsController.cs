@@ -17,7 +17,7 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
-                int pageSize = 4;
+                int pageSize = 3;
                 int pageNumber = (page ?? 1);
                 return View(db.News.ToList().ToPagedList(pageNumber, pageSize));
             }
@@ -26,7 +26,7 @@ namespace Web_MVC.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult Create(FormCollection collection, int? page)
         {
-            int pageSize = 4;
+            int pageSize = 3;
             int pageNumber = (page ?? 1);
 
             string title = collection["title"].ToString();
@@ -94,7 +94,7 @@ namespace Web_MVC.Areas.Admin.Controllers
 
                 db.SaveChanges();
 
-                return RedirectToAction("Add");
+                return RedirectToAction("Create");
             }
         }
 
@@ -109,12 +109,12 @@ namespace Web_MVC.Areas.Admin.Controllers
 
                 db.SaveChanges();
 
-                return RedirectToAction("Add");
+                return RedirectToAction("Create");
             }
         }
 
 
-      
+
         public string ChangeImage(int id, string avatar)
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
@@ -133,5 +133,45 @@ namespace Web_MVC.Areas.Admin.Controllers
                 return "";
             }
         }
+
+
+        [HttpPost]
+        public ActionResult Search(FormCollection collection, int? page)
+        {
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
+            {
+                string tukhoa = collection["txtsearch"].ToString();
+                ViewBag.TuKhoa = tukhoa;
+                List<News> lstResult = db.News.Where(n => n.Title.Contains(tukhoa)).ToList();
+                int pageNumber = (page ?? 1);
+                int pageSize = 1;
+                if (lstResult.Count == 0)
+                {
+                    ViewBag.khongtimthay = "Không tìm thấy";
+
+                }
+                ViewBag.timthay = "Đã tìm thấy " + lstResult.Count + "";
+                return View(lstResult.OrderBy(n => n.Title).ToPagedList(pageNumber, pageSize));
+            }
+        }
+        [HttpGet]
+        public ActionResult Search(int? page, string tukhoa)
+        {
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
+            {
+                ViewBag.TuKhoa = tukhoa;
+                List<News> lstResult = db.News.Where(n => n.Title.Contains(tukhoa)).ToList();
+                int pageNumber = (page ?? 1);
+                int pageSize = 1;
+                if (lstResult.Count == 0)
+                {
+                    ViewBag.khongtimthay = "Không tìm thấy ";
+                }
+
+                ViewBag.timthay = "Đã tìm thấy " + lstResult.Count + "";
+                return View(lstResult.OrderBy(n => n.Title).ToPagedList(pageNumber, pageSize));
+            }
+        }
+
     }
 }

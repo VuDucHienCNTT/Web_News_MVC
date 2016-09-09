@@ -55,7 +55,7 @@
                     @foreach (var item in Model)
                     {
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.Name <i class="fa fa-caret-down"></i></a>
+                            <a href="#" class="dropdown-toggle" title="@item.Name" data-toggle="dropdown">@item.Name <i class="fa fa-caret-down"></i></a>
                             @if (item.Category1.Count > 0)
                             {
                                 <div class="dropdown-menu">
@@ -63,7 +63,7 @@
                                         <ul class="list-unstyled">
                                             @foreach (var item2 in item.Category1)
                                             {
-                                                <li><a href="#"><i class="fa fa-caret-right"></i> @item2.Name</a></li>
+                                                <li><a href="#" title="@item2.Name"><i class="fa fa-caret-right"></i> @item2.Name</a></li>
                                             }
                                         </ul>
                                     </div>
