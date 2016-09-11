@@ -18,12 +18,11 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
-
                 var lstQuickNews = db.QuickNews.Select(n => new
                 {
                     ID = n.Id,
                     Title = n.Title,
-                    Summary =n.Summary,
+                    Summary = n.Summary,
                     Content = n.Content,
                     Poster = n.Poster,
                     Dateposted = n.Dateposted,
@@ -73,7 +72,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             {
                 try
                 {
-                    QuickNew editquicknew = db.QuickNews.SingleOrDefault(n=>n.Id==id);
+                    QuickNew editquicknew = db.QuickNews.SingleOrDefault(n => n.Id == id);
                     editquicknew.Title = title;
                     editquicknew.Summary = summary;
                     editquicknew.Content = content;
@@ -85,10 +84,10 @@ namespace Web_MVC.Areas.Admin.Controllers
                     {
                         ID = editquicknew.Id,
                         Title = editquicknew.Title,
-                        Summary =editquicknew.Summary,
+                        Summary = editquicknew.Summary,
                         Content = editquicknew.Content,
-                        Poster=editquicknew.Poster,
-                        Dateposted=editquicknew.Dateposted,
+                        Poster = editquicknew.Poster,
+                        Dateposted = editquicknew.Dateposted,
                         Author = editquicknew.Author
                     });
                 }
@@ -104,7 +103,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 QuickNew delquicknew = db.QuickNews.SingleOrDefault(n => n.Id == id);
-                if(delquicknew !=null)
+                if (delquicknew != null)
                 {
                     db.QuickNews.Remove(delquicknew);
                     db.SaveChanges();

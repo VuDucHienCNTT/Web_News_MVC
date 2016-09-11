@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Search results News";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
@@ -29,10 +28,12 @@
                     </div>
                 </div>
                 <!-- /.box-header -->
-                @*<div style="color:red; font-size:13px;">@ViewBag.khongtimthay</div>
-                <div style="color:#000000; font-size:13px;">@ViewBag.timthay</div>*@
 
                 <div class="box-body">
+                    @*<div style="font-weight:bold; font-size:15px;">@ViewBag.search</div>
+                    <div style="font-weight:bold; font-size:15px;">@ViewBag.searchfalse</div>*@
+
+                    
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -98,8 +99,8 @@
                     </table>
                     <div class="box-tools">
                         <div class="pagination-sm no-margin pull-right">
-                            @Html.PagedListPager(Model, page => Url.Action("Search", new { page = page, @tukhoa=ViewBag.TuKhoa }))
-                        </div>                      
+                            @Html.PagedListPager(Model, page => Url.Action("Search", new { page = page, @tukhoa = ViewBag.TuKhoa }))
+                        </div>
                     </div>
                 </div>
             </div>
@@ -128,4 +129,3 @@
         </script>
     </div>
 </div>
-

@@ -16,12 +16,18 @@ namespace Web_MVC.Areas.Admin.Controllers
         public ActionResult Create(int? page)
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
-            {
-                int pageSize = 3;
-                int pageNumber = (page ?? 1);
-                return View(db.News.ToList().ToPagedList(pageNumber, pageSize));
-            }
+                if (Session["Id"] != null)
+                {
+                    int pageSize = 3;
+                    int pageNumber = (page ?? 1);
+                    return View(db.News.ToList().ToPagedList(pageNumber, pageSize));
+                }
+                else
+                {
+                    return RedirectToAction("Signin", "Account");
+                }
         }
+
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Create(FormCollection collection, int? page)
@@ -142,18 +148,19 @@ namespace Web_MVC.Areas.Admin.Controllers
             {
                 string tukhoa = collection["txtsearch"].ToString();
                 ViewBag.TuKhoa = tukhoa;
+
                 List<News> lstResult = db.News.Where(n => n.Title.Contains(tukhoa)).ToList();
                 int pageNumber = (page ?? 1);
                 int pageSize = 1;
                 if (lstResult.Count == 0)
                 {
-                    ViewBag.khongtimthay = "Không tìm thấy";
-
+                    ViewBag.searchfalse = "Không tìm thấy";
                 }
-                ViewBag.timthay = "Đã tìm thấy " + lstResult.Count + "";
+                ViewBag.search = "Đã tìm thấy " + lstResult.Count + "";
                 return View(lstResult.OrderBy(n => n.Title).ToPagedList(pageNumber, pageSize));
             }
         }
+        // Viết Hàm Get để khi sang next trang vẫn tìm kiếm đc từ khó
         [HttpGet]
         public ActionResult Search(int? page, string tukhoa)
         {
@@ -165,11 +172,12 @@ namespace Web_MVC.Areas.Admin.Controllers
                 int pageSize = 1;
                 if (lstResult.Count == 0)
                 {
-                    ViewBag.khongtimthay = "Không tìm thấy ";
+                    ViewBag.searchfalse = "Không tìm thấy ";
                 }
 
-                ViewBag.timthay = "Đã tìm thấy " + lstResult.Count + "";
+                ViewBag.search = "Đã tìm thấy " + lstResult.Count + "";
                 return View(lstResult.OrderBy(n => n.Title).ToPagedList(pageNumber, pageSize));
+
             }
         }
 

@@ -28,5 +28,6 @@ namespace Web_MVC.Models
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<QuickNew> QuickNews { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
     }
 }

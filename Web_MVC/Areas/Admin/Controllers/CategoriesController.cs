@@ -14,10 +14,16 @@ namespace Web_MVC.Areas.Admin.Controllers
         public ActionResult Create()
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
-            {
-                List<Category> lstCategory = db.Categories.ToList();
-                return View(lstCategory);
-            }
+                if (Session["Id"] != null)
+                {
+                    List<Category> lstCategory = db.Categories.ToList();
+                    return View(lstCategory);
+
+                }
+                else
+                {
+                    return RedirectToAction("Signin", "Account");
+                }
         }
 
         [HttpPost]
@@ -50,7 +56,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 Category cate = db.Categories.SingleOrDefault(n => n.Id == id);
-                if(cate == null)
+                if (cate == null)
                 {
                     Response.StatusCode = 404;
                     return null;
@@ -99,6 +105,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             {
                 string tukhoa = collection["txtsearch"].ToString();
                 ViewBag.TuKhoa = tukhoa;
+
                 List<Category> lstResult = db.Categories.Where(n => n.Name.Contains(tukhoa)).ToList();
                 int pageNumber = (page ?? 1);
                 int pageSize = 3;
@@ -111,6 +118,8 @@ namespace Web_MVC.Areas.Admin.Controllers
                 return View(lstResult.OrderBy(n => n.Name).ToList());
             }
         }
+
+        // Viết Hàm Get để khi sang next trang vẫn tìm kiếm đc từ khóa đấy 
         [HttpGet]
         public ActionResult Search(int? page, string tukhoa)
         {
