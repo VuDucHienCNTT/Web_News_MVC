@@ -19,8 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="~/Areas/Admin/Content/dist/css/AdminLTE.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="~/Areas/Admin/Content/plugins/iCheck/square/blue.css">
+
 
 </head>
 <body class="hold-transition login-page">
@@ -32,12 +31,12 @@
         <div class="login-box-body">
             <p class="login-box-msg">
                 <label>Sign in</label>
-                <br/>
+                <br />
                 @if (@ViewBag.tbDangNhap != null)
                 {
                     <label style="color:#ff0000">@ViewBag.tbDangNhap</label>
                 }
-               
+
             </p>
             @using (Html.BeginForm("Signin", "Account", FormMethod.Post))
             {
@@ -70,8 +69,7 @@
     <script src="~/Areas/Admin/Content/plugins/jQuery/jquery-2.2.3.min.js"></script>
     <!-- Bootstrap 3.3.6 -->
     <script src="~/Areas/Admin/Content/bootstrap/js/bootstrap.js"></script>
-    <!-- iCheck -->
-    <script src="~/Areas/Admin/Content/plugins/iCheck/icheck.min.js"></script>
+
 
     <!-- Bắt lỗi không nhập khi đăng nhập -->
     <script type="text/javascript" language="javascript">

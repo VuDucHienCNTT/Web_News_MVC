@@ -69,7 +69,6 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-
                                 <tr>
                                     <td>@item.Id</td>
                                     <!--Giới hạn ký tự hiển thị -->
@@ -125,7 +124,7 @@
             </div>
         </div>
 
-
+        <!--Đổi ảnh trên giao diên-->
         <script language="javascript" type="text/javascript">
             function selectImage(action, id) {
                 var finder = new CKFinder();
@@ -172,56 +171,130 @@
                         {
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label>Title</label>
-                                    <textarea name="title" rows="3" class="form-control" placeholder="Enter title. Maximum of 500 characters"></textarea>
+                                    <label id="errortitlenews">Title news</label>
+                                    <textarea name="title" id="txttitlenews" rows="3" class="form-control" placeholder="Enter title. Maximum of 500 characters"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Summary</label>
-                                    <textarea name="summary" rows="4" class="form-control" placeholder="Enter summary. Maximum of 500 characters"></textarea>
+                                    <label id="errorsummarynews">Summary news</label>
+                                    <textarea name="summary" id="txtsummarynews" rows="4" class="form-control" placeholder="Enter summary. Maximum of 500 characters"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Content</label>
-                                    <textarea id="content1" name="content"></textarea>
-                                    <script type="text/javascript">CKEDITOR.replace("content1");</script>
+                                    <label id="errorcontentnews">Content news</label>
+                                    <textarea id="txtcontentnews" name="content"></textarea>
+                                    <script type="text/javascript">CKEDITOR.replace("txtcontentnews");</script>
                                 </div>
                                 <div class="form-group">
-                                    <label>Poster</label>
-                                    <input type="text" class="form-control" name="poster" value="Ban Biên Tập" placeholder="Enter poster">
+                                    <label id="errorposternews">Poster news</label>
+                                    <input type="text" id="txtposternews" class="form-control" name="poster" value="Ban Biên Tập" placeholder="Enter poster">
                                 </div>
                                 <div class="form-group">
-                                    <label>Date posted</label>
-                                    <input type="text" class="form-control" name="dateposted" placeholder="Enter date posted">
+                                    <label id="errordatepostednews">Date posted news</label>
+                                    <input type="text" id="txtdatepostednews" class="form-control" name="dateposted" placeholder="Enter date posted">
                                 </div>
                                 <div class="form-group">
-                                    <label>Author</label>
-                                    <input type="text" class="form-control" name="author" placeholder="Enter author">
+                                    <label id="errorauthornews">Author news</label>
+                                    <input type="text" id="txtauthornews" class="form-control" name="author" placeholder="Enter author">
                                 </div>
                                 <div class="form-group">
-                                    <label>Avatar</label>
-                                    <input type="text" class="form-control" id="Avatar" name="avatar" readonly="readonly">
+                                    <label id="erroravatarnews">Avatar news</label>
+                                    <input type="text" class="form-control" id="txtavatarnews" name="avatar" readonly="readonly">
                                     <input type="button" class="btn btn-default" id="Browse" value="...">
                                 </div>
 
+                            </div>
+                        <!-- /.box-body -->
+                            <div class="modal-footer">
+                                <button type="submit" id="btnsave" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                             
+                            </div>                           
+                        }
+                        <script language="javascript" type="text/javascript">
+                                $('#btnsave').click(function () {
+                                    var err = 0;
 
-                                <script language="javascript" type="text/javascript">
+                                    if ($('#txttitlenews').val() == "") {
+                                        $('#errortitlenews').text("Title news không được bỏ trống!");
+                                        $('#errortitlenews').css("color", "red");
+                                        err++;
+                                    }
+                                    else {
+                                        $('#errortitlenews').text("Title news");
+                                        $('#errortitlenews').css("color", "#666");
+                                    }
+
+                                    if ($('#txtsummarynews').val() == "") {
+                                        $('#errorsummarynews').text("Summary news không được bỏ trống!");
+                                        $('#errorsummarynews').css("color", "red");
+                                        err++;
+                                    }
+                                    else {
+                                        $('#errorsummarynews').text("Summary news");
+                                        $('#errorsummarynews').css("color", "#666");
+                                    }
+
+
+                                    if ($('#txtposternews').val() == "") {
+                                        $('#errorposternews').text("Poster news không được bỏ trống!");
+                                        $('#errorposternews').css("color", "red");
+                                        err++;
+                                    }
+                                    else {
+                                        $('#errorposternews').text("Poster news");
+                                        $('#errorposternews').css("color", "#666");
+                                    }
+
+                                    if ($('#txtdatepostednews').val() == "") {
+                                        $('#errordatepostednews').text("Date posted news không được bỏ trống!");
+                                        $('#errordatepostednews').css("color", "red");
+                                        err++;
+                                    }
+                                    else {
+                                        $('#errordatepostednews').text("Date posted news");
+                                        $('#errordatepostednews').css("color", "#666");
+                                    }
+
+                                    if ($('#txtauthornews').val() == "") {
+                                        $('#errorauthornews').text("Author news không được bỏ trống!");
+                                        $('#errorauthornews').css("color", "red");
+                                        err++;
+                                    }
+                                    else {
+                                        $('#errorauthornews').text("Author news");
+                                        $('#errorauthornews').css("color", "#666");
+                                    }
+
+                                    if ($('#txtavatarnews').val() == "") {
+                                        $('#erroravatarnews').text("Avatar news không được bỏ trống!");
+                                        $('#erroravatarnews').css("color", "red");
+                                        err++;
+                                    }
+                                    else {
+                                        $('#erroravatarnews').text("Avatar news");
+                                        $('#erroravatarnews').css("color", "#666");
+                                    }
+
+                                    if (err != 0) {
+                                        return false;
+                                    }
+                                    else
+                                        return true;
+                                });
+                        </script>
+
+
+
+
+                        <script language="javascript" type="text/javascript">
                                     $("#Browse").click(function () {
                                         var finder = new CKFinder();
                                         finder.selectActionFunction = function (fileUrl) {
                                             //fileUrl = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
-                                            $("#Avatar").val(fileUrl);
+                                            $("#txtavatarnews").val(fileUrl);
                                         };
                                         finder.popup();
                                     });
-                                </script>
-                            </div>
-                        <!-- /.box-body -->
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Save</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        }
+                        </script>
                     </div>
-
                 </div>
             </div>
         </div>

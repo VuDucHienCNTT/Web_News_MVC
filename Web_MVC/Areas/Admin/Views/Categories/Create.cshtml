@@ -3,6 +3,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @model List<Web_MVC.Models.Category>
+
 <!--Content Header-->
 <div class="content-header">
     <h1>
@@ -83,16 +84,13 @@
         </div>
 
         <script language="javascript" type="text/javascript">
-            $('#btnsubmit').click(function ()
-            {
-                if($('#txttimkiem').val()=="")
-                {
+            $('#btnsubmit').click(function () {
+                if ($('#txttimkiem').val() == "") {
                     alert("Nhập từ khóa cần tìm kiếm");
                     return false;
                 }
             });
         </script>
-
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
@@ -107,21 +105,51 @@
                         {
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label>Category name</label>
-                                    <input type="text" class="form-control" name="categoryname" placeholder="Enter category name">
+                                    <label id="errorname">Category name</label>
+                                    <input type="text" id="txtnamecategory" class="form-control" name="categoryname" placeholder="Enter category name">
                                 </div>
                                 <div class="form-group">
-                                    <label>Parent category</label>
-                                    <input type="number" class="form-control" value="-1" name="parentcategory" placeholder="Select the parent category">
+                                    <label id="errorparent">Parent category</label>
+                                    <input type="number" id="txtparentcategory" class="form-control" value="-1" name="parentcategory" placeholder="Select the parent category">
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" id="btnsave" class="btn btn-primary">Save</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                         }
-                    </div>
 
+                        <!--Bắt lỗi textbox khi thêm mới-->
+                        <script language="javascript" type="text/javascript">
+                            $('#btnsave').click(function () {
+                                var error = 0;
+                                if ($('#txtnamecategory').val() == "") {
+                                    $('#errorname').text("Category name không được bỏ trống!");
+                                    $('#errorname').css("color", "red");
+                                    error++;
+                                }
+                                else {
+                                    $('#errorname').text("Category name");
+                                    $('#errorname').css("color", "#666");
+                                }
+                                if ($('#txtparentcategory').val() == "") {
+                                    $('#errorparent').text("Parent category không được bỏ trống!");
+                                    $('#errorparent').css("color", "red");
+                                    error++;
+                                }
+                                else {
+                                    $('#errorparent').text("Parent category");
+                                    $('#errorparent').css("color", "#666");
+                                }
+                                if (error != 0) {
+                                    return false;
+                                }
+                                else
+                                    return true;
+                            });
+                        </script>
+
+                    </div>
                 </div>
             </div>
         </div>
