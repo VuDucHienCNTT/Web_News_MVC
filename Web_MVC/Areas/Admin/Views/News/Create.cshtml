@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Create News";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
@@ -101,7 +100,7 @@
                                     }
                                     <td>@item.Poster</td>
                                     <td>@item.Dateposted</td>
-                                    <td>@item.Author</td>
+                                    <td>@item.AuthorId</td>
                                     <td><img id="img_@item.Id" onclick="selectImage('ChangeImage/@item.Id',this.id)" src="@Url.Content(item.Avatar)" height="50" width="40" title="Click change image" data-toggle="tooltip" style="cursor:pointer" /></td>
                                     <td>
                                         <div style="text-align:center;">
@@ -183,9 +182,12 @@
                                     <textarea id="txtcontentnews" name="content"></textarea>
                                     <script type="text/javascript">CKEDITOR.replace("txtcontentnews");</script>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" hidden>
                                     <label id="errorposternews">Poster news</label>
-                                    <input type="text" id="txtposternews" class="form-control" name="poster" value="Ban Biên Tập" placeholder="Enter poster">
+                                    @if (Session["Id"] != null)
+                                    {
+                                        <input type="text" id="txtposternews" class="form-control" value="@Session["Fullname"].ToString()" name="poster" placeholder="Enter poster">
+                                    }
                                 </div>
                                 <div class="form-group">
                                     <label id="errordatepostednews">Date posted news</label>
@@ -202,97 +204,97 @@
                                 </div>
 
                             </div>
-                        <!-- /.box-body -->
+                            <!-- /.box-body -->
                             <div class="modal-footer">
                                 <button type="submit" id="btnsave" class="btn btn-primary">Save</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                             
-                            </div>                           
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
                         }
                         <script language="javascript" type="text/javascript">
-                                $('#btnsave').click(function () {
-                                    var err = 0;
+                            $('#btnsave').click(function () {
+                                var err = 0;
 
-                                    if ($('#txttitlenews').val() == "") {
-                                        $('#errortitlenews').text("Title news không được bỏ trống!");
-                                        $('#errortitlenews').css("color", "red");
-                                        err++;
-                                    }
-                                    else {
-                                        $('#errortitlenews').text("Title news");
-                                        $('#errortitlenews').css("color", "#666");
-                                    }
+                                if ($('#txttitlenews').val() == "") {
+                                    $('#errortitlenews').text("Title news không được bỏ trống!");
+                                    $('#errortitlenews').css("color", "#FA5858");
+                                    err++;
+                                }
+                                else {
+                                    $('#errortitlenews').text("Title news");
+                                    $('#errortitlenews').css("color", "#666");
+                                }
 
-                                    if ($('#txtsummarynews').val() == "") {
-                                        $('#errorsummarynews').text("Summary news không được bỏ trống!");
-                                        $('#errorsummarynews').css("color", "red");
-                                        err++;
-                                    }
-                                    else {
-                                        $('#errorsummarynews').text("Summary news");
-                                        $('#errorsummarynews').css("color", "#666");
-                                    }
+                                if ($('#txtsummarynews').val() == "") {
+                                    $('#errorsummarynews').text("Summary news không được bỏ trống!");
+                                    $('#errorsummarynews').css("color", "#FA5858");
+                                    err++;
+                                }
+                                else {
+                                    $('#errorsummarynews').text("Summary news");
+                                    $('#errorsummarynews').css("color", "#666");
+                                }
 
 
-                                    if ($('#txtposternews').val() == "") {
-                                        $('#errorposternews').text("Poster news không được bỏ trống!");
-                                        $('#errorposternews').css("color", "red");
-                                        err++;
-                                    }
-                                    else {
-                                        $('#errorposternews').text("Poster news");
-                                        $('#errorposternews').css("color", "#666");
-                                    }
+                                if ($('#txtposternews').val() == "") {
+                                    $('#errorposternews').text("Poster news không được bỏ trống!");
+                                    $('#errorposternews').css("color", "#FA5858");
+                                    err++;
+                                }
+                                else {
+                                    $('#errorposternews').text("Poster news");
+                                    $('#errorposternews').css("color", "#666");
+                                }
 
-                                    if ($('#txtdatepostednews').val() == "") {
-                                        $('#errordatepostednews').text("Date posted news không được bỏ trống!");
-                                        $('#errordatepostednews').css("color", "red");
-                                        err++;
-                                    }
-                                    else {
-                                        $('#errordatepostednews').text("Date posted news");
-                                        $('#errordatepostednews').css("color", "#666");
-                                    }
+                                if ($('#txtdatepostednews').val() == "") {
+                                    $('#errordatepostednews').text("Date posted news không được bỏ trống!");
+                                    $('#errordatepostednews').css("color", "#FA5858");
+                                    err++;
+                                }
+                                else {
+                                    $('#errordatepostednews').text("Date posted news");
+                                    $('#errordatepostednews').css("color", "#666");
+                                }
 
-                                    if ($('#txtauthornews').val() == "") {
-                                        $('#errorauthornews').text("Author news không được bỏ trống!");
-                                        $('#errorauthornews').css("color", "red");
-                                        err++;
-                                    }
-                                    else {
-                                        $('#errorauthornews').text("Author news");
-                                        $('#errorauthornews').css("color", "#666");
-                                    }
+                                if ($('#txtauthornews').val() == "") {
+                                    $('#errorauthornews').text("Author news không được bỏ trống!");
+                                    $('#errorauthornews').css("color", "#FA5858");
+                                    err++;
+                                }
+                                else {
+                                    $('#errorauthornews').text("Author news");
+                                    $('#errorauthornews').css("color", "#666");
+                                }
 
-                                    if ($('#txtavatarnews').val() == "") {
-                                        $('#erroravatarnews').text("Avatar news không được bỏ trống!");
-                                        $('#erroravatarnews').css("color", "red");
-                                        err++;
-                                    }
-                                    else {
-                                        $('#erroravatarnews').text("Avatar news");
-                                        $('#erroravatarnews').css("color", "#666");
-                                    }
+                                if ($('#txtavatarnews').val() == "") {
+                                    $('#erroravatarnews').text("Avatar news không được bỏ trống!");
+                                    $('#erroravatarnews').css("color", "#FA5858");
+                                    err++;
+                                }
+                                else {
+                                    $('#erroravatarnews').text("Avatar news");
+                                    $('#erroravatarnews').css("color", "#666");
+                                }
 
-                                    if (err != 0) {
-                                        return false;
-                                    }
-                                    else
-                                        return true;
-                                });
+                                if (err != 0) {
+                                    return false;
+                                }
+                                else
+                                    return true;
+                            });
                         </script>
 
 
 
-
+                        @*Sửa ảnh*@
                         <script language="javascript" type="text/javascript">
-                                    $("#Browse").click(function () {
-                                        var finder = new CKFinder();
-                                        finder.selectActionFunction = function (fileUrl) {
-                                            //fileUrl = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
-                                            $("#txtavatarnews").val(fileUrl);
-                                        };
-                                        finder.popup();
-                                    });
+                            $("#Browse").click(function () {
+                                var finder = new CKFinder();
+                                finder.selectActionFunction = function (fileUrl) {
+                                    //fileUrl = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+                                    $("#txtavatarnews").val(fileUrl);
+                                };
+                                finder.popup();
+                            });
                         </script>
                     </div>
                 </div>

@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@model Web_MVC.Models.Author
+
+<!--Content Header-->
+<div class="content-header">
+    <h1>
+        Author
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="~/Admin/Categories/Create"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="~/Admin/Author/Create">Author</a></li>
+        <li class="active"><a href="~/Admin/Author/Create">Create New</a></li>
+    </ol>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Edit Author</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" title="collapse" data-toggle="tooltip" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" title="remove" data-toggle="tooltip" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+
+                @using (Html.BeginForm())
+                {
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label id="errorname">Author name</label>
+                            <input type="text" id="txtauthorname" value="@Model.Name" class="form-control" name="authorname">
+                        </div>
+                        <div class="form-group">
+                            <label id="errorparent">Author address</label>
+                            <input type="text" id="txtauthoraddress" value="@Model.Address" class="form-control" name="authoraddress">
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

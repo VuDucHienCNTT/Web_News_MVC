@@ -39,7 +39,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             string summary = collection["summary"].ToString();
             string content = collection["content"].ToString();
             string dateposted = collection["dateposted"].ToString();
-            string author = collection["author"].ToString();
+            int authorid = int.Parse(collection["author"].ToString());
             string poster = collection["poster"].ToString();
             string avatar = collection["avatar"].ToString();
 
@@ -50,7 +50,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 news.Summary = summary;
                 news.Content = content;
                 news.Dateposted = dateposted;
-                news.Author = author;
+                news.AuthorId = authorid;
                 news.Poster = poster;
                 news.Avatar = avatar;
 
@@ -83,7 +83,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             string summary = collection["summary"].ToString();
             string content = collection["content"].ToString();
             string dateposted = collection["dateposted"].ToString();
-            string author = collection["author"].ToString();
+            int authorid = int.Parse(collection["author"].ToString());
             string poster = collection["poster"].ToString();
             string avatar = collection["avatar"].ToString();
 
@@ -94,7 +94,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 news.Summary = summary;
                 news.Content = content;
                 news.Dateposted = dateposted;
-                news.Author = author;
+                news.AuthorId = authorid;
                 news.Poster = poster;
                 news.Avatar = avatar;
 
@@ -149,7 +149,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 string tukhoa = collection["txtsearch"].ToString();
                 ViewBag.TuKhoa = tukhoa;
 
-                List<News> lstResult = db.News.Where(n => n.Title.Contains(tukhoa)).ToList();
+                List<News> lstResult = db.News.Where(n => n.Title.Contains(tukhoa)||n.Content.Contains(tukhoa)).ToList();
                 int pageNumber = (page ?? 1);
                 int pageSize = 1;
                 if (lstResult.Count == 0)
@@ -160,7 +160,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 return View(lstResult.OrderBy(n => n.Title).ToPagedList(pageNumber, pageSize));
             }
         }
-        // Viết Hàm Get để khi sang next trang vẫn tìm kiếm đc từ khó
+        // Viết Hàm Get để khi sang next trang vẫn tìm kiếm đc từ khóa
         [HttpGet]
         public ActionResult Search(int? page, string tukhoa)
         {

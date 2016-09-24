@@ -12,16 +12,23 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Fullname" Type="nvarchar" MaxLength="100" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
-          <Property Name="Username" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="Confirmpassword" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Address" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="ParentId" Type="int" />
         </EntityType>
         <EntityType Name="News">
@@ -33,7 +40,7 @@
           <Property Name="Summary" Type="nvarchar" MaxLength="500" />
           <Property Name="Content" Type="nvarchar(max)" />
           <Property Name="Dateposted" Type="nvarchar" MaxLength="50" />
-          <Property Name="Author" Type="nvarchar" MaxLength="50" />
+          <Property Name="AuthorId" Type="int" />
           <Property Name="Poster" Type="nvarchar" MaxLength="50" />
           <Property Name="Avatar" Type="nvarchar" MaxLength="250" />
         </EntityType>
@@ -49,22 +56,65 @@
           <Property Name="Dateposted" Type="nvarchar" MaxLength="50" />
           <Property Name="Author" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Category_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Web_NEWS_MVCModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuickNews" EntityType="Self.QuickNews" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Category_Category" Association="Self.FK_Category_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_Author" Association="Self.FK_News_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Web_NEWS_MVCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fullname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Confirmpassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ParentId" Type="Int32" />
           <NavigationProperty Name="Category1" Relationship="Web_NEWS_MVCModel.FK_Category_Category" FromRole="Category" ToRole="Category1" />
           <NavigationProperty Name="Category2" Relationship="Web_NEWS_MVCModel.FK_Category_Category" FromRole="Category1" ToRole="Category" />
@@ -78,9 +128,10 @@
           <Property Name="Summary" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Dateposted" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Poster" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Avatar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AuthorId" Type="Int32" />
+          <NavigationProperty Name="Author1" Relationship="Web_NEWS_MVCModel.FK_News_Author" FromRole="News" ToRole="Author" />
         </EntityType>
         <EntityType Name="QuickNew">
           <Key>
@@ -95,6 +146,7 @@
           <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="Web_NEWS_MVCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="News" EntityType="Self.News" />
           <EntitySet Name="QuickNews" EntityType="Self.QuickNew" />
@@ -102,7 +154,11 @@
             <End Role="Category" EntitySet="Categories" />
             <End Role="Category1" EntitySet="Categories" />
           </AssociationSet>
-          <EntitySet Name="Accounts" EntityType="Web_NEWS_MVCModel.Account" />
+          <EntitySet Name="Authors" EntityType="Web_NEWS_MVCModel.Author" />
+          <AssociationSet Name="FK_News_Author" Association="Web_NEWS_MVCModel.FK_News_Author">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Category_Category">
           <End Type="Web_NEWS_MVCModel.Category" Role="Category" Multiplicity="0..1" />
@@ -116,41 +172,62 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Account">
+        <EntityType Name="Author">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fullname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Confirmpassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="News" Relationship="Web_NEWS_MVCModel.FK_News_Author" FromRole="Author" ToRole="News" />
         </EntityType>
+        <Association Name="FK_News_Author">
+          <End Type="Web_NEWS_MVCModel.Author" Role="Author" Multiplicity="0..1" />
+          <End Type="Web_NEWS_MVCModel.News" Role="News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Web_NEWS_MVCModelStoreContainer" CdmEntityContainer="Web_NEWS_MVCEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="Web_NEWS_MVCModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Confirmpassword" ColumnName="Confirmpassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="Web_NEWS_MVCModel.Category">
               <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="News">
             <EntityTypeMapping TypeName="Web_NEWS_MVCModel.News">
               <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Summary" ColumnName="Summary" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Dateposted" ColumnName="Dateposted" />
-                <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="Poster" ColumnName="Poster" />
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
               </MappingFragment>
@@ -169,14 +246,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="Web_NEWS_MVCModel.Account">
-              <MappingFragment StoreEntitySet="Account">
-                <ScalarProperty Name="Confirmpassword" ColumnName="Confirmpassword" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="Web_NEWS_MVCModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

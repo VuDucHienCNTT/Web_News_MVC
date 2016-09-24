@@ -105,7 +105,7 @@
                                         @if (Session["Id"] != null)
                                         {
                                             //ActionLink(Tenhienthi,Action,Controller)
-                                            <button class="btn btn-default btn-flat"> @Html.ActionLink("Sign out", "Logout", "Account")</button>
+                                            <button class="btn btn-default">@Html.ActionLink("Sign out", "Logout", "Account") <i class="glyphicon glyphicon-log-out"></i></button>
                                         }
                                     </div>
                                 </li>
@@ -155,17 +155,53 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li class="header">NAVIGATION</li>
-                    <li class="active">
+                    <li>
                         <a href="#">
-                            <i class="fa fa-dashboard"></i> <span>Menu Manage</span>
+                            <i class="fa fa-dashboard"></i> <span>Account</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="~/Admin/Account/Index"><i class="glyphicon glyphicon-user"></i> <span>Account</span></a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>Categories</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="~/Admin/Categories/Create"><i class="glyphicon glyphicon-book"></i> <span>Categories</span></a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>Author</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="~/Admin/Author/Create"><i class="glyphicon glyphicon-hand-right"></i> <span>Author</span></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="active">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>Article</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
                             <li><a href="~/Admin/News/Create"><i class="fa fa-newspaper-o"></i> <span>News</span></a></li>
                             <li><a href="~/Admin/QuickNews/Index"><i class="fa fa-newspaper-o"></i> <span>Quick News</span></a></li>
+
                         </ul>
                     </li>
 

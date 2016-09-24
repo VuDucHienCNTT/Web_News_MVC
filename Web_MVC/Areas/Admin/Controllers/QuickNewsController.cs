@@ -13,6 +13,7 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             return View();
         }
+
         // GET: //QuickNews/LoadQuickNews/
         public JsonResult LoadQuickNews()
         {

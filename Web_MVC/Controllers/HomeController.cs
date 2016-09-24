@@ -13,7 +13,7 @@ namespace Web_MVC.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            List<Category> lstCategory = db.Categories.Where(n => n.ParentId == -1).ToList();
+            List<Category> lstCategory = db.Categories.Where(n => n.ParentId == null).ToList();
             return View(lstCategory);
         }
     }

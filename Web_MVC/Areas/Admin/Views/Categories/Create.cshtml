@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label id="errorparent">Parent category</label>
-                                    <input type="number" id="txtparentcategory" class="form-control" value="-1" name="parentcategory" placeholder="Select the parent category">
+                                    <input type="text" id="txtparentcategory" class="form-control" name="parentcategory" placeholder="Select the parent category">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -125,22 +125,22 @@
                                 var error = 0;
                                 if ($('#txtnamecategory').val() == "") {
                                     $('#errorname').text("Category name không được bỏ trống!");
-                                    $('#errorname').css("color", "red");
+                                    $('#errorname').css("color", "#FA5858");
                                     error++;
                                 }
                                 else {
                                     $('#errorname').text("Category name");
                                     $('#errorname').css("color", "#666");
                                 }
-                                if ($('#txtparentcategory').val() == "") {
-                                    $('#errorparent').text("Parent category không được bỏ trống!");
-                                    $('#errorparent').css("color", "red");
-                                    error++;
-                                }
-                                else {
-                                    $('#errorparent').text("Parent category");
-                                    $('#errorparent').css("color", "#666");
-                                }
+                                //if ($('#txtparentcategory').val() == "") {
+                                //    $('#errorparent').text("Parent category không được bỏ trống!");
+                                //    $('#errorparent').css("color", "#FA5858");
+                                //    error++;
+                                //}
+                                //else {
+                                //    $('#errorparent').text("Parent category");
+                                //    $('#errorparent').css("color", "#666");
+                                //}
                                 if (error != 0) {
                                     return false;
                                 }

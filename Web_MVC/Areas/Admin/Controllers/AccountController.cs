@@ -15,6 +15,43 @@ namespace Web_MVC.Areas.Admin.Controllers
             return View();
         }
 
+        //GET: //Account/LoadAccount
+        public JsonResult LoadAccount()
+        {
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
+            {
+                var lstAccount = db.Accounts.Select(n => new
+                {
+                    ID = n.Id,
+                    FullName = n.Fullname,
+                    Email = n.Email,
+                    PassWord = n.Password,
+                    ConfPassWord =n.Confirmpassword
+                }).ToList();
+                return Json(new { Account1 = lstAccount}, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // POST: //Account/DelAccount/
+        public int DelAccount(int id)
+        {
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
+            {
+                Account delaccount = db.Accounts.SingleOrDefault(n => n.Id == id);
+                if (delaccount != null)
+                {
+                    db.Accounts.Remove(delaccount);
+                    db.SaveChanges();
+                    return id;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+
+
         public ActionResult Signup()
         {
             return View();
@@ -25,7 +62,6 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             string fullname = collection["fullname"].ToString();
             string email = collection["email"].ToString();
-            string username = collection["username"].ToString();
             string password = collection["password"].ToString();
             string confpassword = collection["confpassword"].ToString();
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
@@ -33,7 +69,6 @@ namespace Web_MVC.Areas.Admin.Controllers
                 Account acc = new Account();
                 acc.Fullname = fullname;
                 acc.Email = email;
-                acc.Username = username;
                 acc.Password = password;
                 acc.Confirmpassword = confpassword;
                 db.Accounts.Add(acc);
@@ -55,7 +90,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             {
                 using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
                 {
-                    var u = db.Accounts.SingleOrDefault(n => n.Username.Equals(user.Username) && n.Password.Equals(user.Password));
+                    var u = db.Accounts.SingleOrDefault(n => n.Email.Equals(user.Email) && n.Password.Equals(user.Password));
                     if (u != null)
                     {
                         Session["Id"] = u.Id.ToString();
@@ -65,7 +100,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                     }
                     else
                     {
-                        ViewBag.tbDangNhap = "Username hoặc Password không đúng!";
+                        ViewBag.tbDangNhap = "Email hoặc Password không đúng!";
                         return View();
                     }
 
@@ -80,5 +115,6 @@ namespace Web_MVC.Areas.Admin.Controllers
             Session.Clear();
             return RedirectToAction("Signin");
         }
+
     }
 }

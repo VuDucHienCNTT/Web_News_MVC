@@ -12,17 +12,19 @@ namespace Web_MVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class News
+    public partial class Author
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Summary { get; set; }
-        public string Content { get; set; }
-        public string Dateposted { get; set; }
-        public string Poster { get; set; }
-        public string Avatar { get; set; }
-        public Nullable<int> AuthorId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Author()
+        {
+            this.News = new HashSet<News>();
+        }
     
-        public virtual Author Author1 { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<News> News { get; set; }
     }
 }

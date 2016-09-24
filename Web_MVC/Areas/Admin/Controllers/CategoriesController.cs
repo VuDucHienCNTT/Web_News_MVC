@@ -9,6 +9,7 @@ namespace Web_MVC.Areas.Admin.Controllers
 {
     public class CategoriesController : Controller
     {
+
         // GET: Admin/Categories
         [HttpGet]
         public ActionResult Create()
@@ -18,7 +19,6 @@ namespace Web_MVC.Areas.Admin.Controllers
                 {
                     List<Category> lstCategory = db.Categories.ToList();
                     return View(lstCategory);
-
                 }
                 else
                 {
@@ -32,7 +32,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 string cateGoryname = collection["categoryname"].ToString();
-                int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : -1;
+                int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : 0;
 
                 //Them chuyen muc vao csdl
                 //Khoi tao doi tuong muon them vao csdl
@@ -71,7 +71,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 string cateGoryname = collection["categoryname"].ToString();
-                int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : -1;
+                int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : 0;
                 Category cate = db.Categories.SingleOrDefault(n => n.Id == id);
                 cate.Name = cateGoryname;
                 cate.ParentId = parentCategory;

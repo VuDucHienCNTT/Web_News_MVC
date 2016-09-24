@@ -1,24 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="Web_NEWS_MVCModelStoreContainer" CdmEntityContainer="Web_NEWS_MVCEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="Web_NEWS_MVCModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Confirmpassword" ColumnName="Confirmpassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="Web_NEWS_MVCModel.Category">
         <MappingFragment StoreEntitySet="Category">
-          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="News">
       <EntityTypeMapping TypeName="Web_NEWS_MVCModel.News">
         <MappingFragment StoreEntitySet="News">
+          <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Summary" ColumnName="Summary" />
           <ScalarProperty Name="Content" ColumnName="Content" />
           <ScalarProperty Name="Dateposted" ColumnName="Dateposted" />
-          <ScalarProperty Name="Author" ColumnName="Author" />
           <ScalarProperty Name="Poster" ColumnName="Poster" />
           <ScalarProperty Name="Avatar" ColumnName="Avatar" />
         </MappingFragment>
@@ -37,14 +48,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Accounts">
-      <EntityTypeMapping TypeName="Web_NEWS_MVCModel.Account">
-        <MappingFragment StoreEntitySet="Account">
-          <ScalarProperty Name="Confirmpassword" ColumnName="Confirmpassword" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+    <EntitySetMapping Name="Authors">
+      <EntityTypeMapping TypeName="Web_NEWS_MVCModel.Author">
+        <MappingFragment StoreEntitySet="Author">
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
