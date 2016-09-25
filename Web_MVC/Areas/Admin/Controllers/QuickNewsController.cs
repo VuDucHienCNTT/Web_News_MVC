@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Web_MVC.Models;
+using PagedList;
+using PagedList.Mvc;
 namespace Web_MVC.Areas.Admin.Controllers
 {
     public class QuickNewsController : Controller
@@ -19,21 +21,25 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
+                //
+                ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
+                ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
+
                 var lstQuickNews = db.QuickNews.Select(n => new
                 {
                     ID = n.Id,
                     Title = n.Title,
                     Summary = n.Summary,
                     Content = n.Content,
-                    Poster = n.Poster,
+                    PosterId = n.PosterId,
                     Dateposted = n.Dateposted,
-                    Author = n.Author
+                    AuthorId = n.AuthorId
                 }).ToList();
                 return Json(new { QuickNews1 = lstQuickNews }, JsonRequestBehavior.AllowGet);
             }
         }
         // POST: //QuickNews/AddQuickNews/
-        public JsonResult AddQuickNews(string title, string summary, string content, string poster, string dateposted, string author)
+        public JsonResult AddQuickNews(string title, string summary, string content, int posterid, string dateposted, int authorid)
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
@@ -44,9 +50,9 @@ namespace Web_MVC.Areas.Admin.Controllers
                     addquicknew.Title = title;
                     addquicknew.Summary = summary;
                     addquicknew.Content = content;
-                    addquicknew.Poster = poster;
+                    addquicknew.PosterId = posterid;
                     addquicknew.Dateposted = dateposted;
-                    addquicknew.Author = author;
+                    addquicknew.AuthorId = authorid;
                     db.QuickNews.Add(addquicknew);
                     db.SaveChanges();
                     return Json(new
@@ -55,9 +61,9 @@ namespace Web_MVC.Areas.Admin.Controllers
                         Title = addquicknew.Title,
                         Summary = addquicknew.Summary,
                         Content = addquicknew.Content,
-                        Poster = addquicknew.Poster,
+                        PosterId = addquicknew.PosterId,
                         Dateposted = addquicknew.Dateposted,
-                        Author = addquicknew.Author
+                        AuthorId = addquicknew.AuthorId
                     });
                 }
                 catch
@@ -67,7 +73,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             }
         }
         // POST: //QuickNews/EditQuickNews/
-        public JsonResult EditQuickNews(int id, string title, string summary, string content, string poster, string dateposted, string author)
+        public JsonResult EditQuickNews(int id, string title, string summary, string content, int posterid, string dateposted, int authorid)
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
@@ -77,9 +83,9 @@ namespace Web_MVC.Areas.Admin.Controllers
                     editquicknew.Title = title;
                     editquicknew.Summary = summary;
                     editquicknew.Content = content;
-                    editquicknew.Poster = poster;
+                    editquicknew.PosterId = posterid;
                     editquicknew.Dateposted = dateposted;
-                    editquicknew.Author = author;
+                    editquicknew.AuthorId = authorid;
                     db.SaveChanges();
                     return Json(new
                     {
@@ -87,9 +93,9 @@ namespace Web_MVC.Areas.Admin.Controllers
                         Title = editquicknew.Title,
                         Summary = editquicknew.Summary,
                         Content = editquicknew.Content,
-                        Poster = editquicknew.Poster,
+                        PosterId = editquicknew.PosterId,
                         Dateposted = editquicknew.Dateposted,
-                        Author = editquicknew.Author
+                        AuthorId = editquicknew.AuthorId
                     });
                 }
                 catch
@@ -114,6 +120,29 @@ namespace Web_MVC.Areas.Admin.Controllers
                 {
                     return -1;
                 }
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Search(FormCollection collection, int? page)
+        {
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
+            {
+                string tukhoa = collection["txtsearch"].ToString();
+                ViewBag.TuKhoa = tukhoa;
+                ////
+                //ViewBag.Poster = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
+                //ViewBag.Author = new SelectList(db.Authors.ToList(), "Id", "Name");
+
+                List<QuickNew> lstResult = db.QuickNews.Where(n => n.Title.Contains(tukhoa) || n.Summary.Contains(tukhoa)).ToList();
+                int pageNumber = (page ?? 1);
+                int pageSize = 1;
+                if (lstResult.Count == 0)
+                {
+                    ViewBag.searchfalse = "Không tìm thấy";
+                }
+                ViewBag.search = "Đã tìm thấy " + lstResult.Count + "";
+                return View(lstResult.OrderBy(n => n.Title).ToPagedList(pageNumber, pageSize));
             }
         }
     }

@@ -9,6 +9,19 @@
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Confirmpassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Avatar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="News" Relationship="Self.FK_News_Account" FromRole="Account" ToRole="News" />
+    <NavigationProperty Name="QuickNews" Relationship="Self.FK_QuickNews_Account" FromRole="Account" ToRole="QuickNews" />
+  </EntityType>
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="News" Relationship="Self.FK_News_Author" FromRole="Author" ToRole="News" />
+    <NavigationProperty Name="QuickNews" Relationship="Self.FK_QuickNews_Author" FromRole="Author" ToRole="QuickNews" />
   </EntityType>
   <EntityType Name="Category">
     <Key>
@@ -17,8 +30,9 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ParentId" Type="Int32" />
-    <NavigationProperty Name="Category1" Relationship="Web_NEWS_MVCModel.FK_Category_Category" FromRole="Category" ToRole="Category1" />
-    <NavigationProperty Name="Category2" Relationship="Web_NEWS_MVCModel.FK_Category_Category" FromRole="Category1" ToRole="Category" />
+    <Property Name="Url" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Category1" Relationship="Self.FK_Category_Category" FromRole="Category" ToRole="Category1" />
+    <NavigationProperty Name="Category2" Relationship="Self.FK_Category_Category" FromRole="Category1" ToRole="Category" />
   </EntityType>
   <EntityType Name="News">
     <Key>
@@ -29,10 +43,11 @@
     <Property Name="Summary" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Dateposted" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Poster" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AuthorId" Type="Int32" Nullable="false" />
+    <Property Name="PosterId" Type="Int32" Nullable="false" />
     <Property Name="Avatar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="AuthorId" Type="Int32" />
-    <NavigationProperty Name="Author1" Relationship="Web_NEWS_MVCModel.FK_News_Author" FromRole="News" ToRole="Author" />
+    <NavigationProperty Name="Account" Relationship="Self.FK_News_Account" FromRole="News" ToRole="Account" />
+    <NavigationProperty Name="Author" Relationship="Self.FK_News_Author" FromRole="News" ToRole="Author" />
   </EntityType>
   <EntityType Name="QuickNew">
     <Key>
@@ -42,49 +57,39 @@
     <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Summary" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Poster" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PosterId" Type="Int32" Nullable="false" />
     <Property Name="Dateposted" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AuthorId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Account" Relationship="Self.FK_QuickNews_Account" FromRole="QuickNews" ToRole="Account" />
+    <NavigationProperty Name="Author" Relationship="Self.FK_QuickNews_Author" FromRole="QuickNews" ToRole="Author" />
   </EntityType>
-  <EntityContainer Name="Web_NEWS_MVCEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Accounts" EntityType="Self.Account" />
-    <EntitySet Name="Categories" EntityType="Self.Category" />
-    <EntitySet Name="News" EntityType="Self.News" />
-    <EntitySet Name="QuickNews" EntityType="Self.QuickNew" />
-    <AssociationSet Name="FK_Category_Category" Association="Web_NEWS_MVCModel.FK_Category_Category">
-      <End Role="Category" EntitySet="Categories" />
-      <End Role="Category1" EntitySet="Categories" />
-    </AssociationSet>
-    <EntitySet Name="Authors" EntityType="Web_NEWS_MVCModel.Author" />
-    <AssociationSet Name="FK_News_Author" Association="Web_NEWS_MVCModel.FK_News_Author">
-      <End Role="Author" EntitySet="Authors" />
-      <End Role="News" EntitySet="News" />
-    </AssociationSet>
-  </EntityContainer>
-  <Association Name="FK_Category_Category">
-    <End Type="Web_NEWS_MVCModel.Category" Role="Category" Multiplicity="0..1" />
-    <End Type="Web_NEWS_MVCModel.Category" Role="Category1" Multiplicity="*" />
+  <Association Name="FK_News_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="News" Type="Self.News" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Category">
+      <Principal Role="Account">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Category1">
-        <PropertyRef Name="ParentId" />
+      <Dependent Role="News">
+        <PropertyRef Name="PosterId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="Author">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="News" Relationship="Web_NEWS_MVCModel.FK_News_Author" FromRole="Author" ToRole="News" />
-  </EntityType>
+  <Association Name="FK_QuickNews_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="QuickNews" Type="Self.QuickNew" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="QuickNews">
+        <PropertyRef Name="PosterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_News_Author">
-    <End Type="Web_NEWS_MVCModel.Author" Role="Author" Multiplicity="0..1" />
-    <End Type="Web_NEWS_MVCModel.News" Role="News" Multiplicity="*" />
+    <End Role="Author" Type="Self.Author" Multiplicity="1" />
+    <End Role="News" Type="Self.News" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Author">
         <PropertyRef Name="Id" />
@@ -94,4 +99,55 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_QuickNews_Author">
+    <End Role="Author" Type="Self.Author" Multiplicity="1" />
+    <End Role="QuickNews" Type="Self.QuickNew" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="QuickNews">
+        <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Category_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Category1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Web_NEWS_MVCEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="Self.Account" />
+    <EntitySet Name="Authors" EntityType="Self.Author" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="News" EntityType="Self.News" />
+    <EntitySet Name="QuickNews" EntityType="Self.QuickNew" />
+    <AssociationSet Name="FK_News_Account" Association="Self.FK_News_Account">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuickNews_Account" Association="Self.FK_QuickNews_Account">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="QuickNews" EntitySet="QuickNews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_News_Author" Association="Self.FK_News_Author">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuickNews_Author" Association="Self.FK_QuickNews_Author">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="QuickNews" EntitySet="QuickNews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Category_Category" Association="Self.FK_Category_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Category1" EntitySet="Categories" />
+    </AssociationSet>
+  </EntityContainer>
 </Schema>

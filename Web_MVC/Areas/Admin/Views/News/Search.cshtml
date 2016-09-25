@@ -12,7 +12,9 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="~/Admin/Categories/Create"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="~/Admin/News/Create">News</a></li>
+        <li><a href="~/Admin/News/Create">Create New</a></li>
+        <li><a href="~/Admin/News/Search">Search</a></li>
+
     </ol>
 </div>
 
@@ -41,9 +43,9 @@
                                 <th>News Title</th>
                                 <th>News Summary</th>
                                 <th>News Content</th>
-                                <th>Poster</th>
+                                <th>PosterId</th>
                                 <th>Date Posted</th>
-                                <th>Author</th>
+                                <th>AuthorId</th>
                                 <th>Avatar</th>
                                 <th style="text-align:center;">Option</th>
                             </tr>
@@ -82,9 +84,9 @@
                                     {
                                         <td>@Html.Raw(@item.Content)</td>
                                     }
-                                    <td>@item.Poster</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Account.Fullname)</td>
                                     <td>@item.Dateposted</td>
-                                    <td>@item.Author</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Author.Name)</td>
                                     <td><img id="img_@item.Id" onclick="selectImage('ChangeImage/@item.Id',this.id)" src="@Url.Content(item.Avatar)" height="50" width="40" title="Click change image" data-toggle="tooltip" style="cursor:pointer" /></td>
                                     <td>
                                         <div style="text-align:center;">

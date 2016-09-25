@@ -20,6 +20,10 @@ namespace Web_MVC.Areas.Admin.Controllers
                 {
                     int pageSize = 3;
                     int pageNumber = (page ?? 1);
+
+                    ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
+                    ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
+
                     return View(db.News.ToList().ToPagedList(pageNumber, pageSize));
                 }
                 else
@@ -39,19 +43,22 @@ namespace Web_MVC.Areas.Admin.Controllers
             string summary = collection["summary"].ToString();
             string content = collection["content"].ToString();
             string dateposted = collection["dateposted"].ToString();
-            int authorid = int.Parse(collection["author"].ToString());
-            string poster = collection["poster"].ToString();
+            int authorid = int.Parse(collection["authorid"].ToString());
+            int posterid = int.Parse(collection["posterid"].ToString());
             string avatar = collection["avatar"].ToString();
 
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
+                ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
+                ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
+
                 News news = new News();
                 news.Title = title;
                 news.Summary = summary;
                 news.Content = content;
                 news.Dateposted = dateposted;
                 news.AuthorId = authorid;
-                news.Poster = poster;
+                news.PosterId = posterid;
                 news.Avatar = avatar;
 
                 db.News.Add(news);
@@ -83,8 +90,8 @@ namespace Web_MVC.Areas.Admin.Controllers
             string summary = collection["summary"].ToString();
             string content = collection["content"].ToString();
             string dateposted = collection["dateposted"].ToString();
-            int authorid = int.Parse(collection["author"].ToString());
-            string poster = collection["poster"].ToString();
+            int authorid = int.Parse(collection["authorid"].ToString());
+            int posterid = int.Parse(collection["posterid"].ToString());
             string avatar = collection["avatar"].ToString();
 
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
@@ -95,7 +102,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 news.Content = content;
                 news.Dateposted = dateposted;
                 news.AuthorId = authorid;
-                news.Poster = poster;
+                news.PosterId = posterid;
                 news.Avatar = avatar;
 
                 db.SaveChanges();
@@ -125,7 +132,7 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
-                if (id == null)
+                if (id == 0)
                 {
                     return "Mã không tồn tại";
                 }
@@ -148,8 +155,11 @@ namespace Web_MVC.Areas.Admin.Controllers
             {
                 string tukhoa = collection["txtsearch"].ToString();
                 ViewBag.TuKhoa = tukhoa;
+                //
+                ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
+                ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
 
-                List<News> lstResult = db.News.Where(n => n.Title.Contains(tukhoa)||n.Content.Contains(tukhoa)).ToList();
+                List<News> lstResult = db.News.Where(n => n.Title.Contains(tukhoa) || n.Summary.Contains(tukhoa)).ToList();
                 int pageNumber = (page ?? 1);
                 int pageSize = 1;
                 if (lstResult.Count == 0)
@@ -157,7 +167,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                     ViewBag.searchfalse = "Không tìm thấy";
                 }
                 ViewBag.search = "Đã tìm thấy " + lstResult.Count + "";
-                return View(lstResult.OrderBy(n => n.Title).ToPagedList(pageNumber, pageSize));
+                return View(lstResult.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
             }
         }
         // Viết Hàm Get để khi sang next trang vẫn tìm kiếm đc từ khóa
@@ -167,7 +177,11 @@ namespace Web_MVC.Areas.Admin.Controllers
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 ViewBag.TuKhoa = tukhoa;
-                List<News> lstResult = db.News.Where(n => n.Title.Contains(tukhoa)).ToList();
+                //
+                ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
+                ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
+
+                List<News> lstResult = db.News.Where(n => n.Title.Contains(tukhoa) || n.Summary.Contains(tukhoa)).ToList();
                 int pageNumber = (page ?? 1);
                 int pageSize = 1;
                 if (lstResult.Count == 0)
@@ -176,7 +190,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 }
 
                 ViewBag.search = "Đã tìm thấy " + lstResult.Count + "";
-                return View(lstResult.OrderBy(n => n.Title).ToPagedList(pageNumber, pageSize));
+                return View(lstResult.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
 
             }
         }

@@ -88,5 +88,28 @@ namespace Web_MVC.Areas.Admin.Controllers
                 return RedirectToAction("Create");
             }
         }
+
+
+        [HttpPost]
+        public ActionResult Search(FormCollection collection, int? page)
+        {
+            using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
+            {
+                string tukhoa = collection["txtsearch"].ToString();
+                ViewBag.TuKhoa = tukhoa;
+
+                List<Author> lstResult = db.Authors.Where(n => n.Name.Contains(tukhoa)).ToList();
+                int pageNumber = (page ?? 1);
+                int pageSize = 3;
+                if (lstResult.Count == 0)
+                {
+                    ViewBag.khongtimthay = "Không tìm thấy";
+
+                }
+                ViewBag.timthay = "Đã tìm thấy " + lstResult.Count + "";
+                return View(lstResult.OrderBy(n => n.Name).ToList());
+            }
+        }
+
     }
 }

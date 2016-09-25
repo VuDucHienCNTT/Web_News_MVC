@@ -19,10 +19,11 @@ namespace Web_MVC.Models
         public string Summary { get; set; }
         public string Content { get; set; }
         public string Dateposted { get; set; }
-        public string Poster { get; set; }
+        public int AuthorId { get; set; }
+        public int PosterId { get; set; }
         public string Avatar { get; set; }
-        public Nullable<int> AuthorId { get; set; }
     
-        public virtual Author Author1 { get; set; }
+        public virtual Account Account { get; set; }
+        public virtual Author Author { get; set; }
     }
 }

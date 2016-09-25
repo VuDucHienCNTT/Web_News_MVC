@@ -15,6 +15,7 @@ namespace Web_MVC.Areas.Admin.Controllers
         public ActionResult Create()
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
+            {
                 if (Session["Id"] != null)
                 {
                     List<Category> lstCategory = db.Categories.ToList();
@@ -24,6 +25,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 {
                     return RedirectToAction("Signin", "Account");
                 }
+            }
         }
 
         [HttpPost]
@@ -31,14 +33,16 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
-                string cateGoryname = collection["categoryname"].ToString();
+                string nameCategory = collection["namecategory"].ToString();
                 int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : 0;
+                string urlCategory = collection["urlcategory"].ToString();
 
                 //Them chuyen muc vao csdl
                 //Khoi tao doi tuong muon them vao csdl
                 Category cate = new Category();
-                cate.Name = cateGoryname;
+                cate.Name = nameCategory;
                 cate.ParentId = parentCategory;
+                cate.Url = urlCategory;
 
                 //Them doi tuong vao csdl
                 db.Categories.Add(cate);
@@ -48,6 +52,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 //Lay danh sach chuyen muc trong csdl tra ve view
                 List<Category> lstCategory = db.Categories.ToList();
                 return View(lstCategory);
+
             }
         }
         [HttpGet]
@@ -70,11 +75,14 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
-                string cateGoryname = collection["categoryname"].ToString();
+                string nameCategory = collection["namecategory"].ToString();
                 int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : 0;
+                string urlCategory = collection["urlcategory"].ToString();
+
                 Category cate = db.Categories.SingleOrDefault(n => n.Id == id);
-                cate.Name = cateGoryname;
+                cate.Name = nameCategory;
                 cate.ParentId = parentCategory;
+                cate.Url = urlCategory;
 
                 db.SaveChanges();
                 return RedirectToAction("Create");
@@ -112,7 +120,6 @@ namespace Web_MVC.Areas.Admin.Controllers
                 if (lstResult.Count == 0)
                 {
                     ViewBag.khongtimthay = "Không tìm thấy";
-
                 }
                 ViewBag.timthay = "Đã tìm thấy " + lstResult.Count + "";
                 return View(lstResult.OrderBy(n => n.Name).ToList());

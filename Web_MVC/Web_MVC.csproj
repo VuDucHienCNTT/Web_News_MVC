@@ -266,10 +266,14 @@
     <Content Include="Areas\Admin\Content\dist\js\demo.js" />
     <Content Include="Areas\Admin\Content\dist\js\pages\dashboard.js" />
     <Content Include="Areas\Admin\Content\dist\js\pages\dashboard2.js" />
-    <Content Include="Areas\Admin\Content\Images\images\Images\1.jpg" />
-    <Content Include="Areas\Admin\Content\Images\images\Images\2.jpg" />
-    <Content Include="Areas\Admin\Content\Images\images\Images\3.jpg" />
-    <Content Include="Areas\Admin\Content\Images\images\Images\iniesta1.jpg" />
+    <Content Include="Areas\Admin\Content\Images\images\Account\avatar.png" />
+    <Content Include="Areas\Admin\Content\Images\images\Account\avatar04.png" />
+    <Content Include="Areas\Admin\Content\Images\images\Account\avatar2.png" />
+    <Content Include="Areas\Admin\Content\Images\images\Account\avatar3.png" />
+    <Content Include="Areas\Admin\Content\Images\images\Account\avatar5.png" />
+    <Content Include="Areas\Admin\Content\Images\images\Account\user1-128x128.jpg" />
+    <Content Include="Areas\Admin\Content\Images\images\Account\user2-160x160.jpg" />
+    <Content Include="Areas\Admin\Content\Images\images\Account\user8-128x128.jpg" />
     <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\1.jpg" />
     <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\2.jpg" />
     <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\iniesta1.jpg" />
@@ -1954,6 +1958,8 @@
     <Content Include="Areas\Admin\Views\Account\Signup.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Signin.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Author\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Author\Edit.cshtml" />
     <EntityDeploy Include="Models\News_Web.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>News_Web.Designer.cs</LastGenOutput>
@@ -1961,8 +1967,8 @@
     <Content Include="Models\News_Web.edmx.diagram">
       <DependentUpon>News_Web.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\Author\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Author\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\QuickNews\Search.cshtml" />
+    <Content Include="Areas\Admin\Views\Author\Search.cshtml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />

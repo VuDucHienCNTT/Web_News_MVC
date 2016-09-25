@@ -9,6 +9,16 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Confirmpassword" ColumnName="Confirmpassword" />
+          <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Authors">
+      <EntityTypeMapping TypeName="Web_NEWS_MVCModel.Author">
+        <MappingFragment StoreEntitySet="Author">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -18,19 +28,20 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="News">
       <EntityTypeMapping TypeName="Web_NEWS_MVCModel.News">
         <MappingFragment StoreEntitySet="News">
-          <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Summary" ColumnName="Summary" />
           <ScalarProperty Name="Content" ColumnName="Content" />
           <ScalarProperty Name="Dateposted" ColumnName="Dateposted" />
-          <ScalarProperty Name="Poster" ColumnName="Poster" />
+          <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+          <ScalarProperty Name="PosterId" ColumnName="PosterId" />
           <ScalarProperty Name="Avatar" ColumnName="Avatar" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -42,18 +53,9 @@
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Summary" ColumnName="Summary" />
           <ScalarProperty Name="Content" ColumnName="Content" />
-          <ScalarProperty Name="Poster" ColumnName="Poster" />
+          <ScalarProperty Name="PosterId" ColumnName="PosterId" />
           <ScalarProperty Name="Dateposted" ColumnName="Dateposted" />
-          <ScalarProperty Name="Author" ColumnName="Author" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Authors">
-      <EntityTypeMapping TypeName="Web_NEWS_MVCModel.Author">
-        <MappingFragment StoreEntitySet="Author">
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

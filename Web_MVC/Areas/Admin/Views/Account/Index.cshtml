@@ -24,6 +24,7 @@
                         "<td>" + data.Account1[i].Email + "</td>" +
                         "<td>" + data.Account1[i].PassWord + "</td>" +
                         "<td hidden>" + data.Account1[i].ConfPassWord + "</td>" +
+                        "<td style='text-align:center' >" + "<img src=" + data.Account1[i].Avatar + " height='30' width='30'/>" + "</td>" +
                         "<td>" +
                         "<div style='text-align:center'>" +
                          "<a href='javascript:void(0)' data-toggle='tooltip' title='Delete' onclick=DelAccount(" + data.Account1[i].ID + ")><i class='glyphicon glyphicon-trash'></i></a>" +
@@ -49,7 +50,7 @@
                 data: {
                     'id': id
                 },
-                cache:false,
+                cache: false,
                 success: function (id) {
                     $("#tblAccount tbody #row-" + id + "").remove();
                 },
@@ -60,8 +61,8 @@
             });
         }
     }
-
 </script>
+
 
 
 <!--Content Header-->
@@ -97,12 +98,14 @@
                                 <th>Email</th>
                                 <th>Password</th>
                                 <th hidden>Confirm password</th>
-                                <th style="text-align:center;">Option</th>
+                                <th style="text-align:center">Avatar</th>
+                                <th style="text-align:center">Option</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
-                    </table>
+                        <tbody>
 
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -98,9 +98,9 @@
                                     {
                                         <td>@Html.Raw(@item.Content)</td>
                                     }
-                                    <td>@item.Poster</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Account.Fullname)</td>
                                     <td>@item.Dateposted</td>
-                                    <td>@item.AuthorId</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Author.Name)</td>
                                     <td><img id="img_@item.Id" onclick="selectImage('ChangeImage/@item.Id',this.id)" src="@Url.Content(item.Avatar)" height="50" width="40" title="Click change image" data-toggle="tooltip" style="cursor:pointer" /></td>
                                     <td>
                                         <div style="text-align:center;">
@@ -145,7 +145,6 @@
             }
         </script>
 
-
         @*Bắt lỗi không nhập từ khóa tìm kiếm*@
         <script language="javascript" type="text/javascript">
             $('#btnsubmit').click(function () {
@@ -155,7 +154,6 @@
                 }
             });
         </script>
-
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
@@ -182,12 +180,10 @@
                                     <textarea id="txtcontentnews" name="content"></textarea>
                                     <script type="text/javascript">CKEDITOR.replace("txtcontentnews");</script>
                                 </div>
-                                <div class="form-group" hidden>
+                                <div class="form-group">
                                     <label id="errorposternews">Poster news</label>
-                                    @if (Session["Id"] != null)
-                                    {
-                                        <input type="text" id="txtposternews" class="form-control" value="@Session["Fullname"].ToString()" name="poster" placeholder="Enter poster">
-                                    }
+                                    @Html.DropDownList("PosterId", null, new { @class = "form-control" })
+
                                 </div>
                                 <div class="form-group">
                                     <label id="errordatepostednews">Date posted news</label>
@@ -195,7 +191,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label id="errorauthornews">Author news</label>
-                                    <input type="text" id="txtauthornews" class="form-control" name="author" placeholder="Enter author">
+                                    @Html.DropDownList("AuthorId", null, new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label id="erroravatarnews">Avatar news</label>
@@ -283,9 +279,7 @@
                             });
                         </script>
 
-
-
-                        @*Sửa ảnh*@
+                        @*thêm ảnh*@
                         <script language="javascript" type="text/javascript">
                             $("#Browse").click(function () {
                                 var finder = new CKFinder();

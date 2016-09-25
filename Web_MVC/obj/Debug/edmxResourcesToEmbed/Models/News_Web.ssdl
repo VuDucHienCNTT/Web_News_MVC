@@ -9,6 +9,7 @@
     <Property Name="Email" Type="nvarchar" MaxLength="50" />
     <Property Name="Password" Type="nvarchar" MaxLength="50" />
     <Property Name="Confirmpassword" Type="nvarchar" MaxLength="50" />
+    <Property Name="Avatar" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="Author">
     <Key>
@@ -25,6 +26,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="ParentId" Type="int" />
+    <Property Name="Url" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="News">
     <Key>
@@ -35,8 +37,8 @@
     <Property Name="Summary" Type="nvarchar" MaxLength="500" />
     <Property Name="Content" Type="nvarchar(max)" />
     <Property Name="Dateposted" Type="nvarchar" MaxLength="50" />
-    <Property Name="AuthorId" Type="int" />
-    <Property Name="Poster" Type="nvarchar" MaxLength="50" />
+    <Property Name="AuthorId" Type="int" Nullable="false" />
+    <Property Name="PosterId" Type="int" Nullable="false" />
     <Property Name="Avatar" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="QuickNews">
@@ -47,9 +49,9 @@
     <Property Name="Title" Type="nvarchar" MaxLength="250" />
     <Property Name="Summary" Type="nvarchar" MaxLength="250" />
     <Property Name="Content" Type="nvarchar(max)" />
-    <Property Name="Poster" Type="nvarchar" MaxLength="50" />
+    <Property Name="PosterId" Type="int" Nullable="false" />
     <Property Name="Dateposted" Type="nvarchar" MaxLength="50" />
-    <Property Name="Author" Type="nvarchar" MaxLength="50" />
+    <Property Name="AuthorId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_Category_Category">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
@@ -63,14 +65,50 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_News_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="PosterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_News_Author">
-    <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+    <End Role="Author" Type="Self.Author" Multiplicity="1" />
     <End Role="News" Type="Self.News" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Author">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="News">
+        <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuickNews_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="QuickNews" Type="Self.QuickNews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="QuickNews">
+        <PropertyRef Name="PosterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuickNews_Author">
+    <End Role="Author" Type="Self.Author" Multiplicity="1" />
+    <End Role="QuickNews" Type="Self.QuickNews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="QuickNews">
         <PropertyRef Name="AuthorId" />
       </Dependent>
     </ReferentialConstraint>
@@ -85,9 +123,21 @@
       <End Role="Category" EntitySet="Category" />
       <End Role="Category1" EntitySet="Category" />
     </AssociationSet>
+    <AssociationSet Name="FK_News_Account" Association="Self.FK_News_Account">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
     <AssociationSet Name="FK_News_Author" Association="Self.FK_News_Author">
       <End Role="Author" EntitySet="Author" />
       <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuickNews_Account" Association="Self.FK_QuickNews_Account">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="QuickNews" EntitySet="QuickNews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuickNews_Author" Association="Self.FK_QuickNews_Author">
+      <End Role="Author" EntitySet="Author" />
+      <End Role="QuickNews" EntitySet="QuickNews" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

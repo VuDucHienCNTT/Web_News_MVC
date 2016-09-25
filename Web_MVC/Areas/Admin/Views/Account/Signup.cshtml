@@ -20,6 +20,10 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="~/Areas/Admin/Content/dist/css/AdminLTE.css">
 
+    <script src="~/Areas/Admin/Content/plugins/jQuery/jquery-2.2.3.min.js"></script>
+   @* <script src="~/Areas/Admin/Content/plugins/ckeditor/ckeditor.js"></script>*@
+    <script src="~/Areas/Admin/Content/plugins/ckfinder/ckfinder.js"></script>
+
 </head>
 <body class="hold-transition register-page">
     <div class="register-box">
@@ -42,32 +46,40 @@
                     <input type="text" id="txtfullname" name="fullname" class="form-control" placeholder="Fullname">
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
-                    <div class="form-group has-feedback">
-                        <label id="erroremail">Email</label>
-                        <input type="email" id="txtemail" name="email" class="form-control" placeholder="Email">
-                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                    </div>
 
-                    <div class="form-group has-feedback">
-                        <label id="errorpassword">Password</label>
-                        <input type="password" id="txtpassword" name="password" class="form-control" placeholder="Password">
-                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label id="errorconfirmpassword">Confirm password</label>
-                        <input type="password" id="txtconfirmpassword" name="confpassword" class="form-control" placeholder="Confirm password">
-                        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-8">
+                <div class="form-group has-feedback">
+                    <label id="erroremail">Email</label>
+                    <input type="email" id="txtemail" name="email" class="form-control" placeholder="Email">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
 
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-xs-4">
-                            <button type="submit" id="btnsubmit" class="btn btn-primary btn-block btn-flat">Sign Up</button>
-                        </div>
-                        <!-- /.col -->
+                <div class="form-group has-feedback">
+                    <label id="erroravatar">Avatar</label>
+                    <input type="text" id="txtavatar" name="avatar" class="form-control" readonly="readonly" placeholder="Avatar">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    <input type="button" class="btn btn-default" id="Browse" value="...">
+                </div>
+
+                <div class="form-group has-feedback">
+                    <label id="errorpassword">Password</label>
+                    <input type="password" id="txtpassword" name="password" class="form-control" placeholder="Password">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <label id="errorconfirmpassword">Confirm password</label>
+                    <input type="password" id="txtconfirmpassword" name="confpassword" class="form-control" placeholder="Confirm password">
+                    <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+
                     </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" id="btnsubmit" class="btn btn-primary btn-block btn-flat">Sign Up</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
             }
             <a href="~/Admin/Account/Signin" class="text-center">I already have an account</a>
         </div>
@@ -106,6 +118,16 @@
                 $('#erroremail').css("color", "#666");
             }
 
+            if ($('#txtavatar').val() == "") {
+                $('#erroravatar').text("Avatar không được bỏ trống!");
+                $('#erroravatar').css("color", "#FA5858");
+                error++;
+            }
+            else {
+                $('#erroravatar').text("Avatar");
+                $('#erroravatar').css("color", "#666");
+            }
+
             if ($('#txtpassword').val() == "") {
                 $('#errorpassword').text("Password không được bỏ trống!");
                 $('#errorpassword').css("color", "#FA5858");
@@ -121,8 +143,7 @@
                 $('#errorconfirmpassword').css("color", "#FA5858");
                 error++;
             }
-            else if ($('#txtpassword').val() != $('#txtconfirmpassword').val())
-            {
+            else if ($('#txtpassword').val() != $('#txtconfirmpassword').val()) {
                 $('#errorconfirmpassword').text("Confirm password không khớp!");
                 $('#errorconfirmpassword').css("color", "#FA5858");
                 error++;
@@ -137,6 +158,18 @@
             }
             else
                 return true;
+        });
+    </script>
+
+    @*Sửa ảnh*@
+    <script language="javascript" type="text/javascript">
+        $("#Browse").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                //fileUrl = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+                $("#txtavatar").val(fileUrl);
+            };
+            finder.popup();
         });
     </script>
 

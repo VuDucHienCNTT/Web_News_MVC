@@ -58,6 +58,7 @@
                                 <th>Categories id</th>
                                 <th>Categories name</th>
                                 <th>Parent Categories</th>
+                                <th>Url Categories</th>
                                 <th style="text-align:center;">Option</th>
                             </tr>
                         </thead>
@@ -68,6 +69,7 @@
                                     <td>@item.Id</td>
                                     <td>@item.Name</td>
                                     <td>@item.ParentId</td>
+                                    <td>@item.Url</td>
                                     <td>
                                         <div class="tools" style="text-align:center;">
                                             <a href="~/Admin/Categories/Edit/@item.Id"><i class="glyphicon glyphicon-edit" data-toggle="tooltip" title="Edit"></i></a>
@@ -106,11 +108,15 @@
                             <div class="box-body">
                                 <div class="form-group">
                                     <label id="errorname">Category name</label>
-                                    <input type="text" id="txtnamecategory" class="form-control" name="categoryname" placeholder="Enter category name">
+                                    <input type="text" id="txtnamecategory" class="form-control" name="namecategory" placeholder="Enter name category">
                                 </div>
                                 <div class="form-group">
                                     <label id="errorparent">Parent category</label>
                                     <input type="text" id="txtparentcategory" class="form-control" name="parentcategory" placeholder="Select the parent category">
+                                </div>
+                                <div class="form-group">
+                                    <label id="errorurl">Category url</label>
+                                    <input type="text" id="txturlcategory" class="form-control" name="urlcategory" placeholder="Enter url category">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -132,6 +138,7 @@
                                     $('#errorname').text("Category name");
                                     $('#errorname').css("color", "#666");
                                 }
+                                
                                 //if ($('#txtparentcategory').val() == "") {
                                 //    $('#errorparent').text("Parent category không được bỏ trống!");
                                 //    $('#errorparent').css("color", "#FA5858");
@@ -141,6 +148,16 @@
                                 //    $('#errorparent').text("Parent category");
                                 //    $('#errorparent').css("color", "#666");
                                 //}
+
+                                if ($('#txturlcategory').val() == "") {
+                                    $('#errorurl').text("Category url không được bỏ trống!");
+                                    $('#errorurl').css("color", "#FA5858");
+                                    error++;
+                                }
+                                else {
+                                    $('#errorurl').text("Category url");
+                                    $('#errorurl').css("color", "#666");
+                                }
                                 if (error != 0) {
                                     return false;
                                 }

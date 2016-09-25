@@ -26,7 +26,8 @@ namespace Web_MVC.Areas.Admin.Controllers
                     FullName = n.Fullname,
                     Email = n.Email,
                     PassWord = n.Password,
-                    ConfPassWord =n.Confirmpassword
+                    ConfPassWord =n.Confirmpassword,
+                    Avatar= n.Avatar
                 }).ToList();
                 return Json(new { Account1 = lstAccount}, JsonRequestBehavior.AllowGet);
             }
@@ -64,6 +65,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             string email = collection["email"].ToString();
             string password = collection["password"].ToString();
             string confpassword = collection["confpassword"].ToString();
+            string avatar = collection["avatar"].ToString();
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 Account acc = new Account();
@@ -71,6 +73,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 acc.Email = email;
                 acc.Password = password;
                 acc.Confirmpassword = confpassword;
+                acc.Avatar = avatar;
                 db.Accounts.Add(acc);
                 db.SaveChanges();
                 ViewBag.tbDangKy = acc.Fullname + "  đăng ký thành công!";
@@ -96,11 +99,12 @@ namespace Web_MVC.Areas.Admin.Controllers
                         Session["Id"] = u.Id.ToString();
                         Session["Fullname"] = u.Fullname.ToString();
                         Session["Email"] = u.Email.ToString();
+                        Session["Avatar"] = u.Avatar.ToString();
                         return RedirectToAction("Create", "Categories");
                     }
                     else
                     {
-                        ViewBag.tbDangNhap = "Email hoặc Password không đúng!";
+                        ViewBag.tbDangNhap = "Email và/hoặc Password không đúng!";
                         return View();
                     }
 
