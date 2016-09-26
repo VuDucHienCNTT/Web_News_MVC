@@ -33,6 +33,8 @@
     <Property Name="Url" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Category1" Relationship="Self.FK_Category_Category" FromRole="Category" ToRole="Category1" />
     <NavigationProperty Name="Category2" Relationship="Self.FK_Category_Category" FromRole="Category1" ToRole="Category" />
+    <NavigationProperty Name="News" Relationship="Web_NEWS_MVCModel.FK_News_Category" FromRole="Category" ToRole="News" />
+    <NavigationProperty Name="QuickNews" Relationship="Web_NEWS_MVCModel.FK_QuickNews_Category" FromRole="Category" ToRole="QuickNew" />
   </EntityType>
   <EntityType Name="News">
     <Key>
@@ -48,6 +50,8 @@
     <Property Name="Avatar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Account" Relationship="Self.FK_News_Account" FromRole="News" ToRole="Account" />
     <NavigationProperty Name="Author" Relationship="Self.FK_News_Author" FromRole="News" ToRole="Author" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Web_NEWS_MVCModel.FK_News_Category" FromRole="News" ToRole="Category" />
   </EntityType>
   <EntityType Name="QuickNew">
     <Key>
@@ -62,6 +66,8 @@
     <Property Name="AuthorId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Account" Relationship="Self.FK_QuickNews_Account" FromRole="QuickNews" ToRole="Account" />
     <NavigationProperty Name="Author" Relationship="Self.FK_QuickNews_Author" FromRole="QuickNews" ToRole="Author" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Web_NEWS_MVCModel.FK_QuickNews_Category" FromRole="QuickNew" ToRole="Category" />
   </EntityType>
   <Association Name="FK_News_Account">
     <End Role="Account" Type="Self.Account" Multiplicity="1" />
@@ -149,5 +155,37 @@
       <End Role="Category" EntitySet="Categories" />
       <End Role="Category1" EntitySet="Categories" />
     </AssociationSet>
+    <AssociationSet Name="FK_News_Category" Association="Web_NEWS_MVCModel.FK_News_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuickNews_Category" Association="Web_NEWS_MVCModel.FK_QuickNews_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="QuickNew" EntitySet="QuickNews" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_News_Category">
+    <End Type="Web_NEWS_MVCModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="Web_NEWS_MVCModel.News" Role="News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuickNews_Category">
+    <End Type="Web_NEWS_MVCModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="Web_NEWS_MVCModel.QuickNew" Role="QuickNew" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="QuickNew">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

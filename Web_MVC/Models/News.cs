@@ -22,8 +22,10 @@ namespace Web_MVC.Models
         public int AuthorId { get; set; }
         public int PosterId { get; set; }
         public string Avatar { get; set; }
+        public int CategoryId { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual Author Author { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

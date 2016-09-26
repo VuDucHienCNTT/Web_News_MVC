@@ -15,6 +15,8 @@
         <AssociationConnector Association="Web_NEWS_MVCModel.FK_News_Author" ManuallyRouted="false" />
         <AssociationConnector Association="Web_NEWS_MVCModel.FK_QuickNews_Author" ManuallyRouted="false" />
         <AssociationConnector Association="Web_NEWS_MVCModel.FK_Category_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_NEWS_MVCModel.FK_News_Category" />
+        <AssociationConnector Association="Web_NEWS_MVCModel.FK_QuickNews_Category" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

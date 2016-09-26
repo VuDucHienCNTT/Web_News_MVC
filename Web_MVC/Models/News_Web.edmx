@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Web_NEWS_MVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Web_NEWS_MVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="Id" />
@@ -45,6 +45,7 @@
           <Property Name="AuthorId" Type="int" Nullable="false" />
           <Property Name="PosterId" Type="int" Nullable="false" />
           <Property Name="Avatar" Type="nvarchar" MaxLength="250" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="QuickNews">
           <Key>
@@ -57,6 +58,7 @@
           <Property Name="PosterId" Type="int" Nullable="false" />
           <Property Name="Dateposted" Type="nvarchar" MaxLength="50" />
           <Property Name="AuthorId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Category_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
@@ -94,6 +96,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_News_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_QuickNews_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
           <End Role="QuickNews" Type="Self.QuickNews" Multiplicity="*" />
@@ -118,6 +132,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_QuickNews_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="QuickNews" Type="Self.QuickNews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuickNews">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Web_NEWS_MVCModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
@@ -136,6 +162,10 @@
             <End Role="Author" EntitySet="Author" />
             <End Role="News" EntitySet="News" />
           </AssociationSet>
+          <AssociationSet Name="FK_News_Category" Association="Self.FK_News_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
           <AssociationSet Name="FK_QuickNews_Account" Association="Self.FK_QuickNews_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="QuickNews" EntitySet="QuickNews" />
@@ -144,9 +174,12 @@
             <End Role="Author" EntitySet="Author" />
             <End Role="QuickNews" EntitySet="QuickNews" />
           </AssociationSet>
+          <AssociationSet Name="FK_QuickNews_Category" Association="Self.FK_QuickNews_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="QuickNews" EntitySet="QuickNews" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Web_NEWS_MVCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -183,6 +216,8 @@
           <Property Name="Url" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Category1" Relationship="Self.FK_Category_Category" FromRole="Category" ToRole="Category1" />
           <NavigationProperty Name="Category2" Relationship="Self.FK_Category_Category" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="News" Relationship="Web_NEWS_MVCModel.FK_News_Category" FromRole="Category" ToRole="News" />
+          <NavigationProperty Name="QuickNews" Relationship="Web_NEWS_MVCModel.FK_QuickNews_Category" FromRole="Category" ToRole="QuickNew" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -198,6 +233,8 @@
           <Property Name="Avatar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Account" Relationship="Self.FK_News_Account" FromRole="News" ToRole="Account" />
           <NavigationProperty Name="Author" Relationship="Self.FK_News_Author" FromRole="News" ToRole="Author" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Web_NEWS_MVCModel.FK_News_Category" FromRole="News" ToRole="Category" />
         </EntityType>
         <EntityType Name="QuickNew">
           <Key>
@@ -212,6 +249,8 @@
           <Property Name="AuthorId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="Self.FK_QuickNews_Account" FromRole="QuickNews" ToRole="Account" />
           <NavigationProperty Name="Author" Relationship="Self.FK_QuickNews_Author" FromRole="QuickNews" ToRole="Author" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Web_NEWS_MVCModel.FK_QuickNews_Category" FromRole="QuickNew" ToRole="Category" />
         </EntityType>
         <Association Name="FK_News_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
@@ -299,7 +338,39 @@
             <End Role="Category" EntitySet="Categories" />
             <End Role="Category1" EntitySet="Categories" />
           </AssociationSet>
+          <AssociationSet Name="FK_News_Category" Association="Web_NEWS_MVCModel.FK_News_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuickNews_Category" Association="Web_NEWS_MVCModel.FK_QuickNews_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="QuickNew" EntitySet="QuickNews" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_News_Category">
+          <End Type="Web_NEWS_MVCModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="Web_NEWS_MVCModel.News" Role="News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuickNews_Category">
+          <End Type="Web_NEWS_MVCModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="Web_NEWS_MVCModel.QuickNew" Role="QuickNew" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuickNew">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -340,6 +411,7 @@
           <EntitySetMapping Name="News">
             <EntityTypeMapping TypeName="Web_NEWS_MVCModel.News">
               <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Summary" ColumnName="Summary" />
@@ -354,6 +426,7 @@
           <EntitySetMapping Name="QuickNews">
             <EntityTypeMapping TypeName="Web_NEWS_MVCModel.QuickNew">
               <MappingFragment StoreEntitySet="QuickNews">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Summary" ColumnName="Summary" />

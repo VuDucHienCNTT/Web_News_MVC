@@ -35,6 +35,7 @@
     <EntitySetMapping Name="News">
       <EntityTypeMapping TypeName="Web_NEWS_MVCModel.News">
         <MappingFragment StoreEntitySet="News">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Summary" ColumnName="Summary" />
@@ -49,6 +50,7 @@
     <EntitySetMapping Name="QuickNews">
       <EntityTypeMapping TypeName="Web_NEWS_MVCModel.QuickNew">
         <MappingFragment StoreEntitySet="QuickNews">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Summary" ColumnName="Summary" />

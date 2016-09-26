@@ -40,6 +40,7 @@
     <Property Name="AuthorId" Type="int" Nullable="false" />
     <Property Name="PosterId" Type="int" Nullable="false" />
     <Property Name="Avatar" Type="nvarchar" MaxLength="250" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="QuickNews">
     <Key>
@@ -52,6 +53,7 @@
     <Property Name="PosterId" Type="int" Nullable="false" />
     <Property Name="Dateposted" Type="nvarchar" MaxLength="50" />
     <Property Name="AuthorId" Type="int" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_Category_Category">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
@@ -89,6 +91,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_News_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_QuickNews_Account">
     <End Role="Account" Type="Self.Account" Multiplicity="1" />
     <End Role="QuickNews" Type="Self.QuickNews" Multiplicity="*" />
@@ -113,6 +127,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_QuickNews_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="QuickNews" Type="Self.QuickNews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="QuickNews">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="Web_NEWS_MVCModelStoreContainer">
     <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
@@ -131,12 +157,20 @@
       <End Role="Author" EntitySet="Author" />
       <End Role="News" EntitySet="News" />
     </AssociationSet>
+    <AssociationSet Name="FK_News_Category" Association="Self.FK_News_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
     <AssociationSet Name="FK_QuickNews_Account" Association="Self.FK_QuickNews_Account">
       <End Role="Account" EntitySet="Account" />
       <End Role="QuickNews" EntitySet="QuickNews" />
     </AssociationSet>
     <AssociationSet Name="FK_QuickNews_Author" Association="Self.FK_QuickNews_Author">
       <End Role="Author" EntitySet="Author" />
+      <End Role="QuickNews" EntitySet="QuickNews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuickNews_Category" Association="Self.FK_QuickNews_Category">
+      <End Role="Category" EntitySet="Category" />
       <End Role="QuickNews" EntitySet="QuickNews" />
     </AssociationSet>
   </EntityContainer>

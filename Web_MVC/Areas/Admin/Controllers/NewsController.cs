@@ -23,7 +23,9 @@ namespace Web_MVC.Areas.Admin.Controllers
 
                     ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
                     ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
+                    ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
 
+                    List<News> lstCategory = db.News.ToList();
                     return View(db.News.ToList().ToPagedList(pageNumber, pageSize));
                 }
                 else
@@ -46,11 +48,13 @@ namespace Web_MVC.Areas.Admin.Controllers
             int authorid = int.Parse(collection["authorid"].ToString());
             int posterid = int.Parse(collection["posterid"].ToString());
             string avatar = collection["avatar"].ToString();
+            int categoryid = int.Parse(collection["categoryid"].ToString());
 
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
                 ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
+                ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
 
                 News news = new News();
                 news.Title = title;
@@ -60,6 +64,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 news.AuthorId = authorid;
                 news.PosterId = posterid;
                 news.Avatar = avatar;
+                news.CategoryId = categoryid;
 
                 db.News.Add(news);
                 db.SaveChanges();
@@ -72,6 +77,10 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
+                ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");            
+                ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
+                ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
+
                 News news = db.News.SingleOrDefault(n => n.Id == id);
                 if (news == null)
                 {
@@ -93,9 +102,14 @@ namespace Web_MVC.Areas.Admin.Controllers
             int authorid = int.Parse(collection["authorid"].ToString());
             int posterid = int.Parse(collection["posterid"].ToString());
             string avatar = collection["avatar"].ToString();
+            int categoryid = int.Parse(collection["categoryid"].ToString());
 
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
+                ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
+                ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
+                ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
+
                 News news = db.News.SingleOrDefault(n => n.Id == id);
                 news.Title = title;
                 news.Summary = summary;
@@ -104,6 +118,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 news.AuthorId = authorid;
                 news.PosterId = posterid;
                 news.Avatar = avatar;
+                news.CategoryId = categoryid;
 
                 db.SaveChanges();
 
@@ -125,8 +140,6 @@ namespace Web_MVC.Areas.Admin.Controllers
                 return RedirectToAction("Create");
             }
         }
-
-
 
         public string ChangeImage(int id, string avatar)
         {
@@ -158,6 +171,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 //
                 ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
                 ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
+                ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
 
                 List<News> lstResult = db.News.Where(n => n.Title.Contains(tukhoa) || n.Summary.Contains(tukhoa)).ToList();
                 int pageNumber = (page ?? 1);
@@ -180,6 +194,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 //
                 ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
                 ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
+                ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
 
                 List<News> lstResult = db.News.Where(n => n.Title.Contains(tukhoa) || n.Summary.Contains(tukhoa)).ToList();
                 int pageNumber = (page ?? 1);
