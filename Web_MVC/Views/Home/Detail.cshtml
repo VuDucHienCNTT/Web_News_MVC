@@ -1,0 +1,29 @@
+﻿@using Web_MVC.Models;
+@model News
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="page-content" class="index-page container">
+    <div class="row">
+        <div id="main-content" style="padding-left:10px;padding-right:5px;">
+            <!-- background not working -->
+            <div class="col-md-8">
+                <h5 class="vid-name" style="color:#0026ff">@Model.Title</h5>
+                <h6 style="line-height:1.5">@Model.Summary</h6>
+                <div class="info">
+                    <h5>Poster by:<a> @Model.Account.Fullname</a></h5>
+                    <span><i class="fa fa-calendar"></i>@Model.Dateposted</span>
+
+                </div>
+                <p style="margin-top: 10px">
+                    @Html.Raw(@Model.Content)
+                </p>
+                <div class="info">
+                    <h5 style="float:right"><a>@Model.Author.Name</a></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

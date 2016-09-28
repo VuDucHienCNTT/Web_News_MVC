@@ -13,8 +13,21 @@ namespace Web_MVC.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            List<Category> lstCategory = db.Categories.Where(n => n.ParentId == null).ToList();
-            return View(lstCategory);
+            List<object> mymodel = new List<object>();
+            mymodel.Add(db.Categories.Where(n => n.ParentId == null).ToList());
+            mymodel.Add(db.News.Take(4).ToList());
+            return View(mymodel);
+        }
+     
+        public ActionResult Detail(int id = 0)
+        {
+            News news = db.News.SingleOrDefault(n => n.Id == id);
+            if (news == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(news);
         }
     }
 }

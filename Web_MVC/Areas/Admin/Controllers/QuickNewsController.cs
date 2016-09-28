@@ -10,20 +10,44 @@ namespace Web_MVC.Areas.Admin.Controllers
 {
     public class QuickNewsController : Controller
     {
+        Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities();
         // GET: Admin/QuickNews
         public ActionResult Index()
         {
             return View();
         }
 
+        public JsonResult GetAuthor()
+        {
+            //ok, nó không convert được đối tượng Author, mà phải tạo cái mới
+            var authors = from a in db.Authors select new { id = a.Id, name = a.Name };
+                return Json(authors.ToList(),JsonRequestBehavior.AllowGet);
+            
+        }
+        public JsonResult GetPoster()
+        {
+            var posters = from a in db.Accounts select new { id = a.Id, name = a.Fullname };
+            return Json(posters.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetCategory()
+        {
+            var categorys = from a in db.Categories select new { id = a.Id, name = a.Name };
+            return Json(categorys.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+
+        //public ActionResult GetAuthors()
+        //{
+        //    return View(db.Authors.ToList());
+        //}
         // GET: //QuickNews/LoadQuickNews/
         public JsonResult LoadQuickNews()
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 //
-                ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
-                ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
+                //ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
+                //ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
 
                 var lstQuickNews = db.QuickNews.Select(n => new
                 {
@@ -33,13 +57,14 @@ namespace Web_MVC.Areas.Admin.Controllers
                     Content = n.Content,
                     PosterId = n.PosterId,
                     Dateposted = n.Dateposted,
-                    AuthorId = n.AuthorId
+                    AuthorId = n.AuthorId,
+                    CategoryId=n.CategoryId
                 }).ToList();
                 return Json(new { QuickNews1 = lstQuickNews }, JsonRequestBehavior.AllowGet);
             }
         }
         // POST: //QuickNews/AddQuickNews/
-        public JsonResult AddQuickNews(string title, string summary, string content, int posterid, string dateposted, int authorid)
+        public JsonResult AddQuickNews(string title, string summary, string content, int posterid, string dateposted, int authorid,int categoryid)
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
@@ -53,6 +78,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                     addquicknew.PosterId = posterid;
                     addquicknew.Dateposted = dateposted;
                     addquicknew.AuthorId = authorid;
+                    addquicknew.CategoryId = categoryid;
                     db.QuickNews.Add(addquicknew);
                     db.SaveChanges();
                     return Json(new
@@ -63,7 +89,8 @@ namespace Web_MVC.Areas.Admin.Controllers
                         Content = addquicknew.Content,
                         PosterId = addquicknew.PosterId,
                         Dateposted = addquicknew.Dateposted,
-                        AuthorId = addquicknew.AuthorId
+                        AuthorId = addquicknew.AuthorId,
+                        CategoryId = addquicknew.CategoryId
                     });
                 }
                 catch
@@ -73,7 +100,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             }
         }
         // POST: //QuickNews/EditQuickNews/
-        public JsonResult EditQuickNews(int id, string title, string summary, string content, int posterid, string dateposted, int authorid)
+        public JsonResult EditQuickNews(int id, string title, string summary, string content, int posterid, string dateposted, int authorid, int categoryid)
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
@@ -86,6 +113,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                     editquicknew.PosterId = posterid;
                     editquicknew.Dateposted = dateposted;
                     editquicknew.AuthorId = authorid;
+                    editquicknew.CategoryId = categoryid;
                     db.SaveChanges();
                     return Json(new
                     {
@@ -95,7 +123,8 @@ namespace Web_MVC.Areas.Admin.Controllers
                         Content = editquicknew.Content,
                         PosterId = editquicknew.PosterId,
                         Dateposted = editquicknew.Dateposted,
-                        AuthorId = editquicknew.AuthorId
+                        AuthorId = editquicknew.AuthorId,
+                        CategoryId = editquicknew.CategoryId
                     });
                 }
                 catch

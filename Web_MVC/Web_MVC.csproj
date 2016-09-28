@@ -160,7 +160,6 @@
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuickNewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -275,6 +274,9 @@
     <Content Include="Areas\Admin\Content\Images\images\Account\user1-128x128.jpg" />
     <Content Include="Areas\Admin\Content\Images\images\Account\user2-160x160.jpg" />
     <Content Include="Areas\Admin\Content\Images\images\Account\user8-128x128.jpg" />
+    <Content Include="Areas\Admin\Content\Images\images\Article\1.jpg" />
+    <Content Include="Areas\Admin\Content\Images\images\Article\10.jpg" />
+    <Content Include="Areas\Admin\Content\Images\images\Article\6.jpg" />
     <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\1.jpg" />
     <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\2.jpg" />
     <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\iniesta1.jpg" />
@@ -1970,6 +1972,7 @@
     </Content>
     <Content Include="Areas\Admin\Views\QuickNews\Search.cshtml" />
     <Content Include="Areas\Admin\Views\Author\Search.cshtml" />
+    <Content Include="Areas\Admin\Views\QuickNews\GetAuthors.cshtml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
@@ -2002,7 +2005,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\Home\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

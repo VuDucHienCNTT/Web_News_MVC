@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="~/Areas/Admin/Content/dist/css/AdminLTE.css">
 
     <script src="~/Areas/Admin/Content/plugins/jQuery/jquery-2.2.3.min.js"></script>
-   @* <script src="~/Areas/Admin/Content/plugins/ckeditor/ckeditor.js"></script>*@
     <script src="~/Areas/Admin/Content/plugins/ckfinder/ckfinder.js"></script>
 
 </head>
@@ -53,11 +52,11 @@
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
 
-                <div class="form-group has-feedback">
+                <div hidden class="form-group has-feedback">
                     <label id="erroravatar">Avatar</label>
-                    <input type="text" id="txtavatar" name="avatar" class="form-control" readonly="readonly" placeholder="Avatar">
+                    <input type="text" id="txtavatar" name="avatar" class="form-control" value="/Areas/Admin/Content/Images/images/Account/avatar5.png" readonly="readonly" placeholder="Avatar">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                    <input type="button" class="btn btn-default" id="Browse" value="...">
+                    @*<input type="button" class="btn btn-default" id="Browse" value="...">*@
                 </div>
 
                 <div class="form-group has-feedback">
@@ -118,15 +117,15 @@
                 $('#erroremail').css("color", "#666");
             }
 
-            if ($('#txtavatar').val() == "") {
-                $('#erroravatar').text("Avatar không được bỏ trống!");
-                $('#erroravatar').css("color", "#FA5858");
-                error++;
-            }
-            else {
-                $('#erroravatar').text("Avatar");
-                $('#erroravatar').css("color", "#666");
-            }
+            //if ($('#txtavatar').val() == "") {
+            //    $('#erroravatar').text("Avatar không được bỏ trống!");
+            //    $('#erroravatar').css("color", "#FA5858");
+            //    error++;
+            //}
+            //else {
+            //    $('#erroravatar').text("Avatar");
+            //    $('#erroravatar').css("color", "#666");
+            //}
 
             if ($('#txtpassword').val() == "") {
                 $('#errorpassword').text("Password không được bỏ trống!");
@@ -161,17 +160,17 @@
         });
     </script>
 
-    @*Sửa ảnh*@
-    <script language="javascript" type="text/javascript">
-        $("#Browse").click(function () {
-            var finder = new CKFinder();
-            finder.selectActionFunction = function (fileUrl) {
-                //fileUrl = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
-                $("#txtavatar").val(fileUrl);
-            };
-            finder.popup();
-        });
-    </script>
+    @*Chọn ảnh*@
+    @*<script language="javascript" type="text/javascript">
+            $("#Browse").click(function () {
+                var finder = new CKFinder();
+                finder.selectActionFunction = function (fileUrl) {
+                    //fileUrl = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+                    $("#txtavatar").val(fileUrl);
+                };
+                finder.popup();
+            });
+        </script>*@
 
 </body>
 </html>

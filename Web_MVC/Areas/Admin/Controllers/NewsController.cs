@@ -77,9 +77,6 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
-                ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");            
-                ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
-                ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
 
                 News news = db.News.SingleOrDefault(n => n.Id == id);
                 if (news == null)
@@ -87,6 +84,9 @@ namespace Web_MVC.Areas.Admin.Controllers
                     Response.StatusCode = 404;
                     return null;
                 }
+                ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname", news.PosterId);
+                ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name", news.AuthorId);
+                ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name", news.CategoryId);
                 return View(news);
             }
         }
@@ -106,9 +106,6 @@ namespace Web_MVC.Areas.Admin.Controllers
 
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
-                ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
-                ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
-                ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
 
                 News news = db.News.SingleOrDefault(n => n.Id == id);
                 news.Title = title;
@@ -120,6 +117,9 @@ namespace Web_MVC.Areas.Admin.Controllers
                 news.Avatar = avatar;
                 news.CategoryId = categoryid;
 
+                ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname", news.PosterId);
+                ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name", news.AuthorId);
+                ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name", news.CategoryId);
                 db.SaveChanges();
 
                 return RedirectToAction("Create");
