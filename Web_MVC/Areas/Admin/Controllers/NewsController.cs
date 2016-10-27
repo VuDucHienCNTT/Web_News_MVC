@@ -87,6 +87,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname", news.PosterId);
                 ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name", news.AuthorId);
                 ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name", news.CategoryId);
+
                 return View(news);
             }
         }
@@ -166,6 +167,7 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
+
                 string tukhoa = collection["txtsearch"].ToString();
                 ViewBag.TuKhoa = tukhoa;
                 //
@@ -174,6 +176,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
 
                 List<News> lstResult = db.News.Where(n => n.Title.Contains(tukhoa) || n.Summary.Contains(tukhoa)).ToList();
+
                 int pageNumber = (page ?? 1);
                 int pageSize = 1;
                 if (lstResult.Count == 0)

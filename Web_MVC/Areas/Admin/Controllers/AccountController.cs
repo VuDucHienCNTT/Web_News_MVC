@@ -119,6 +119,5 @@ namespace Web_MVC.Areas.Admin.Controllers
             Session.Clear();
             return RedirectToAction("Signin");
         }
-
     }
 }

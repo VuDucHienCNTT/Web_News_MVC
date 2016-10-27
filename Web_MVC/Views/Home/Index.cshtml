@@ -1,70 +1,10 @@
-﻿@model IEnumerable<object>
+﻿@model Web_MVC.Models.MultiModel_View
 @{
     ViewBag.Title = "Báo Dân Việt | Đọc Tin Tức Online  Nhanh Mới Nhất 24h";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<Web_MVC.Models.Category> lstCategory = Model.ToList()[0] as List<Web_MVC.Models.Category>;
-    List<Web_MVC.Models.News> lsNews = Model.ToList()[1] as List<Web_MVC.Models.News>;
+    @*List<Web_MVC.Models.Category> lstCategory = Model.ToList()[0] as List<Web_MVC.Models.Category>;
+        List<Web_MVC.Models.News> lsNews = Model.ToList()[1] as List<Web_MVC.Models.News>;*@
 }
-
-<header>
-    <!--Navigation-->
-    <nav id="menu" class="navbar container">
-        <div class="navbar-header">
-
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar" style="margin-bottom:-11px">
-                <i class="fa fa-bars fa-2x" style="color:#ffffff;margin-top:-16px;"></i>
-            </button>
-        </div>
-
-        <div class="collapse navbar-collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="~/Home/Index"><i class="glyphicon glyphicon-home"></i></a></li>
-                @foreach (var item in lstCategory)
-                {
-                    <li class="dropdown">
-                        <a href="@item.Url" class="dropdown-toggle" title="@item.Name" data-toggle="dropdown">@item.Name <i class="fa fa-caret-down"></i></a>
-                        @if (item.Category1.Count > 0)
-                        {
-                            <div class="dropdown-menu">
-                                <div class="dropdown-inner">
-                                    <ul class="list-unstyled">
-                                        @foreach (var item2 in item.Category1)
-                                        {
-                                            <li><a href="@item2.Url" title="@item2.Name"><i class="fa fa-caret-right"></i> @item2.Name</a></li>
-                                        }
-                                    </ul>
-                                </div>
-                            </div>
-                        }
-                    </li>
-                }
-            </ul>
-            <ul class="nav navbar-nav navbar-right" style="margin-right:0px;">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" title="Account" data-toggle="dropdown">Account <i class="fa fa-caret-down"></i></a>
-                    <div class="dropdown-menu" style="margin-left: -203.625px;">
-                        <div class="dropdown-inner">
-                            <ul class="list-unstyled">
-                                <li><a href="~/Admin/Account/Signin" title="Log in">Log in <i class="glyphicon glyphicon-log-in"></i></a></li>
-                                <li><a href="~/Admin/Account/Signup" title="Sign up">Sign up <i class="glyphicon glyphicon-user"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-            </ul>
-
-            @*<div class="col-sm-3 col-md-3 pull-right">
-                    <form class="navbar-form" role="search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>*@
-        </div>
-    </nav>
-</header>
 
 <div id="page-content" class="index-page container">
     <div class="row">
@@ -406,28 +346,30 @@
                     </div>
                     <div class="box-content">
                         <div class="row">
-                            @foreach (var item in lsNews)
+                            @if (Model.dsTheloai != null)
                             {
-                                <div class="col-md-6">
-                                    <div class="zoom-container">
-                                        <div class="zoom-caption">
-                                            <a href="@Url.Action("Detail", new { @id=item.Id })">
-                                            </a>
+                                foreach (var item in Model.dsTinTuc)
+                                {
+                                    <div class="col-md-6">
+                                        <div class="zoom-container">
+                                            <div class="zoom-caption">
+                                                <a href="@Url.Action("Detail", new { @id = item.Id })">
+                                                </a>
+                                            </div>
+                                            <img src="@item.Avatar" />
                                         </div>
-                                        <img src="@item.Avatar" />
+                                        @if (@item.Title.Length > 55)
+                                        {
+                                            <h3><a href="@Url.Action("Detail", new { @id = item.Id })">@item.Title.Substring(0, 55)...</a></h3>
+                                        }
+                                        else
+                                        {
+                                            <h3><a href="@Url.Action("Detail", new { @id = item.Id })">@item.Title</a></h3>
+                                        }
+                                        <span><i class="fa fa-heart"></i> @item.Author.Name / <i class="fa fa-calendar"></i> @item.Dateposted / <i class="fa fa-comment-o"> / </i> @item.Account.Fullname <i class="fa fa-eye"></i> 945</span>
+                                        <p>@item.Summary</p>
                                     </div>
-                                    @if (@item.Title.Length > 55)
-                                    {
-                                        <h3><a href="@Url.Action("Detail", new { @id=item.Id })">@item.Title.Substring(0, 55)...</a></h3>
-                                    }
-                                    else
-                                    {
-                                        <h3><a href="@Url.Action("Detail", new { @id=item.Id })">@item.Title</a></h3>
-                                    }
-                                    <span><i class="fa fa-heart"></i> @item.Author.Name / <i class="fa fa-calendar"></i> @item.Dateposted / <i class="fa fa-comment-o"> / </i> @item.Account.Fullname <i class="fa fa-eye"></i> 945</span>
-
-                                    <p>@item.Summary</p>
-                                </div>
+                                }
                             }
                         </div>
                     </div>
@@ -685,20 +627,23 @@
                 <div class="widget wid-comment">
                     <div class="heading"><h4>Tin mới nhất</h4></div>
                     <div class="content">
-                        @foreach (var item in lsNews)
+                        @if (Model.dsTinTuc != null)
                         {
-                            <div class="post">
-                                <a href="@Url.Action("Detail",new { @id=item.Id })">
-                                    <img src="@item.Avatar" class="img-circle" />
-                                </a>
-                                <div class="wrapper">
-                                    <a href="@Url.Action("Detail",new { @id=item.Id })"><h5> @item.Title</h5></a>
-                                    <ul class="list-inline">
-                                        <li><i class="fa fa-calendar"></i> @item.Dateposted</li>
-                                        <li><i class="fa fa-thumbs-up"></i> @item.AuthorId</li>
-                                    </ul>
+                            foreach (var item in Model.dsTinTuc)
+                            {
+                                <div class="post">
+                                    <a href="@Url.Action("Detail", new { @id = item.Id })">
+                                        <img src="@item.Avatar" class="img-circle" />
+                                    </a>
+                                    <div class="wrapper">
+                                        <a href="@Url.Action("Detail", new { @id = item.Id })"><h5> @item.Title</h5></a>
+                                        <ul class="list-inline">
+                                            <li><i class="fa fa-calendar"></i> @item.Dateposted</li>
+                                            <li><i class="fa fa-thumbs-up"></i> @item.AuthorId</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         }
                     </div>
                 </div>

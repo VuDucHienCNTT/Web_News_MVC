@@ -73,7 +73,9 @@
                                     <td>
                                         <div class="tools" style="text-align:center;">
                                             <a href="~/Admin/Categories/Edit/@item.Id"><i class="glyphicon glyphicon-edit" data-toggle="tooltip" title="Edit"></i></a>
-                                            <a onclick="return confirm('Bạn có muốn xóa không?')" href="~/Admin/Categories/Delete/@item.Id"><i class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Delete"></i></a>
+                                            <a data-toggle="confirmation" data-title="Xác nhận Xóa?"
+                                               href="~/Admin/Categories/Delete/@item.Id"><i class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Delete"></i></a>
+                                            @*<a onclick="return confirm('Bạn có muốn xóa không?')" href="~/Admin/Categories/Delete/@item.Id"><i class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Delete"></i></a>*@
                                         </div>
                                     </td>
                                 </tr>
@@ -116,7 +118,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label id="errorurl">Category url</label>
-                                    <input type="text" id="txturlcategory" class="form-control" name="urlcategory" placeholder="Enter url category">
+                                    <input type="text" id="txturlcategory" class="form-control" name="urlcategory" value="NULL" placeholder="Enter url category">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -138,7 +140,7 @@
                                     $('#errorname').text("Category name");
                                     $('#errorname').css("color", "#666");
                                 }
-                                
+
                                 //if ($('#txtparentcategory').val() == "") {
                                 //    $('#errorparent').text("Parent category không được bỏ trống!");
                                 //    $('#errorparent').css("color", "#FA5858");
