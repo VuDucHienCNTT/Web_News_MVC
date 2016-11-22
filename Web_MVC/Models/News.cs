@@ -18,11 +18,13 @@ namespace Web_MVC.Models
         public string Title { get; set; }
         public string Summary { get; set; }
         public string Content { get; set; }
-        public string Dateposted { get; set; }
+        public Nullable<System.DateTime> Dateposted { get; set; }
         public int AuthorId { get; set; }
         public int PosterId { get; set; }
         public string Avatar { get; set; }
         public int CategoryId { get; set; }
+        public string TrangThai { get; set; }
+        public Nullable<int> View { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual Author Author { get; set; }

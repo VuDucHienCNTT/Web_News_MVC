@@ -1,0 +1,459 @@
+﻿
+@{
+    ViewBag.Title = "Quick News";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        LoadQuickNews();
+    });
+    //hàm này hiển thị dữ liệu lên đâu?
+    // Hiển thị lên trang Index
+    function LoadQuickNews() {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("LoadQuickNews","QuickNews")',
+            data: {},
+            cache: false,
+            success: function (data) {
+                var html1 = "";
+                for (i = 0; i < data.QuickNews1.length; i++) {
+                    html1 = html1 + " <tr id='row-" + data.QuickNews1[i].ID + "'>" +
+                                 "<td>" + data.QuickNews1[i].ID + "</td>" +
+                                 "<td id= 'tdTitle-" + data.QuickNews1[i].ID + "' >" + data.QuickNews1[i].Title + "</td>" +
+                                 "<td id= 'tdSummary-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].Summary + "</td>" +
+                                 "<td id= 'tdContent-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].Content + "</td>" +
+                                 "<td id= 'tdPoster-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].PosterId + "</td>" +
+                                 "<td id= 'tdDateposted-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].Dateposted + "</td>" +
+                                 "<td id= 'tdAuthor-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].AuthorId + "</td>" +
+                                 "<td id= 'tdCategory-" + data.QuickNews1[i].ID + "'>" + data.QuickNews1[i].CategoryId + "</td>" +
+                                 "<td>" +
+                                 "<div class='tools' id='tools-" + data.QuickNews1[i].ID + "' style='text-align:center'>" +
+                                    "<a href='javascript:void(0)' data-toggle='tooltip' title='Edit' onclick=EditQuickNews(" + data.QuickNews1[i].ID + ")><i class='glyphicon glyphicon-edit'></i></a>" + " " +
+                                    "<a href='javascript:void(0)' data-toggle='tooltip' title='Delete' onclick=DelQuickNews(" + data.QuickNews1[i].ID + ")><i class='glyphicon glyphicon-trash'></i></a>" +
+                                "</div>" +
+                                "</td>" +
+                                "</tr>";
+                }
+                $("#tblQuick tbody").html(html1);
+                getAuthor();
+                getPoster();
+                getCategory()
+            },
+            error: function (e) {
+                alert("Error");
+            },
+        });
+    }
+    function getAuthor() {
+        $.getJSON("/Admin/QuickNews/GetAuthor", function (data) {
+            var result = "<select name='cboauthor'>";
+            for (var i = 0; i < data.length; i++) {
+                result += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+            }
+            result += "</select>";
+            $("#idauthor").html(result);
+        });
+    }
+    function getPoster() {
+        $.getJSON("/Admin/QuickNews/GetPoster", function (data) {
+            var result = "<select name='cboposter'>";
+            for (var i = 0; i < data.length; i++) {
+                result += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+            }
+            result += "</select>";
+            $("#idposter").html(result);
+        });
+    }
+    function getCategory() {
+        $.getJSON("/Admin/QuickNews/GetCategory", function (data) {
+            var result = "<select name='cbopostercategory'>";
+            for (var i = 0; i < data.length; i++) {
+                result += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+            }
+            result += "</select>";
+            $("#idcategory").html(result);
+        });
+    }
+
+    // thầy đợi e chỉnh lại chút ạ
+
+    //đâu chạy đi lỗi gì?
+    // thầy xem giúp e load dữ liệu lên dropdownlist với
+    //hàm này là khi kích vao fnuts ghi à? click vào nút save thầy ạ
+    function AddQuickNews() {
+        //Ẩn Modal sau khi click Save
+        $("#myModal").modal('hide');
+
+        var title1 = $("#idtitle").val();
+        var summary1 = $("#idsummary").val();
+        var content1 = $("#idcontent").val();
+        var poster1 = $("#idposter").val();
+        var dateposted1 = $("#iddateposted").val();
+        var author1 = $("#idauthor").val();
+        var category1 = $("#idcategory1").val();
+        $.ajax(
+        {
+            type: 'POST',
+            url: '@Url.Action("AddQuickNews","QuickNews")',
+            data:
+            {
+                'title': title1,
+                'summary': summary1,
+                'content': content1,
+                'poster': poster1,
+                'dateposted': dateposted1,
+                'author': author1,
+                'category': category1
+            },
+            success: function (obj) {
+                if (obj != null) {
+                    var html2 = " <tr>" +
+                                 "<td>" + obj.ID + "</td>" +
+                                 "<td>" + obj.Title + "</td>" +
+                                 "<td>" + obj.Summary + "</td>" +
+                                 "<td>" + obj.Content + "</td>" +
+                                 "<td>" + obj.PosterId + "</td>" +
+                                 "<td>" + obj.Dateposted + "</td>" +
+                                 "<td>" + obj.AuthorId + "</td>" +
+                                 "<td>" + obj.CategoryId + "</td>" +
+                                 "<td>" +
+                                 "<div class='tools' style='text-align:center'>" +
+                                    "<a href='javascript:void(0)' onclick=EditQuickNews(" + obj.ID + ")><i class='glyphicon glyphicon-edit'></i></a>" + " " +
+                                    "<a href='javascript:void(0)' onclick=DelQuickNews(" + obj.ID + ")><i class='glyphicon glyphicon-trash'></i></a>" +
+                                "</div>" +
+                                "</td>" +
+                                "</tr>";
+                    $("#tblQuick tbody").append(html2);
+                    LoadQuickNews();
+                    //Sau khi Save thì xóa nội dung textbox
+                    Clear();
+                }
+                else {
+                    alert("lỗi rồi");
+                }
+            },
+            error: function (e) {
+                console.log("Error:" + e);
+                alert("Error!");
+            },
+        })
+
+        function Clear() {
+            $("#idtitle").val("");
+            $("#idsummary").val("");
+            $("#idcontent").val("");
+            $("#iddateposted").val("");
+            $("#idauthor").val("");
+            $("#idcategory").val("");
+        }
+    }
+
+
+    function EditQuickNews(id) {
+        //Hiện Modal sau khi click Save
+        $("#myModalEdit").modal('show');
+
+        var title2 = $("#tdTitle-" + id).html();
+        var summary2 = $("#tdSummary-" + id).html();
+        var content2 = $("#tdContent-" + id).html();
+        var poster2 = $("#tdPoster-" + id).html();
+        var dateposted2 = $("#tdDateposted-" + id).html();
+        var author2 = $("#tdAuthor-" + id).html();
+        var category2 = $("#tdCategory-" + id).html();
+
+        $("#idTitleEdit").val(title2);
+        $("#idSummaryEdit").val(summary2);
+        $("#idContentEdit").val(content2);
+        $("#idPosterEdit").val(poster2);
+        $("#idDatepostedEdit").val(dateposted2);
+        $("#idAuthorEdit").val(author2);
+        $("#idCategoryEdit").val(category2);
+
+        $("#modalEditFooter").html(
+           "<button type='button' onclick='SaveChangeNews(" + id + ")' class='btn btn-primary'>Save</button>" +
+           "<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>")
+
+
+
+        //var htmlTieuDe = "<input type='text' class='form-control' id='idTitleEdit-" + id + "' value='" + title2 + "'>";
+        //var htmlTomTat = "<input type='text' class='form-control' id='idSummaryEdit-" + id + "' value='" + summary2 + "'>";
+        //var htmlNoiDung = "<input type='text' class='form-control' id='idContentEdit-" + id + "' value='" + content2 + "'>";
+        //var htmlNguoiDang = "<input type='text' class='form-control' id='idPosterEdit-" + id + "' value='" + poster2 + "'>";
+        //var htmlNgayDang = "<input type='text' class='form-control' id='idDatepostedEdit-" + id + "' value='" + dateposted2 + "'>";
+        //var htmlTacGia = "<input type='text' class='form-control' id='idAuthorEdit-" + id + "' value='" + author2 + "'>";
+
+        //$("#tools-" + id + "").html("<button type='button' onclick='SaveChangeNews(" + id + ")' class='btn btn-primary'>Lưu</button>");
+
+        //$("#tblQuick tbody #row-" + id + " #tdTitle-" + id + "").html(htmlTieuDe);
+        //$("#tblQuick tbody #row-" + id + " #tdSummary-" + id + "").html(htmlTomTat);
+        //$("#tblQuick tbody #row-" + id + " #tdContent-" + id + "").html(htmlNoiDung);
+        //$("#tblQuick tbody #row-" + id + " #tdPoster-" + id + "").html(htmlNguoiDang);
+        //$("#tblQuick tbody #row-" + id + " #tdDateposted-" + id + "").html(htmlNgayDang);
+        //$("#tblQuick tbody #row-" + id + " #tdAuthor-" + id + "").html(htmlTacGia);
+    }
+
+    function SaveChangeNews(id) {
+
+        var title2 = $("#idTitleEdit").val();
+        var summary2 = $("#idSummaryEdit").val();
+        var content2 = $("#idContentEdit").val();
+        var poster2 = $("#idPosterEdit").val();
+        var dateposted2 = $("#idDatepostedEdit").val();
+        var author2 = $("#idAuthorEdit").val();
+        var category2 = $("#idCategoryEdit").val();
+
+        //var title2 = $("#idTitleEdit-" + id + "").val();
+        //var summary2 = $("#idSummaryEdit-" + id + "").val();
+        //var content2 = $("#idContentEdit-" + id + "").val();
+        //var poster2 = $("#idPosterEdit-" + id + "").val();
+        //var dateposted2 = $("#idDatepostedEdit-" + id + "").val();
+        //var author2 = $("#idAuthorEdit-" + id + "").val();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("EditQuickNews", "QuickNews")',
+            data: {
+                'id': id,
+                'title': title2,
+                'summary': summary2,
+                'content': content2,
+                'poster': poster2,
+                'dateposted': dateposted2,
+                'author': author2,
+                'category': category2
+            },
+            success: function (obj) {
+                $("#myModalEdit").modal('hide');
+                LoadQuickNews();
+                //$("#tblQuick tbody #row-" + obj.ID + " #tdTitle-" + obj.ID + "").html(obj.Title);
+                //$("#tblQuick tbody #row-" + obj.ID + " #tdSummary-" + obj.ID + "").html(obj.Summary);
+                //$("#tblQuick tbody #row-" + obj.ID + " #tdContent-" + obj.ID + "").html(obj.Content);
+                //$("#tblQuick tbody #row-" + obj.ID + " #tdPoster-" + obj.ID + "").html(obj.Poster);
+                //$("#tblQuick tbody #row-" + obj.ID + " #tdDateposted-" + obj.ID + "").html(obj.Dateposted);
+                //$("#tblQuick tbody #row-" + obj.ID + " #tdAuthor-" + obj.ID + "").html(obj.Author);
+
+                //$("#tools-" + obj.ID + "").html(
+                //    "<a href='javascript:void(0)' onclick=EditQuickNews(" + obj.ID + ")><i class='glyphicon glyphicon-edit'></i></a>" + " " +
+                //    "<a href='javascript:void(0)' onclick=DelQuickNews(" + obj.ID + ")><i class='glyphicon glyphicon-trash'></i></a>"
+                //);
+
+            },
+            error: function (e) {
+                console.log("Error:" + e);
+                alert("Error!");
+            },
+        });
+
+    }
+
+    function DelQuickNews(id) {
+        var confirmDelete = confirm("Bạn có chắc chắn xóa không?");
+        if (confirmDelete) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DelQuickNews","QuickNews")',
+                data: {
+                    'id': id
+                },
+                success: function (id) {
+                    $("#tblQuick tbody #row-" + id + "").remove();
+                },
+                error: function (e) {
+                    console.log("Error:" + e);
+                    alert("Error");
+                },
+            });
+        }
+    }
+</script>
+
+<!--Content Header-->
+<div class="content-header">
+    <h1>
+        Quick News
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="~/Admin/Categories/Create"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="~/Admin/QuickNews/Index">Quick News</a></li>
+        <li class="active"><a href="~/Admin/QuickNews/Index">Create New</a></li>
+    </ol>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Listing Quick News</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+
+                </div>
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div style="margin-bottom:10px;">
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Create New</button>
+
+                        <div class="navbar-right" style="margin-top:-10px;">
+                            @using (Html.BeginForm("Search", "QuickNews", FormMethod.Post))
+                            {
+                                <div class="navbar-form" role="search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="txttimkiem" name="txtsearch" style="border-bottom-left-radius:3px;border-top-left-radius:3px" placeholder="Search">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default" id="btnsubmit" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <table id="tblQuick" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Title</th>
+                                <th>Summary</th>
+                                <th>Content</th>
+                                <th>Poster</th>
+                                <th>Dateposted</th>
+                                <th>Author</th>
+                                <th>Category</th>
+                                <th style="text-align:center;">Option</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+        @*Không nhập từ khóa tìm kiếm*@
+        <script language="javascript" type="text/javascript">
+            $('#btnsubmit').click(function () {
+                if ($('#txttimkiem').val() == "") {
+                    alert("Nhập từ khóa cần tìm kiếm");
+                    return false;
+                }
+            });
+        </script>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Create New</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" class="form-control" id="idtitle" name="title" placeholder="Enter title">
+                            </div>
+                            <div class="form-group">
+                                <label>Summary</label>
+                                <input type="text" class="form-control" id="idsummary" name="summary" placeholder="Enter summary">
+                            </div>
+                            <div class="form-group">
+                                <label>Content</label>
+                                <input type="text" class="form-control" id="idcontent" placeholder="Enter Content">
+                            </div>
+                            <div class="form-group">
+                                <label>Poster</label>
+                                @*<input type="text" class="form-control" id="idposter" name="posterid" placeholder="Enter Author">*@
+                                <div id="idposter">
+
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Date Posted</label>
+                                <input type="text" class="form-control" id="iddateposted" placeholder="Enter Date posted">
+                            </div>
+                            <div class="form-group">
+                                <label>Author</label>
+                                <div id="idauthor">
+
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Category</label>
+                                <div id="idcategory">
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" onclick="AddQuickNews()" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="myModalEdit" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit Quick News</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" class="form-control" id="idTitleEdit">
+                            </div>
+                            <div class="form-group">
+                                <label>Summary</label>
+                                <input type="text" class="form-control" id="idSummaryEdit">
+                            </div>
+                            <div class="form-group">
+                                <label>Content</label>
+                                <input type="text" class="form-control" id="idContentEdit">
+                            </div>
+                            <div class="form-group">
+                                <label>Poster</label>
+                                <input type="text" class="form-control" id="idPosterEdit">
+                            </div>
+                            <div class="form-group">
+                                <label>Date Posted</label>
+                                <input type="text" class="form-control" id="idDatepostedEdit">
+                            </div>
+                            <div class="form-group">
+                                <label>Author</label>
+                                <input type="text" class="form-control" id="idAuthorEdit">
+                            </div>
+                            <div class="form-group">
+                                <label>Category</label>
+                                <input type="text" class="form-control" id="idCategoryEdit">
+                            </div>
+                        </div>
+                        <div class="modal-footer" id="modalEditFooter">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

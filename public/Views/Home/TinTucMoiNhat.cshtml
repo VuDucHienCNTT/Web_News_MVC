@@ -1,0 +1,46 @@
+﻿@model List<Web_MVC.Models.News>
+
+<style>
+    hr{
+        margin-bottom:3px;
+        margin-top:3px;
+    }
+</style>
+<div class="widget wid-vid">
+    <div class="heading">
+        <h4>Tin tức</h4>
+    </div>
+    <div class="content">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#most">Mới nhất</a></li>
+            <li><a data-toggle="tab" href="#popular">Đọc nhiều nhất</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="most" class="tab-pane fade in active">
+                @if (Model != null)
+                {
+                    foreach (var tinmoinhat in Model.OrderByDescending(n => n.Summary).Take(10))
+                    {
+                        <div class="wrapper">
+                            <span class="fa fa-caret-right"></span> <span><a href="/Home/Detail/@tinmoinhat.Id">@tinmoinhat.Title</a></span>
+                            <hr />
+                        </div>
+
+                    }
+                }
+            </div>
+            <div id="popular" class="tab-pane fade">
+                @if (Model != null)
+                {
+                    foreach (var tindocnhieu in Model.OrderByDescending(n => n.View).ThenBy(n=>n.Dateposted).Take(10))
+                    {
+                        <div class="wrapper">
+                            <span class="fa fa-caret-right"></span> <span><a href="/Home/Detail/@tindocnhieu.Id">@tindocnhieu.Title</a></span>
+                            <hr />
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

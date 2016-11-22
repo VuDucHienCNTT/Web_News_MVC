@@ -23,7 +23,7 @@ namespace Web_MVC.Areas.Admin.Controllers
 
                     ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
                     ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
-                    ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
+                    ViewBag.CategoryId = new SelectList(db.Categories.Where(n => !(n.Url == "" && n.ParentId == null)).ToList(), "Id", "Name");
 
                     List<News> lstCategory = db.News.ToList();
                     return View(db.News.ToList().ToPagedList(pageNumber, pageSize));
@@ -44,17 +44,19 @@ namespace Web_MVC.Areas.Admin.Controllers
             string title = collection["title"].ToString();
             string summary = collection["summary"].ToString();
             string content = collection["content"].ToString();
-            string dateposted = collection["dateposted"].ToString();
+            DateTime dateposted = DateTime.Parse(collection["dateposted"].ToString());
             int authorid = int.Parse(collection["authorid"].ToString());
             int posterid = int.Parse(collection["posterid"].ToString());
             string avatar = collection["avatar"].ToString();
+            string trangthai = collection["trangthai"].ToString();
+            int view = 0;
             int categoryid = int.Parse(collection["categoryid"].ToString());
 
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname");
                 ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name");
-                ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
+                ViewBag.CategoryId = new SelectList(db.Categories.Where(n => !(n.Url == "" && n.ParentId == null)).ToList().ToList(), "Id", "Name");
 
                 News news = new News();
                 news.Title = title;
@@ -65,7 +67,8 @@ namespace Web_MVC.Areas.Admin.Controllers
                 news.PosterId = posterid;
                 news.Avatar = avatar;
                 news.CategoryId = categoryid;
-
+                news.TrangThai = trangthai;
+                news.View = view;
                 db.News.Add(news);
                 db.SaveChanges();
                 return View(db.News.ToList().ToPagedList(pageNumber, pageSize));
@@ -86,7 +89,7 @@ namespace Web_MVC.Areas.Admin.Controllers
                 }
                 ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname", news.PosterId);
                 ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name", news.AuthorId);
-                ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name", news.CategoryId);
+                ViewBag.CategoryId = new SelectList(db.Categories.Where(n => !(n.Url == "" && n.ParentId == null)).ToList(), "Id", "Name", news.CategoryId);
 
                 return View(news);
             }
@@ -99,12 +102,12 @@ namespace Web_MVC.Areas.Admin.Controllers
             string title = collection["title"].ToString();
             string summary = collection["summary"].ToString();
             string content = collection["content"].ToString();
-            string dateposted = collection["dateposted"].ToString();
+            DateTime dateposted = DateTime.Parse(collection["dateposted"].ToString());
             int authorid = int.Parse(collection["authorid"].ToString());
             int posterid = int.Parse(collection["posterid"].ToString());
             string avatar = collection["avatar"].ToString();
             int categoryid = int.Parse(collection["categoryid"].ToString());
-
+            string trangthai = collection["trangthai"].ToString();
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
 
@@ -117,10 +120,11 @@ namespace Web_MVC.Areas.Admin.Controllers
                 news.PosterId = posterid;
                 news.Avatar = avatar;
                 news.CategoryId = categoryid;
+                news.TrangThai = trangthai;
 
                 ViewBag.PosterId = new SelectList(db.Accounts.ToList(), "Id", "Fullname", news.PosterId);
                 ViewBag.AuthorId = new SelectList(db.Authors.ToList(), "Id", "Name", news.AuthorId);
-                ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name", news.CategoryId);
+                ViewBag.CategoryId = new SelectList(db.Categories.Where(n => !(n.Url == "" && n.ParentId == null)).ToList(), "Id", "Name", news.CategoryId);
                 db.SaveChanges();
 
                 return RedirectToAction("Create");

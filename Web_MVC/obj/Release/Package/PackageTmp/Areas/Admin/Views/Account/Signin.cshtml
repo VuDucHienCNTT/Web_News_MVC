@@ -1,0 +1,106 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sign In</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="~/Areas/Admin/Content/bootstrap/css/bootstrap.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Areas/Admin/Content/dist/css/AdminLTE.css">
+
+
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="~/Home/Index"><b>Back to Home</b></a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">
+                <label>Sign in</label>
+                <br />
+                @if (@ViewBag.tbDangNhap != null)
+                {
+                    <label style="color:#FA5858">@ViewBag.tbDangNhap</label>
+                }
+
+            </p>
+            @using (Html.BeginForm("Signin", "Account", FormMethod.Post))
+            {
+                <div class="form-group has-feedback">
+                    <label id="erroremail">Email</label>
+                    <input type="text" id="txtemail" name="Email" class="form-control" placeholder="Email">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <label id="errorpassword">Password</label>
+                    <input type="password" id="txtpassword" name="Password" class="form-control" placeholder="Password">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" id="btnsubmit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            }
+            <a href="~/Admin/Account/Signup" class="text-center">I do not have an account</a>
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+    <!-- jQuery 2.2.3 -->
+    <script src="~/Areas/Admin/Content/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="~/Areas/Admin/Content/bootstrap/js/bootstrap.js"></script>
+
+
+    <!-- Bắt lỗi không nhập khi đăng nhập -->
+    <script type="text/javascript" language="javascript">
+        $('#btnsubmit').click(function () {
+            var error = 0;
+            if ($('#txtemail').val() == "") {
+                $('#erroremail').text("Email không được bỏ trống!");
+                $('#erroremail').css("color", "#FA5858");
+                error++;
+            }
+            else {
+                $('#erroremail').text("Email");
+                $('#erroremail').css("color", "#666");
+            }
+
+            if ($('#txtpassword').val() == "") {
+                $('#errorpassword').text("Password không được bỏ trống!");
+                $('#errorpassword').css("color", "#FA5858");
+                error++;
+            }
+            else {
+                $('#errorpassword').text("Password");
+                $('#errorpassword').css("color", "#666");
+            }
+            if (error != 0) {
+                return false;
+            }
+            else
+                return true;
+        });
+    </script>
+
+</body>
+</html>

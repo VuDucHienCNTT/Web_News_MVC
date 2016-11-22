@@ -1,0 +1,28 @@
+﻿@model List<Web_MVC.Models.Category>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <li class="dropdown">
+            @if (item.Category1.Count > 0)
+            {
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" title="@item.Name">@item.Name <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-menu">
+                    <div class="dropdown-inner">
+                        <ul class="list-unstyled">
+                            @foreach (var item2 in item.Category1)
+                            {
+                                <li><a href="@item2.Url" title="@item2.Name"><i class="fa fa-caret-right"></i> @item2.Name</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <a href="@item.Url" class="dropdown-toggle" title="@item.Name">@item.Name</a>
+            }
+        </li>
+    }
+}

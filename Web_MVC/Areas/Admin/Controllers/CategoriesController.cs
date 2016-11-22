@@ -18,6 +18,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             {
                 if (Session["Id"] != null)
                 {
+                    ViewBag.ParentId = new SelectList(db.Categories.Where(n => n.ParentId == null), "Id", "Name").ToList();
                     List<Category> lstCategory = db.Categories.ToList();
                     return View(lstCategory);
                 }
@@ -34,21 +35,33 @@ namespace Web_MVC.Areas.Admin.Controllers
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 string nameCategory = collection["namecategory"].ToString();
-                int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : 0;
                 string urlCategory = collection["urlcategory"].ToString();
-
-                //Them chuyen muc vao csdl
-                //Khoi tao doi tuong muon them vao csdl
+                string parentIdCategory = collection["ParentId"].ToString();
                 Category cate = new Category();
                 cate.Name = nameCategory;
-                cate.ParentId = parentCategory;
-                cate.Url = urlCategory;
+                if (urlCategory == null)
+                {
+                    cate.Url = null;
+                }
+                else
+                {
+                    cate.Url = urlCategory;
+                }
+
+                if (parentIdCategory == "NULL")
+                {
+                    cate.ParentId = null;
+                }
+                else
+                {
+                    cate.ParentId = Convert.ToInt32(parentIdCategory);
+                }
 
                 //Them doi tuong vao csdl
                 db.Categories.Add(cate);
                 //Thuc hien ghi vao csdl
                 db.SaveChanges();
-
+                ViewBag.ParentId = new SelectList(db.Categories.Where(n => n.ParentId == null), "Id", "Name").ToList();
                 //Lay danh sach chuyen muc trong csdl tra ve view
                 List<Category> lstCategory = db.Categories.ToList();
                 return View(lstCategory);
@@ -61,6 +74,7 @@ namespace Web_MVC.Areas.Admin.Controllers
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 Category cate = db.Categories.SingleOrDefault(n => n.Id == id);
+                ViewBag.ParentId = new SelectList(db.Categories.Where(n => n.ParentId == null), "Id", "Name", cate.ParentId).ToList();
                 if (cate == null)
                 {
                     Response.StatusCode = 404;
@@ -75,13 +89,23 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
-                string nameCategory = collection["namecategory"].ToString();
-                int parentCategory = collection["parentcategory"].ToString() != "" ? Convert.ToInt32(collection["parentcategory"].ToString()) : 0;
-                string urlCategory = collection["urlcategory"].ToString();
 
+                string nameCategory = collection["namecategory"].ToString();
+                string urlCategory = collection["urlcategory"].ToString();
+                string parentIdCategory = collection["ParentId"].ToString();
                 Category cate = db.Categories.SingleOrDefault(n => n.Id == id);
+                ViewBag.ParentId = new SelectList(db.Categories.Where(n => n.ParentId == null), "Id", "Name", cate.ParentId).ToList();
                 cate.Name = nameCategory;
-                cate.ParentId = parentCategory;
+
+                if (parentIdCategory == "NULL")
+                {
+                    cate.ParentId = null;
+                }
+                else
+                {
+                    cate.ParentId = Convert.ToInt32(parentIdCategory);
+                }
+
                 cate.Url = urlCategory;
 
                 db.SaveChanges();
@@ -92,17 +116,24 @@ namespace Web_MVC.Areas.Admin.Controllers
         {
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
-                //Lấy đối tượng cần xóa
-                Category cate = db.Categories.SingleOrDefault(x => x.Id == id);
+                try
+                {
+                    //Lấy đối tượng cần xóa
+                    Category cate = db.Categories.SingleOrDefault(x => x.Id == id);
 
-                //Thực hiện xóa đối tượng
-                db.Categories.Remove(cate);
+                    //Thực hiện xóa đối tượng
+                    db.Categories.Remove(cate);
 
-                //Thực hiện thay đổi trong csdl
-                db.SaveChanges();
+                    //Thực hiện thay đổi trong csdl
+                    db.SaveChanges();
 
-                //Lay danh sach chuyen muc trong csdl tra ve view
-                return RedirectToAction("Create");
+                    //Lay danh sach chuyen muc trong csdl tra ve view
+                    return RedirectToAction("Create");
+                }
+                catch
+                {
+                    return RedirectToAction("Create");
+                }
             }
         }
 

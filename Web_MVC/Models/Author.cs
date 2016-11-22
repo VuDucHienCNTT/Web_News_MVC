@@ -18,7 +18,6 @@ namespace Web_MVC.Models
         public Author()
         {
             this.News = new HashSet<News>();
-            this.QuickNews = new HashSet<QuickNew>();
         }
     
         public int Id { get; set; }
@@ -27,7 +26,5 @@ namespace Web_MVC.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<News> News { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuickNew> QuickNews { get; set; }
     }
 }

@@ -19,7 +19,6 @@ namespace Web_MVC.Models
         {
             this.Category1 = new HashSet<Category>();
             this.News = new HashSet<News>();
-            this.QuickNews = new HashSet<QuickNew>();
         }
     
         public int Id { get; set; }
@@ -32,7 +31,5 @@ namespace Web_MVC.Models
         public virtual Category Category2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<News> News { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuickNew> QuickNews { get; set; }
     }
 }

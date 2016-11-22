@@ -1,0 +1,48 @@
+﻿@model List<Web_MVC.Models.News>
+@{
+    ViewBag.Title = "Kết quả Tìm kiếm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="well-sm index-page" style="border:1px solid #d5d5d5; margin-bottom:1%;border-radius:unset;">
+        <a href="/">Trang chủ</a> >> Kết quả tìm kiếm
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="widget wid-vid">
+
+        <span style="font-weight:bold;"> @ViewBag.TB</span>
+        @if (Model.Count > 0)
+        {
+            foreach (var kquatimkiem in Model)
+            {
+                <div class="row" style="margin-bottom:10px">
+                    <div class="col-sm-3 col-xs-4">
+                        <a href="/Home/Detail/@kquatimkiem.Id"> <img src="@kquatimkiem.Avatar" style="width:100%;height:120px" /></a>
+                    </div>
+                    <div class="col-sm-9">
+                        <a href="/Home/Detail/@kquatimkiem.Id">@kquatimkiem.Title</a><br />
+
+                        <span><i class="fa fa-clock-o"></i> @kquatimkiem.Dateposted.Value.ToString("dd/MM/yyyy hh:mm tt")</span> /
+                        <span><i class="fa fa-eye"></i> @kquatimkiem.View</span>
+                        <br />
+                        @if (@kquatimkiem.Summary.Length > 110)
+                    {
+                            <span>@kquatimkiem.Summary.Substring(0, 110)...</span>
+                        }
+                        else
+                        {
+                            <span>
+                                @kquatimkiem.Summary
+                            </span>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <span style="font-weight:bold;">Không tìm thấy kết quả nào</span>
+        }
+    </div>
+</div>

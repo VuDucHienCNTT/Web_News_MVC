@@ -29,6 +29,5 @@ namespace Web_MVC.Models
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<News> News { get; set; }
-        public virtual DbSet<QuickNew> QuickNews { get; set; }
     }
 }

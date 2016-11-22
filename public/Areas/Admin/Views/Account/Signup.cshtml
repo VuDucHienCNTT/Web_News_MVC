@@ -1,0 +1,176 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sign Up</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="~/Areas/Admin/Content/bootstrap/css/bootstrap.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Areas/Admin/Content/dist/css/AdminLTE.css">
+
+    <script src="~/Areas/Admin/Content/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="~/Areas/Admin/Content/plugins/ckfinder/ckfinder.js"></script>
+
+</head>
+<body class="hold-transition register-page">
+    <div class="register-box">
+        <div class="register-logo">
+            <a href="~/Home/Index"><b>Back to Home</b></a>
+        </div>
+        <div class="register-box-body">
+            <p class="login-box-msg">
+                <label>Sign up</label>
+                <br />
+                @if (ViewBag.tbDangKy != null)
+                {
+                    <label style="color:#09c4a8">@ViewBag.tbDangKy</label>
+                }
+            </p>
+            @using (Html.BeginForm())
+            {
+                <div class="form-group has-feedback">
+                    <label id="errorfullname">Fullname</label>
+                    <input type="text" id="txtfullname" name="fullname" class="form-control" placeholder="Fullname">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                    <label id="erroremail">Email</label>
+                    <input type="email" id="txtemail" name="email" class="form-control" placeholder="Email">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+
+                <div hidden class="form-group has-feedback">
+                    <label id="erroravatar">Avatar</label>
+                    <input type="text" id="txtavatar" name="avatar" class="form-control" value="/Areas/Admin/Content/Images/images/Account/avatar5.png" readonly="readonly" placeholder="Avatar">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    @*<input type="button" class="btn btn-default" id="Browse" value="...">*@
+                </div>
+
+                <div class="form-group has-feedback">
+                    <label id="errorpassword">Password</label>
+                    <input type="password" id="txtpassword" name="password" class="form-control" placeholder="Password">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <label id="errorconfirmpassword">Confirm password</label>
+                    <input type="password" id="txtconfirmpassword" name="confpassword" class="form-control" placeholder="Confirm password">
+                    <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" id="btnsubmit" class="btn btn-primary btn-block btn-flat">Sign Up</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            }
+            <a href="~/Admin/Account/Signin" class="text-center">I already have an account</a>
+        </div>
+        <!-- /.form-box -->
+    </div>
+    <!-- /.register-box -->
+    <!-- jQuery 2.2.3 -->
+    <script src="~/Areas/Admin/Content/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="~/Areas/Admin/Content/bootstrap/js/bootstrap.js"></script>
+    <!-- iCheck -->
+    <script src="~/Areas/Admin/Content/plugins/iCheck/icheck.min.js"></script>
+
+    <!--Bắt lỗi textbox-->
+    <script type="text/javascript" language="javascript">
+        $('#btnsubmit').click(function () {
+            var error = 0;
+
+            if ($('#txtfullname').val() == "") {
+                $('#errorfullname').text("Fullname không được bỏ trống!");
+                $('#errorfullname').css("color", "#FA5858");
+                error++;
+            }
+            else {
+                $('#errorfullname').text("Fullname");
+                $('#errorfullname').css("color", "#666");
+            }
+
+            if ($('#txtemail').val() == "") {
+                $('#erroremail').text("Email không được bỏ trống!");
+                $('#erroremail').css("color", "#FA5858");
+                error++;
+            }
+            else {
+                $('#erroremail').text("Email");
+                $('#erroremail').css("color", "#666");
+            }
+
+            //if ($('#txtavatar').val() == "") {
+            //    $('#erroravatar').text("Avatar không được bỏ trống!");
+            //    $('#erroravatar').css("color", "#FA5858");
+            //    error++;
+            //}
+            //else {
+            //    $('#erroravatar').text("Avatar");
+            //    $('#erroravatar').css("color", "#666");
+            //}
+
+            if ($('#txtpassword').val() == "") {
+                $('#errorpassword').text("Password không được bỏ trống!");
+                $('#errorpassword').css("color", "#FA5858");
+                error++;
+            }
+            else {
+                $('#errorpassword').text("Password");
+                $('#errorpassword').css("color", "#666");
+            }
+
+            if ($('#txtconfirmpassword').val() == "") {
+                $('#errorconfirmpassword').text("Confirm password không được bỏ trống!");
+                $('#errorconfirmpassword').css("color", "#FA5858");
+                error++;
+            }
+            else if ($('#txtpassword').val() != $('#txtconfirmpassword').val()) {
+                $('#errorconfirmpassword').text("Confirm password không khớp!");
+                $('#errorconfirmpassword').css("color", "#FA5858");
+                error++;
+            }
+            else {
+                $('#errorconfirmpassword').text("Confirm password");
+                $('#errorconfirmpassword').css("color", "#666");
+            }
+
+            if (error != 0) {
+                return false;
+            }
+            else
+                return true;
+        });
+    </script>
+
+    @*Chọn ảnh*@
+    @*<script language="javascript" type="text/javascript">
+            $("#Browse").click(function () {
+                var finder = new CKFinder();
+                finder.selectActionFunction = function (fileUrl) {
+                    //fileUrl = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+                    $("#txtavatar").val(fileUrl);
+                };
+                finder.popup();
+            });
+        </script>*@
+
+</body>
+</html>

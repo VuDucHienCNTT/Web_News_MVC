@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Web_MVC.Models.Category>
+
+@if (Model != null)
+{
+    foreach (var theloai in Model.Where(n => !(n.Url == "" && n.ParentId == null)))
+    {
+
+        <div class="box">
+            <div class="box-header header-vimeo">
+                <h2><a href="/Home/TrangTheLoai/@theloai.Id">@theloai.Name</a></h2>
+            </div>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-md-5">
+                        @foreach (var tintuctop1 in theloai.News.Where(n => n.TrangThai == "Đã duyệt").OrderByDescending(n => n.Dateposted).Take(1))
+                        {
+                            <div class="wrap-vid">
+                                <div class="zoom-container">
+                                    <div class="zoom-caption">
+                                        <span class="vimeo">@tintuctop1.Category.Name</span>
+                                        <a href="/Home/Detail/@tintuctop1.Id">
+                                            <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                                        </a>
+                                    </div>
+                                    <img src="@tintuctop1.Avatar" />
+                                </div>
+                                <h3><a href="/Home/Detail/@tintuctop1.Id" style="line-height:1.4;">@tintuctop1.Title</a></h3>
+                                <div class="info">
+                                    <span><i class="fa fa-calendar"></i>@tintuctop1.Dateposted.Value.ToString("dd/MM/yyyy hh:mm tt")</span>
+                                </div>
+                            </div>
+                            <p class="more">@tintuctop1.Summary</p>
+                        }
+                    </div>
+                    <div class="col-md-7">
+                        @foreach (var tintuctop5 in theloai.News.Where(n => n.TrangThai == "Đã duyệt").OrderByDescending(n => n.Dateposted).Take(5).Skip(1))
+                        {
+                            <div class="post wrap-vid">
+                                <div class="zoom-container col-sm-5 col-xs-5">
+                                    <div class="zoom-caption">
+                                        <span class="vimeo">@tintuctop5.Category.Name</span>
+                                        <a href="/Home/Detail/@tintuctop5.Id">
+                                            <i class="fa fa-play-circle-o fa-3x" style="color: #fff"></i>
+                                        </a>
+                                    </div>
+                                    <img style="height:100px; width:100%" src="@tintuctop5.Avatar" />
+                                </div>
+                                <div class="wrapper col-sm-7 col-xs-7">
+                                    <span><a href="/Home/Detail/@tintuctop5.Id" style="font-size:15px">@tintuctop5.Title</a></span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

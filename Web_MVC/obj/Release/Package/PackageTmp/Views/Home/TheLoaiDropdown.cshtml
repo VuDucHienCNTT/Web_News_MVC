@@ -1,0 +1,18 @@
+﻿@model List<Web_MVC.Models.Category>
+
+<div class="widget wid-categoty">
+    <div class="heading"><h4>Thể loại</h4></div>
+    <div class="content">
+
+        <select class="col-sm-12 col-xs-12" onchange="location = this.value;">
+            @if (Model != null)
+            {
+                <option>---Chọn thể loại---</option>
+                foreach (var theloai in Model)
+                {
+                    <option value="/Home/TrangTheLoai/@theloai.Id">@theloai.Name</option>
+                }
+            }
+        </select>
+    </div>
+</div>
