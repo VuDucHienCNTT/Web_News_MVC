@@ -25,11 +25,13 @@ namespace Web_MVC.Areas.Admin.Controllers
                     ID = n.Id,
                     FullName = n.Fullname,
                     Email = n.Email,
+                    TrangThai = n.TrangThai,
+                    Quyen = n.Quyen,
                     PassWord = n.Password,
-                    ConfPassWord =n.Confirmpassword,
-                    Avatar= n.Avatar
+                    ConfPassWord = n.Confirmpassword,
+                    Avatar = n.Avatar
                 }).ToList();
-                return Json(new { Account1 = lstAccount}, JsonRequestBehavior.AllowGet);
+                return Json(new { Account1 = lstAccount }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -66,17 +68,31 @@ namespace Web_MVC.Areas.Admin.Controllers
             string password = collection["password"].ToString();
             string confpassword = collection["confpassword"].ToString();
             string avatar = collection["avatar"].ToString();
+            string trangthai = "Hoạt động";
+            string quyen = "User";
+
             using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
             {
                 Account acc = new Account();
-                acc.Fullname = fullname;
-                acc.Email = email;
-                acc.Password = password;
-                acc.Confirmpassword = confpassword;
-                acc.Avatar = avatar;
-                db.Accounts.Add(acc);
-                db.SaveChanges();
-                ViewBag.tbDangKy = acc.Fullname + "  đăng ký thành công!";
+                var checkEmail = db.Accounts.SingleOrDefault(n => n.Email.Equals(email));
+                if (checkEmail == null)
+                {
+                    
+                    acc.Fullname = fullname;
+                    acc.Email = email;
+                    acc.Password = password;
+                    acc.Confirmpassword = confpassword;
+                    acc.Avatar = avatar;
+                    acc.TrangThai = trangthai;
+                    acc.Quyen = quyen;
+                    db.Accounts.Add(acc);
+                    db.SaveChanges();
+                    ViewBag.tbDangKy = acc.Fullname + "  đăng ký thành công!";                  
+                }
+                else
+                {
+                    ViewBag.tbDangKyLoi = email + " đã tồn tại!";
+                }
                 return View();
             }
         }
@@ -93,18 +109,25 @@ namespace Web_MVC.Areas.Admin.Controllers
             {
                 using (Web_NEWS_MVCEntities db = new Web_NEWS_MVCEntities())
                 {
-                    var u = db.Accounts.SingleOrDefault(n => n.Email.Equals(user.Email) && n.Password.Equals(user.Password));
-                    if (u != null)
+                    var ckeckAD = db.Accounts.SingleOrDefault(n => n.Email.Equals(user.Email) && n.Password.Equals(user.Password) && n.Quyen.Equals("Admin"));
+                    if (ckeckAD != null)
                     {
-                        Session["Id"] = u.Id.ToString();
-                        Session["Fullname"] = u.Fullname.ToString();
-                        Session["Email"] = u.Email.ToString();
-                        Session["Avatar"] = u.Avatar.ToString();
+                        Session["Id"] = ckeckAD.Id.ToString();
+                        Session["Fullname"] = ckeckAD.Fullname.ToString();
+                        Session["Email"] = ckeckAD.Email.ToString();
+                        Session["Avatar"] = ckeckAD.Avatar.ToString();
                         return RedirectToAction("Create", "Categories");
+                    }
+                    var checkUS = db.Accounts.SingleOrDefault(n => n.Email.Equals(user.Email) && n.Password.Equals(user.Password) && n.Quyen.Equals("User") && n.TrangThai.Equals("Hoạt động"));
+                    if (checkUS != null)
+                    {
+                        Session["Id"] = checkUS.Id.ToString();
+                        Session["Fullname"] = checkUS.Fullname.ToString();
+                        return Redirect("/Home/Index");
                     }
                     else
                     {
-                        ViewBag.tbDangNhap = "Email và/hoặc Password không đúng!";
+                        ViewBag.tbDangNhap = "Email/Password sai hoặc đã bị khóa";
                         return View();
                     }
 
@@ -117,7 +140,7 @@ namespace Web_MVC.Areas.Admin.Controllers
         public ActionResult Logout()
         {
             Session.Clear();
-            return RedirectToAction("Signin");
+            return Redirect("/Home/Index");
         }
     }
 }

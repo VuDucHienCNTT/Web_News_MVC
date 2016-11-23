@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.IO;
 
 namespace Web_MVC
 {
@@ -16,6 +17,38 @@ namespace Web_MVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Application.Lock();
+            StreamReader sr = new StreamReader(Server.MapPath("/TruyCap.txt"));
+            int counter = int.Parse(sr.ReadLine());
+            sr.Close();
+            sr.Dispose();
+            Application["counter"] = counter;
+            Application["online"] = 0;
+            Application.UnLock();
+        }
+        protected void Session_Start()
+        {
+            Session["Id"] = null;
+            Session["Fullname"] = null;
+            Session["Email"] = null;
+            Session["Avatar"] = null;
+
+            Application.Lock();
+            Application["counter"] = Convert.ToInt64(Application["counter"]) + 1;
+            Application["online"] = Convert.ToInt64(Application["online"]) + 1;
+            StreamWriter sw = new StreamWriter(Server.MapPath("/TruyCap.txt"));
+            sw.Write(Application["counter"]);
+            sw.Close();
+            sw.Dispose();
+            Application.UnLock();
+        }
+
+        protected void Session_End()
+        {
+            Application.Lock();
+            Application["online"] = Convert.ToInt64(Application["online"]) - 1;
+            Application.UnLock();
         }
     }
 }

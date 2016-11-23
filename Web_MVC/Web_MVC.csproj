@@ -276,9 +276,28 @@
     <Content Include="Areas\Admin\Content\Images\images\Account\user8-128x128.jpg" />
     <Content Include="Areas\Admin\Content\Images\images\Article\1.jpg" />
     <Content Include="Areas\Admin\Content\Images\images\Article\10.jpg" />
+    <Content Include="Areas\Admin\Content\Images\images\Article\1479664848-11-21-2016-12-53-26-am-50.jpg" />
+    <Content Include="Areas\Admin\Content\Images\images\Article\1479785799-ban-von-nha-nuoc-5.jpg" />
     <Content Include="Areas\Admin\Content\Images\images\Article\6.jpg" />
+    <Content Include="Areas\Admin\Content\Images\images\Article\ic_launcher-web.png" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Account\avatar.png" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Account\avatar04.png" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Account\avatar2.png" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Account\avatar3.png" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Account\avatar5.png" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Account\kho-hinh.jpg" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Account\user1-128x128.jpg" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Account\user2-160x160.jpg" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Account\user8-128x128.jpg" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Article\1.jpg" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Article\10.jpg" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Article\1479664848-11-21-2016-12-53-26-am-50.jpg" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Article\1479785799-ban-von-nha-nuoc-5.jpg" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Article\6.jpg" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Article\ic_launcher-web.png" />
     <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\1.jpg" />
     <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\2.jpg" />
+    <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\3.jpg" />
     <Content Include="Areas\Admin\Content\Images\_thumbs\Images\Images\iniesta1.jpg" />
     <Content Include="Areas\Admin\Content\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Areas\Admin\Content\plugins\bootstrap-slider\slider.css" />
@@ -3514,6 +3533,7 @@
     <Content Include="Global.asax" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Scripts\responsive-img-editor.js" />
+    <Content Include="TruyCap.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

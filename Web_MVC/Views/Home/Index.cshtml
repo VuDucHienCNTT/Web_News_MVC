@@ -4,10 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     @*List<Web_MVC.Models.Category> lstCategory = Model.ToList()[0] as List<Web_MVC.Models.Category>;
         List<Web_MVC.Models.News> lsNews = Model.ToList()[1] as List<Web_MVC.Models.News>;*@
+        
 }
 
 <div id="main-content">
-    <div class="col-md-6">
+    <div class="col-md-8">
         @Html.Action("TheLoaiBaiViet", "Home", new List<Web_MVC.Models.News>())
 
         <div class="box">

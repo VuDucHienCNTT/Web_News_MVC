@@ -15,6 +15,8 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="Confirmpassword" Type="nvarchar" MaxLength="50" />
           <Property Name="Avatar" Type="nvarchar" MaxLength="250" />
+          <Property Name="Quyen" Type="nvarchar" MaxLength="25" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="Author">
           <Key>
@@ -134,6 +136,8 @@
           <Property Name="Confirmpassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Avatar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="News" Relationship="Self.FK_News_Account" FromRole="Account" ToRole="News" />
+          <Property Name="Quyen" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="TrangThai" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Author">
           <Key>
@@ -254,6 +258,8 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="Web_NEWS_MVCModel.Account">
               <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="Quyen" ColumnName="Quyen" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Fullname" ColumnName="Fullname" />
                 <ScalarProperty Name="Email" ColumnName="Email" />

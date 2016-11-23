@@ -1,5 +1,6 @@
 ﻿@{
     Layout = null;
+    HttpApplicationState application = HttpContext.Current.ApplicationInstance.Application;
 }
 
 <!DOCTYPE html>
@@ -54,7 +55,14 @@
                     <div class="dropdown-menu" style="margin-left: -203.625px;">
                         <div class="dropdown-inner">
                             <ul class="list-unstyled">
-                                <li><a href="~/Admin/Account/Signin" title="Log in">Log in <i class="glyphicon glyphicon-log-in"></i></a></li>
+                                @if (Session["Id"] == null)
+                                {
+                                    <li><a href="~/Admin/Account/Signin" title="Log in">Log in <i class="glyphicon glyphicon-log-in"></i></a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="~/Admin/Account/Logout" title="Log out"> @Session["FullName"] <i class="glyphicon glyphicon-log-out"></i></a></li>
+                                }
                                 <li><a href="~/Admin/Account/Signup" title="Sign up">Sign up <i class="glyphicon glyphicon-user"></i></a></li>
                             </ul>
                         </div>
@@ -72,68 +80,7 @@
             @RenderBody()
 
             <div id="sidebar">
-                <div class="col-md-3">
-                    <!---- Start Widget ---->
-                    @*<div class="widget wid-new-post">
-                        <div class="heading"><h4>New Posts</h4></div>
-                        <div class="content">
-                        <h6>Lorem Ipsum is simply dummy</h6>
-                        <img src="~/Content/images/22.jpg" />
-                        <ul class="list-inline">
-                        <li><i class="fa fa-calendar"></i>25/3/2015</li>
-                        <li><i class="fa fa-comments"></i>1,200</li>
-                        </ul>
-                        <p>Title should not overflow the content area A few things to check for: Non-breaking text in the...</p>
-                        <h6>Lorem Ipsum is simply dummy</h6>
-                        <img src="~/Content/images/23.jpg" />
-                        <ul class="list-inline">
-                        <li><i class="fa fa-calendar"></i>25/3/2015</li>
-                        <li><i class="fa fa-comments"></i>1,200</li>
-                        </ul>
-                        <p>Title should not overflow the content area A few things to check for: Non-breaking text in the...</p>
-                        <h6>Lorem Ipsum is simply dummy</h6>
-                        <img src="~/Content/images/24.jpg" />
-                        <ul class="list-inline">
-                        <li><i class="fa fa-calendar"></i>25/3/2015</li>
-                        <li><i class="fa fa-comments"></i>1,200</li>
-                        </ul>
-                        <p>Title should not overflow the content area A few things to check for: Non-breaking text in the...</p>
-                        </div>
-                        </div>*@
-
-
-                    <!---- Start Widget ---->
-                    @Html.Action("TinTucMoiNhat", "Home", new List<Web_MVC.Models.News>())
-                    <!---- Start Widget ---->
-                    <div class="widget wid-gallery">
-                        <div class="heading"><h4>Gallery</h4></div>
-                        <div class="content">
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <a href="#"><img src="~/Content/images/14.jpg" /></a>
-                                    <a href="#"><img src="~/Content/images/15.jpg" /></a>
-                                    <a href="#"><img src="~/Content/images/20.jpg" /></a>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <a href="#"><img src="~/Content/images/16.jpg" /></a>
-                                    <a href="#"><img src="~/Content/images/17.jpg" /></a>
-                                    <a href="#"><img src="~/Content/images/21.jpg" /></a>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <a href="#"><img src="~/Content/images/18.jpg" /></a>
-                                    <a href="#"><img src="~/Content/images/19.jpg" /></a>
-                                    <a href="#"><img src="~/Content/images/14.jpg" /></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <!---- Start Widget ---->
                     <div class="widget wid-tags">
                         @using (Html.BeginForm("TimKiem", "Home", FormMethod.Post))
@@ -147,25 +94,34 @@
                         }
                     </div>
                     <!---- Start Widget ---->
-                    @*<div class="widget wid-banner">
-                            <div class="content">
-                                <img src="~/Content/images/banner-2.jpg" class="img-responsive" />
-                            </div>
-                        </div>*@
+                    @Html.Action("TinTucMoiNhat", "Home", new List<Web_MVC.Models.News>())
                     <!---- Start Widget ---->
                     @Html.Action("TheLoaiDropdown", "Home", new List<Web_MVC.Models.Category>())
-                    <!---- Start Widget ---->
-                    <div class="widget wid-calendar">
-                        <div class="heading"><h4>Calendar</h4></div>
+                    <!-- Start Widget -->
+                    <div class="widget wid-new-post">
+                        <div class="heading"><h4>New Posts</h4></div>
                         <div class="content">
-                            <center>
-                                <form action="" role="form">
-                                    <div class="">
-                                        <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">                </div>
-                                        <input type="hidden" id="dtp_input2" value="" /><br />
-                                    </div>
-                                </form>
-                            </center>
+                            <h6>Lorem Ipsum is simply dummy</h6>
+                            <img src="~/Content/images/22.jpg" />
+                            <ul class="list-inline">
+                                <li><i class="fa fa-calendar"></i>25/3/2015</li>
+                                <li><i class="fa fa-comments"></i>1,200</li>
+                            </ul>
+                            <p>Title should not overflow the content area A few things to check for: Non-breaking text in the...</p>
+                            <h6>Lorem Ipsum is simply dummy</h6>
+                            <img src="~/Content/images/23.jpg" />
+                            <ul class="list-inline">
+                                <li><i class="fa fa-calendar"></i>25/3/2015</li>
+                                <li><i class="fa fa-comments"></i>1,200</li>
+                            </ul>
+                            <p>Title should not overflow the content area A few things to check for: Non-breaking text in the...</p>
+                            <h6>Lorem Ipsum is simply dummy</h6>
+                            <img src="~/Content/images/24.jpg" />
+                            <ul class="list-inline">
+                                <li><i class="fa fa-calendar"></i>25/3/2015</li>
+                                <li><i class="fa fa-comments"></i>1,200</li>
+                            </ul>
+                            <p>Title should not overflow the content area A few things to check for: Non-breaking text in the...</p>
                         </div>
                     </div>
                     <!---- Start Widget ---->
@@ -183,7 +139,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -194,7 +149,10 @@
         <div class="wrap-footer">
             <div class="container">
                 <div class="row">
-
+                    <div>
+                        <span>&nbsp;&nbsp;&nbsp; <i class="fa fa-child"></i> Đang online: </span><span style="font-weight:bold">@application["online"]</span>
+                        <span>&nbsp;&nbsp;&nbsp; <i class="fa fa-child"></i> Tổng lượt truy cập: </span><span style="font-weight:bold">@application["counter"]</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -231,17 +189,16 @@
 
     <div id="fb-root"></div>
     <script>
-            (function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));</script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
 
 
     <script type="text/javascript" src="/Content/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-    @*<script type="text/javascript" src="/Content/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>*@
     <script type="text/javascript">
         $('.form_datetime').datetimepicker({
             //language:  'fr',
@@ -277,3 +234,4 @@
     </script>
 </body>
 </html>
+<noembed>

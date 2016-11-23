@@ -10,7 +10,7 @@
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
     <WebStackScaffolding_AreaDialogWidth>600</WebStackScaffolding_AreaDialogWidth>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <WebStackScaffolding_DbContextTypeFullName>Web_MVC.Models.Web_NEWS_MVCEntities</WebStackScaffolding_DbContextTypeFullName>
     <NameOfLastUsedPublishProfile>Web_TinTuc_MVC</NameOfLastUsedPublishProfile>
   </PropertyGroup>
