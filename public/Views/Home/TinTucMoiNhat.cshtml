@@ -19,7 +19,7 @@
             <div id="most" class="tab-pane fade in active">
                 @if (Model != null)
                 {
-                    foreach (var tinmoinhat in Model.OrderByDescending(n => n.Summary).Take(10))
+                    foreach (var tinmoinhat in Model.OrderByDescending(n => n.Summary).Take(12))
                     {
                         <div class="wrapper">
                             <span class="fa fa-caret-right"></span> <span><a href="/Home/Detail/@tinmoinhat.Id">@tinmoinhat.Title</a></span>
@@ -32,7 +32,7 @@
             <div id="popular" class="tab-pane fade">
                 @if (Model != null)
                 {
-                    foreach (var tindocnhieu in Model.OrderByDescending(n => n.View).ThenBy(n=>n.Dateposted).Take(10))
+                    foreach (var tindocnhieu in Model.OrderByDescending(n => n.View).ThenBy(n=>n.Dateposted).Take(12))
                     {
                         <div class="wrapper">
                             <span class="fa fa-caret-right"></span> <span><a href="/Home/Detail/@tindocnhieu.Id">@tindocnhieu.Title</a></span>

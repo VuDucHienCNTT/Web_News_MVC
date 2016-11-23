@@ -37,6 +37,10 @@
                 {
                     <label style="color:#09c4a8">@ViewBag.tbDangKy</label>
                 }
+                @if (ViewBag.tbDangKyLoi != null)
+                {
+                    <label style="color:#f32a2a">@ViewBag.tbDangKyLoi</label>
+                }
             </p>
             @using (Html.BeginForm())
             {
@@ -116,16 +120,6 @@
                 $('#erroremail').text("Email");
                 $('#erroremail').css("color", "#666");
             }
-
-            //if ($('#txtavatar').val() == "") {
-            //    $('#erroravatar').text("Avatar không được bỏ trống!");
-            //    $('#erroravatar').css("color", "#FA5858");
-            //    error++;
-            //}
-            //else {
-            //    $('#erroravatar').text("Avatar");
-            //    $('#erroravatar').css("color", "#666");
-            //}
 
             if ($('#txtpassword').val() == "") {
                 $('#errorpassword').text("Password không được bỏ trống!");

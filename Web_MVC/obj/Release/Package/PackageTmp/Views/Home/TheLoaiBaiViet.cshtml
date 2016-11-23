@@ -26,7 +26,8 @@
                                 </div>
                                 <h3><a href="/Home/Detail/@tintuctop1.Id" style="line-height:1.4;">@tintuctop1.Title</a></h3>
                                 <div class="info">
-                                    <span><i class="fa fa-calendar"></i>@tintuctop1.Dateposted.Value.ToString("dd/MM/yyyy hh:mm tt")</span>
+                                    <span><i class="glyphicon glyphicon-time"></i> @tintuctop1.Dateposted.Value.ToString("dd/MM/yyyy hh:mm tt")</span> / 
+                                    <span><i class="fa fa-eye"></i> @tintuctop1.View</span>
                                 </div>
                             </div>
                             <p class="more">@tintuctop1.Summary</p>
@@ -43,7 +44,7 @@
                                             <i class="fa fa-play-circle-o fa-3x" style="color: #fff"></i>
                                         </a>
                                     </div>
-                                    <img style="height:100px; width:100%" src="@tintuctop5.Avatar" />
+                                    <img style="height:90px; width:100%" src="@tintuctop5.Avatar" />
                                 </div>
                                 <div class="wrapper col-sm-7 col-xs-7">
                                     <span><a href="/Home/Detail/@tintuctop5.Id" style="font-size:15px">@tintuctop5.Title</a></span>

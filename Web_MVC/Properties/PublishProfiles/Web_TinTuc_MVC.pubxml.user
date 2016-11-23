@@ -4747,13 +4747,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/21/2016 19:30:07</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Account/Index.cshtml">
-      <publishTime>10/01/2016 10:29:03</publishTime>
+      <publishTime>11/23/2016 22:17:31</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Account/Signin.cshtml">
       <publishTime>11/22/2016 23:14:45</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Account/Signup.cshtml">
-      <publishTime>11/22/2016 23:14:52</publishTime>
+      <publishTime>11/23/2016 22:59:57</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Author/Create.cshtml">
       <publishTime>09/25/2016 20:29:57</publishTime>
@@ -4900,7 +4900,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2013 17:28:38</publishTime>
     </File>
     <File Include="bin/Web_MVC.dll">
-      <publishTime>11/22/2016 17:52:59</publishTime>
+      <publishTime>11/24/2016 00:39:35</publishTime>
     </File>
     <File Include="bin/Web_MVC.dll.config">
       <publishTime>11/21/2016 14:57:17</publishTime>
@@ -5256,35 +5256,38 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/responsive-img-editor.js">
       <publishTime>11/22/2016 15:59:31</publishTime>
     </File>
+    <File Include="TruyCap.txt">
+      <publishTime>11/24/2016 00:27:41</publishTime>
+    </File>
     <File Include="Views/Home/Detail.cshtml">
-      <publishTime>11/22/2016 16:47:58</publishTime>
+      <publishTime>11/23/2016 23:35:20</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>11/22/2016 15:27:26</publishTime>
+      <publishTime>11/23/2016 23:35:47</publishTime>
     </File>
     <File Include="Views/Home/Menu.cshtml">
       <publishTime>11/20/2016 21:09:15</publishTime>
     </File>
     <File Include="Views/Home/TheLoaiBaiViet.cshtml">
-      <publishTime>11/22/2016 13:01:45</publishTime>
+      <publishTime>11/23/2016 23:47:41</publishTime>
     </File>
     <File Include="Views/Home/TheLoaiDropdown.cshtml">
       <publishTime>11/22/2016 13:02:33</publishTime>
     </File>
     <File Include="Views/Home/TimKiem.cshtml">
-      <publishTime>11/22/2016 17:09:46</publishTime>
+      <publishTime>11/23/2016 23:57:20</publishTime>
     </File>
     <File Include="Views/Home/TinTucCungChuyenMuc.cshtml">
-      <publishTime>11/22/2016 15:50:59</publishTime>
+      <publishTime>11/23/2016 21:20:48</publishTime>
     </File>
     <File Include="Views/Home/TinTucMoiNhat.cshtml">
-      <publishTime>11/22/2016 16:18:43</publishTime>
+      <publishTime>11/23/2016 23:11:41</publishTime>
     </File>
     <File Include="Views/Home/TrangTheLoai.cshtml">
-      <publishTime>11/22/2016 15:47:04</publishTime>
+      <publishTime>11/23/2016 23:35:15</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>11/22/2016 23:15:33</publishTime>
+      <publishTime>11/24/2016 00:01:24</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>08/20/2016 12:13:36</publishTime>

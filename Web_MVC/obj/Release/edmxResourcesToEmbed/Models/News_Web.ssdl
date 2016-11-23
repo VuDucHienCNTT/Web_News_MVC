@@ -10,6 +10,8 @@
     <Property Name="Password" Type="nvarchar" MaxLength="50" />
     <Property Name="Confirmpassword" Type="nvarchar" MaxLength="50" />
     <Property Name="Avatar" Type="nvarchar" MaxLength="250" />
+    <Property Name="Quyen" Type="nvarchar" MaxLength="25" />
+    <Property Name="TrangThai" Type="nvarchar" MaxLength="25" />
   </EntityType>
   <EntityType Name="Author">
     <Key>
